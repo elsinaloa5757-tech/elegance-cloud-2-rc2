@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from fastapi import FastAPI, Request
 from contextlib import asynccontextmanager
 from fastapi.staticfiles import StaticFiles
@@ -49,13 +50,16 @@ async def _lifespan(app: FastAPI):
         backfill_state_assets(_load_state())
     except Exception:
         pass
-    start_worker()
-    start_backup_scheduler()
+    serverless = os.getenv("ELEGANCE_SERVERLESS", "").strip() == "1"
+    if not serverless:
+        start_worker()
+        start_backup_scheduler()
     try:
         yield
     finally:
-        stop_backup_scheduler()
-        stop_worker()
+        if not serverless:
+            stop_backup_scheduler()
+            stop_worker()
 
 def create_app() -> FastAPI:
     require_production_configuration()
