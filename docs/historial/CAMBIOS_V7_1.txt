@@ -1,0 +1,11 @@
+﻿elegance V7.1 — revisión funcional
+
+- Conserva todas las imágenes diferentes.
+- Elimina únicamente duplicados exactos o prácticamente idénticos (umbral 99.85%).
+- Agrupación más estricta para no mezclar modelos por compartir mano o fondo.
+- Clasificación ampliada para sneakers y botas.
+- No inventa modelo cuando la confianza es baja: exige revisión.
+- Corrección manual de marca/modelo/color antes de crear producto.
+- Studio con escenario oficial elegance y adaptación visual por marca/modelo.
+- Todos los módulos existentes siguen enlazados: catálogo, inventario, clientes,
+  pedidos, publicaciones, estadísticas y configuración.

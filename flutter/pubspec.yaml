@@ -1,0 +1,27 @@
+name: elegance
+description: Ecosistema visual y comercial elegance
+publish_to: none
+version: 23.0.0+23
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  http: ^1.2.2
+  image_picker: ^1.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/elegance_boutique_official.png
+    - assets/elegance_mountain_scene.png
+    - assets/elegance_scenario_official.png
+    - assets/elegance_scenario_clean.png

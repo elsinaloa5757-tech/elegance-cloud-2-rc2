@@ -1,0 +1,5 @@
+PRODUCTION_URL=https://elegance-public-catalog.vercel.app
+DEPLOYMENT_ID=dpl_C8zD66tWRSPmRKZkNf7ifTK3uGqj
+PROJECT_ID=prj_cArdgpNpawvvRG73bz2T8obf71nh
+STATUS=READY
+VERIFIED_HTTP_STATUS=200

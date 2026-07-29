@@ -1,0 +1,11 @@
+ELEGANCE CLOUD 2 RC2 - SERVIDOR WINDOWS
+
+1. Abre PowerShell como Administrador.
+2. Ejecuta:
+   Set-ExecutionPolicy -Scope Process Bypass
+   .\Instalar-Servidor-Elegance.ps1
+3. Entra en http://127.0.0.1:8000/setup y crea al propietario.
+4. Para acceso desde Internet sin abrir puertos, ejecuta Instalar-Tunel-Cloudflare.ps1.
+5. Una URL temporal puede cambiar tras reiniciar. Una URL permanente necesita un dominio y un túnel nombrado.
+6. Para una copia externa configura ELEGANCE_EXTERNAL_BACKUP_DIR a un segundo disco o unidad de red.
+7. Apagar el equipo no borra datos. Mientras esté apagado, la URL no responderá.

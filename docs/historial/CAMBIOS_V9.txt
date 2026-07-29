@@ -1,0 +1,16 @@
+﻿elegance V9.0 — flujo automático protegido
+
+1. Auto Sync ya no manda fotografías originales al catálogo.
+2. El flujo obligatorio es: carga → duplicados → agrupación → identificación → verificación web → escenario → catálogo.
+3. Solo los productos con escenario final generado aparecen en Catálogo.
+4. El botón “Corregir, generar y publicar” procesa cada grupo completo.
+5. El botón “Corregir, generar y publicar todo” procesa el lote completo.
+6. La verificación web usa Google Cloud Vision Web Detection cuando se configura una API key.
+7. Sin API key, el escenario sí se genera, pero nombres sin confirmar no se publican automáticamente.
+8. Publicaciones guarda y muestra la imagen final editada del producto.
+9. Catálogo abre una ficha grande con zoom y galería.
+10. Duplicados exactos se advierten; vistas diferentes se conservan.
+
+IMPORTANTE
+La búsqueda visual automática en la web requiere una Google Vision API key propia.
+Se configura dentro de: Configuración → Verificación visual en la web.

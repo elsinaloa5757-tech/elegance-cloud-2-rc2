@@ -1,0 +1,9 @@
+﻿elegance V7
+
+Esta versión prioriza funciones verificables sobre pantallas vacías:
+- Persistencia local.
+- Flujo Catálogo → Inventario → Clientes → Pedidos → Estadísticas.
+- Flujo Auto Sync → Grupo IA → Producto.
+- Generador de publicaciones.
+- Respaldo JSON.
+- Inicio con datos reales.

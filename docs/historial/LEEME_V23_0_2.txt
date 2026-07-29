@@ -1,0 +1,14 @@
+﻿ELEGANCE V23.0.2 - INSTALADOR CORREGIDO
+
+Correcciones:
+- Elimina la prueba antigua test/widget_test.dart que buscaba la clase MyApp.
+- flutter analyze ya no detiene la instalación por avisos informativos ni advertencias.
+- La instalación solo se detiene cuando Flutter reporta errores reales.
+
+Instalación:
+1. Extrae completamente el ZIP.
+2. Ejecuta INSTALAR_ELEGANCE_V23.bat.
+3. Al terminar, ejecuta INICIAR_ELEGANCE_V23.bat.
+
+Los mensajes de tipo deprecated_member_use, prefer_collection_literals y warning
+pueden aparecer durante el análisis, pero ya no cancelan la instalación.

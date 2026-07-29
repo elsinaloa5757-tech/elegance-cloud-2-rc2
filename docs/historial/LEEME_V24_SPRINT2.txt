@@ -1,0 +1,29 @@
+﻿ELEGANCE V24 — SPRINT 2
+S26 + QR + Bandeja móvil + reconocimiento local gratuito
+
+PRUEBA RÁPIDA
+1. Ejecuta INSTALAR_ELEGANCE_V24_SPRINT2.bat.
+2. Ejecuta INICIAR_ELEGANCE_V24_SPRINT2.bat.
+3. Se abrirán el panel y una pantalla con código QR.
+4. Conecta PC y S26 a la misma red Wi-Fi.
+5. Escanea el QR con la cámara del S26.
+6. Selecciona imágenes desde Galería, WhatsApp o Archivos y toca “Subir a elegance”.
+7. Puedes cerrar la página del teléfono; la PC continúa procesando.
+8. En Auto Sync pulsa “Actualizar bandeja móvil” para refrescar el catálogo.
+
+CAMBIOS
+- Subida directa del S26 a la PC por Wi-Fi, sin cable ni WhatsApp Web.
+- QR automático: no hay que escribir IP ni puerto.
+- Transferencia multipart por streaming de 1 MB; el teléfono no convierte archivos a Base64.
+- Cola persistente SQLite: si cierras el navegador, las fotos recibidas continúan en la PC.
+- Duplicados exactos globales por SHA-256.
+- Miniaturas WebP de 640 px para catálogo; las fotos originales permanecen en disco.
+- Reconocimiento local en segundo plano, sin OpenAI ni APIs pagadas.
+- Regla segura: marca confirmada; modelo vacío cuando la evidencia no alcanza.
+- Los productos terminados se escriben automáticamente en el estado de Catálogo.
+- Página móvil adaptable y acceso directo para pantalla de inicio.
+
+IMPORTANTE
+- Windows puede preguntar si Python puede comunicarse en redes privadas. Pulsa “Permitir”.
+- El QR solo funciona cuando la PC y el S26 están en la misma Wi-Fi.
+- La velocidad depende principalmente de la red local y del peso original de las fotos.

@@ -1,0 +1,15 @@
+﻿elegance V13 — identificación web y generación real
+
+CAMBIOS
+- El nombre se determina antes de generar la imagen.
+- La identificación usa OpenAI visión + búsqueda web y exige al menos 3 citas web reales.
+- Las citas devueltas por el servicio se cuentan; no basta con que el modelo afirme que encontró fuentes.
+- Después de confirmar el nombre, el motor de imágenes reconstruye una fotografía completa con una sola mano y un solo producto.
+- Se reemplazó el falso escenario limpio por una referencia vertical 1024x1536 sin tenis ni brazo incrustados.
+- Auto Sync queda bloqueado sin OpenAI API key para evitar publicar fotomontajes locales.
+- El catálogo solo recibe grupos con nombre confirmado e imagen generativa final.
+- Modelo de imagen predeterminado: gpt-image-1.
+- Modelo de identificación predeterminado: gpt-5.6.
+
+IMPORTANTE
+La calidad tipo ChatGPT y la búsqueda web real requieren una OpenAI API key con acceso y facturación habilitados. La clave se guarda localmente en el navegador y se envía al backend local durante cada operación.

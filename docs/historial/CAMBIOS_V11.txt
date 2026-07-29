@@ -1,0 +1,13 @@
+﻿elegance V11 — motor visual realista
+
+1. El escenario base ya no contiene un sneaker ni un brazo anteriores.
+2. La separación usa rembg/ONNX cuando está disponible y GrabCut conservador como respaldo.
+3. Se eliminan componentes separados como etiquetas de tallas y bloques de fondo.
+4. El producto se integra por silueta, no como rectángulo.
+5. La sombra se proyecta desde la parte inferior de la silueta.
+6. Se iguala la luminancia del producto con el área donde será colocado.
+7. La marca cambia encuadre, contraste, temperatura y luz ambiental.
+8. El motor rechaza segmentaciones poco confiables en lugar de crear fotomontajes defectuosos.
+9. Catálogo y Publicaciones siguen usando únicamente final_image.
+
+Nota: la primera instalación del modelo visual puede descargar archivos grandes y tardar varios minutos.

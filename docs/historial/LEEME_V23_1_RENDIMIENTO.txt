@@ -1,0 +1,11 @@
+﻿ELEGANCE V23.1 - CORRECCIÓN DE BLOQUEOS EN LOTES
+
+Cambios:
+- Procesamiento pesado de OpenCV/CLIP/OCR movido a un hilo de trabajo del backend.
+- La interfaz y /health permanecen responsivos durante el análisis.
+- Las fotos se preparan con pausas cooperativas para no congelar Flutter Web.
+- Importación limitada a 1800 px y calidad 82 para reducir RAM y transferencia sin pérdida visible importante.
+- Auto Sync guarda únicamente la portada en Base64 dentro de la interfaz; evita cargar todas las vistas completas en memoria.
+- Publicación automática cede tiempo al navegador cada cuatro productos.
+
+Recomendación inicial: probar lotes de 20 a 50 fotos. Para lotes mayores, mantener la pestaña abierta hasta finalizar.

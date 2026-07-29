@@ -1,0 +1,29 @@
+﻿ELEGANCE V26 - ENTREGA CONTROLADA SOBRE V25
+
+Esta entrega conserva el proyecto V25 y sus scripts originales.
+No se reconstruyo Flutter ni se sustituyo el flujo QR/catalogo que ya funcionaba.
+
+CAMBIOS INTEGRADOS
+- Historial persistente de productos en SQLite.
+- Registro de altas, modificaciones y eliminaciones.
+- Memoria local de correcciones de marca y modelo.
+- Conteo de reglas aprendidas y muestras de reconocimiento.
+- Endpoints nuevos:
+  GET /api/history
+  GET /api/memory/summary
+  GET /api/memory/suggestions
+- Nombres simples para ejecutar:
+  INSTALAR_ELEGANCE.bat
+  INICIAR_ELEGANCE.bat
+
+IMPORTANTE
+Los archivos V24_SPRINT2 se conservan porque son los iniciadores originales de la V25.
+Los nuevos BAT solo los llaman; no cambian la ruta ni el mecanismo que ya usaba esta version.
+
+PRUEBA RECOMENDADA
+1. Extraer el ZIP completamente fuera de OneDrive, por ejemplo en Descargas.
+2. Cerrar ventanas anteriores de Elegance.
+3. Ejecutar INSTALAR_ELEGANCE.bat.
+4. Al terminar, ejecutar INICIAR_ELEGANCE.bat.
+5. Editar la marca o modelo de un producto y guardarlo.
+6. Abrir http://127.0.0.1:8000/api/memory/summary para comprobar la memoria.

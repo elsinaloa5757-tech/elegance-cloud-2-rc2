@@ -1,0 +1,22 @@
+name: Validate Elegance RC2
+on:
+  push:
+    branches: [main, "rc2/**"]
+  pull_request:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt pytest httpx
+      - run: python -m compileall -q .
+      - run: pytest -q
+      - run: docker build -t elegance-cloud-2-rc2 .

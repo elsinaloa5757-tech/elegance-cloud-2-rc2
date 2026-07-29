@@ -1,0 +1,13 @@
+﻿ELEGANCE V23.0.1 - CORRECCIÓN DEL INSTALADOR
+
+Problema corregido:
+- Flutter conservaba test/widget_test.dart de una instalación anterior.
+- Ese archivo buscaba la clase MyApp, pero la aplicación usa EleganceApp.
+- El instalador ahora elimina la prueba de plantilla antes de ejecutar flutter analyze.
+
+Instalación:
+1. Cierra Elegance y cualquier terminal del servidor.
+2. Ejecuta INSTALAR_ELEGANCE_V23.bat.
+3. Cuando termine, ejecuta INICIAR_ELEGANCE_V23.bat.
+
+Los avisos amarillos deprecados no detienen la instalación; el error rojo de MyApp ya no debe aparecer.

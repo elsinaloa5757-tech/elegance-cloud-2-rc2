@@ -1,0 +1,32 @@
+﻿ELEGANCE V22 — RECONOCIMIENTO LOCAL MEJORADO
+
+OBJETIVO
+- Mejorar nombres sin depender de OpenAI.
+- Detectar primero la marca y después comparar solo modelos de esa marca.
+- Combinar todas las vistas del mismo producto.
+- Leer SKU/texto localmente cuando Tesseract esté disponible.
+- Aprender automáticamente de cada corrección manual.
+
+FLUJO
+Fotos -> duplicados exactos -> agrupación -> marca -> modelos de esa marca -> consenso multivista -> OCR/SKU -> base aprendida -> título -> Catálogo/Inventario/Publicaciones.
+
+IMPORTANTE
+- Ningún motor gratuito puede garantizar el nombre exacto de todos los modelos desconocidos sin referencias.
+- Los modelos corregidos por el usuario se guardan en SQLite y mejoran futuras identificaciones.
+- OpenAI y Google Vision siguen siendo opcionales y no bloquean Auto Sync.
+
+OCR OPCIONAL
+El paquete Python pytesseract queda instalado. Para leer etiquetas también debe existir Tesseract OCR en Windows.
+Puede instalarse con:
+  winget install UB-Mannheim.TesseractOCR
+Luego reinicia elegance.
+Sin Tesseract, el sistema sigue funcionando y analiza nombres de archivo y señales visuales.
+
+INSTALACIÓN
+1. Cierra Flutter y Python.
+2. Ejecuta INSTALAR_ELEGANCE_V22.bat.
+3. Después ejecuta INICIAR_ELEGANCE_V22.bat.
+4. Abre http://localhost:54105
+
+RESPALDO
+El instalador crea un respaldo automático en C:\src\elegance_backups.

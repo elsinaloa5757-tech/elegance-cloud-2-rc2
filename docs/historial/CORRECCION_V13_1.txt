@@ -1,0 +1,8 @@
+﻿elegance V13.1 - corrección de estabilidad
+
+Corrección principal:
+- Evita el bloqueo rojo de Flutter cuando el navegador conserva un modelo antiguo (por ejemplo gpt-image-2) en localStorage.
+- Migra automáticamente cualquier valor no compatible al primer modelo permitido.
+- El selector usa una sola fuente de opciones y nunca puede tener cero o varios elementos con el mismo valor.
+
+La funcionalidad general corresponde a V13; esta entrega se concentra en estabilidad y compatibilidad de configuración.

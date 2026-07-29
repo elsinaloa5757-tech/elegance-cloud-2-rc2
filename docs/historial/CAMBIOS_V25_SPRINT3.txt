@@ -1,0 +1,9 @@
+﻿Sprint 3 implementado sobre V24 Sprint 2:
+1. Nuevo motor catalog_organizer.py.
+2. Normalización de marcas y modelos.
+3. Reubicación segura de originales y miniaturas.
+4. Endpoint POST /api/catalog/reorganize.
+5. Endpoint GET /api/catalog/categories.
+6. Reorganización automática en cada guardado del estado.
+7. Botón de auditoría/reorganización en el Catálogo.
+8. Contadores por marca.

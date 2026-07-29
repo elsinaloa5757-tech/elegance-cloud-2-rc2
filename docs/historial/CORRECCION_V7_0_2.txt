@@ -1,0 +1,11 @@
+﻿elegance V7.0.2 — corrección del instalador
+
+Problema encontrado:
+El archivo INSTALAR_ELEGANCE_V7_0_1.bat llamaba por error a un archivo PowerShell inexistente. Por eso el código corregido no se copiaba a C:\src\elegance y seguía ejecutándose la versión anterior con Container(minHeight: 410).
+
+Correcciones:
+1. El instalador ahora llama exactamente a INSTALAR_ELEGANCE_V7_0_2.ps1.
+2. main.dart contiene:
+   constraints: const BoxConstraints(minHeight: 410)
+3. El instalador verifica automáticamente que no exista Container(minHeight: ...).
+4. Se mantiene respaldo automático antes de reemplazar los archivos.

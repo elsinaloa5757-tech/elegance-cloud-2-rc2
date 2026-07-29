@@ -1,0 +1,15 @@
+﻿elegance Complete V7.0.1 — compilación corregida
+
+Corrección verificada:
+- Se sustituyó el parámetro inválido Container(minHeight: 410) por
+  constraints: BoxConstraints(minHeight: 410).
+
+Base utilizada:
+- elegance Complete V7 funcional.
+- Persistencia local en navegador.
+- Catálogo, Auto Sync, Studio, Inventario, Pedidos, Clientes,
+  Publicaciones, Estadísticas y Configuración.
+- Identidad visual con elegance en minúsculas, sin referencias visibles a Panther.
+
+Nota:
+Esta edición está orientada a Flutter Web, porque utiliza almacenamiento local del navegador.

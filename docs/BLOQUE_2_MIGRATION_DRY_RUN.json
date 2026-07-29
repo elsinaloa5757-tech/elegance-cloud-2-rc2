@@ -1,0 +1,1011 @@
+{
+  "generatedAt": "2026-07-28T17:30:02.917033+00:00",
+  "source": "/mnt/data/elegance_b2/_ELEGANCE_SYSTEM/app/backend/data/elegance.sqlite3",
+  "schema": "elegance",
+  "tables": 65,
+  "sourceManifest": {
+    "ai_learning": {
+      "columns": [
+        "id",
+        "field_name",
+        "source_value",
+        "corrected_value",
+        "context",
+        "created_at"
+      ],
+      "rows": 1,
+      "sha256": "2e2a60afbbf7f580cf233b1baa6ecb216b4a3cb6aba35b662255dfafcfc940f2"
+    },
+    "ai_suggestions": {
+      "columns": [
+        "id",
+        "product_id",
+        "payload",
+        "status",
+        "created_at",
+        "confirmed_at",
+        "correction_payload"
+      ],
+      "rows": 1,
+      "sha256": "b17903cb971cc6cd1271b02f1ba15b1b6ab64ee3b24ffed32284e99801ac8506"
+    },
+    "app_settings": {
+      "columns": [
+        "key",
+        "value",
+        "updated_at"
+      ],
+      "rows": 1,
+      "sha256": "55fe5490c69efa4ae45e129f66250f62bcaafdb9a60e89a502064532c632f740"
+    },
+    "app_state": {
+      "columns": [
+        "id",
+        "payload",
+        "updated_at"
+      ],
+      "rows": 1,
+      "sha256": "364bf246c570edf3892b460520d79c79f941a617bab80a5cf732bbf0cf2f26fc"
+    },
+    "auth_audit": {
+      "columns": [
+        "id",
+        "event",
+        "user_id",
+        "username",
+        "detail",
+        "ip",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "245fc98d76178912ba93e3425102ee513e7c00d26daecf32e7d65a4c762d3422"
+    },
+    "auth_sessions": {
+      "columns": [
+        "token_hash",
+        "user_id",
+        "expires_at",
+        "created_at",
+        "ip",
+        "user_agent"
+      ],
+      "rows": 0,
+      "sha256": "919c5b809a6c76e7a1dc458b6c8b50563316a571bb60bc0a671590a467b8b319"
+    },
+    "auth_users": {
+      "columns": [
+        "id",
+        "username",
+        "display_name",
+        "role",
+        "password_hash",
+        "salt",
+        "active",
+        "failed_attempts",
+        "locked_until",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "071a04c3774a1a9af262b4c985b730b5e7e615fae48f20c1bf93bba5319980a5"
+    },
+    "automation_files": {
+      "columns": [
+        "id",
+        "job_id",
+        "filename",
+        "original_path",
+        "sha256",
+        "perceptual_hash",
+        "status",
+        "duplicate_of",
+        "group_no",
+        "metadata_json",
+        "outputs_json",
+        "error",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "9cc56fbfe4da648b51bc5a5f2987e3f451b9d9024a12ffbb369b79b066f48443"
+    },
+    "automation_groups": {
+      "columns": [
+        "job_id",
+        "group_no",
+        "cover_file_id",
+        "category",
+        "subcategory",
+        "brand",
+        "model",
+        "confidence",
+        "explanation",
+        "status",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "607adc5bfd9c2b03c886966bbe1bd7a807f0bdb4cba1468d36ecbf6bb53cb23a"
+    },
+    "automation_jobs": {
+      "columns": [
+        "id",
+        "status",
+        "progress",
+        "stage",
+        "total_files",
+        "processed_files",
+        "options_json",
+        "result_json",
+        "error",
+        "cancel_requested",
+        "attempts",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "27e4c155bb7e7b16b82c439511d3c5225aa3d6e313bf3dc818b0c89d878dd121"
+    },
+    "automation_rules": {
+      "columns": [
+        "id",
+        "name",
+        "event_name",
+        "conditions",
+        "actions",
+        "enabled",
+        "priority",
+        "last_run_at",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "0a3c16c0d8d685d4bab7e4f3385d9c67b945a751555fd983b9b4b881dd14cd68"
+    },
+    "automation_runs": {
+      "columns": [
+        "id",
+        "rule_id",
+        "event_name",
+        "entity_type",
+        "entity_id",
+        "status",
+        "details",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "ff8e1add4be2b5330563de8d4c6bc64e4769bd41110e93f1234baba211560a2c"
+    },
+    "automation_settings": {
+      "columns": [
+        "id",
+        "mode",
+        "publish_confidence",
+        "classify_confidence",
+        "updated_at"
+      ],
+      "rows": 1,
+      "sha256": "33f9dc77838477ca594741eba3b2221e3908a0f125433a78c7b3227d059cda25"
+    },
+    "brain_audit": {
+      "columns": [
+        "id",
+        "module",
+        "entity_type",
+        "entity_id",
+        "action",
+        "actor",
+        "before_data",
+        "after_data",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "202a2f5b7a9ee41cdfec3a15b792e6e6e312554d273a2cec4a6eb79244edd7e4"
+    },
+    "brain_sync_outbox": {
+      "columns": [
+        "id",
+        "aggregate_type",
+        "aggregate_id",
+        "event_type",
+        "payload",
+        "status",
+        "attempts",
+        "next_attempt_at",
+        "last_error",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "641819de65927233c220b2012a82e7b24d605e895fbed88db31e86821d330d05"
+    },
+    "cash_accounts": {
+      "columns": [
+        "id",
+        "name",
+        "currency",
+        "opening_balance",
+        "active",
+        "created_at"
+      ],
+      "rows": 1,
+      "sha256": "5b109a96ed41174fc81c2a618e8aeaafc7dcb9891e6e3f5f77530dc416c9c7c4"
+    },
+    "cash_movements": {
+      "columns": [
+        "id",
+        "account_id",
+        "movement_type",
+        "category",
+        "amount",
+        "reference_type",
+        "reference_id",
+        "description",
+        "metadata",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "ef566850589a1bec8b2f943cec72ed7ed156bbcd7109ec3032c6bb3482735fdf"
+    },
+    "catalog_events": {
+      "columns": [
+        "id",
+        "event_type",
+        "product_id",
+        "session_id",
+        "source",
+        "metadata",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "e4bc685cbc6dde0462c67cf8aec0fbe3f6b65de62d49d2aff67d2b3730a845b3"
+    },
+    "cloud_backups": {
+      "columns": [
+        "id",
+        "path",
+        "reason",
+        "size_bytes",
+        "created_at",
+        "restored_at"
+      ],
+      "rows": 1,
+      "sha256": "09e77c30b1f8f952b1b1c29c1fb0b3bf9af70ade17d76cba1adc02d92e6219f3"
+    },
+    "cloud_sync_history": {
+      "columns": [
+        "id",
+        "queue_id",
+        "product_id",
+        "event",
+        "success",
+        "detail",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "9035865b99fe2ce9cae85f9e6918cb84ea09a338fbb9c3e066a1c9695a532bda"
+    },
+    "cloud_sync_queue": {
+      "columns": [
+        "id",
+        "operation",
+        "product_id",
+        "payload",
+        "source_hash",
+        "status",
+        "attempts",
+        "max_attempts",
+        "next_attempt_at",
+        "last_error",
+        "created_at",
+        "updated_at",
+        "completed_at"
+      ],
+      "rows": 0,
+      "sha256": "407aca66910474494b7f1d32e7311bce89a1d0b27ac751e6fe49881486ccd1d6"
+    },
+    "cloud_sync_state": {
+      "columns": [
+        "product_id",
+        "source_hash",
+        "cloud_updated_at",
+        "image_urls",
+        "last_queue_id",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "a0e7b96919cc65fad5d5073e428ce7bcbe486c7f2945a6d9309acc34829cfe77"
+    },
+    "commercial_audit": {
+      "columns": [
+        "id",
+        "entity_type",
+        "entity_id",
+        "action",
+        "details",
+        "created_at"
+      ],
+      "rows": 5,
+      "sha256": "73ce9bc02cb131f7c14d17371b92787e2456575c40e691a3e85e78d24de12efe"
+    },
+    "commercial_backups": {
+      "columns": [
+        "id",
+        "reason",
+        "state_payload",
+        "db_copy",
+        "created_at"
+      ],
+      "rows": 11,
+      "sha256": "cc946430904597c6b34172d932795ee8bc33250cb7d455101808fd94cbaace12"
+    },
+    "correction_memory": {
+      "columns": [
+        "id",
+        "original_brand",
+        "original_model",
+        "corrected_brand",
+        "corrected_model",
+        "uses",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "3036144497a2ec26c2c588d8152747c5df187f443a894abe8b1cf689e586de2b"
+    },
+    "customers": {
+      "columns": [
+        "id",
+        "name",
+        "phone",
+        "whatsapp",
+        "email",
+        "address",
+        "references_text",
+        "notes",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "5b31ea287e30090a9e53974411416033da96e306ad7681c80d2bbee497bad6be"
+    },
+    "euiv_candidates": {
+      "columns": [
+        "id",
+        "product_id",
+        "review_id",
+        "name",
+        "brand",
+        "model",
+        "sku",
+        "category",
+        "subcategory",
+        "colors",
+        "description",
+        "image_url",
+        "source_name",
+        "source_url",
+        "confidence",
+        "evidence_json",
+        "status",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "434562e94ddf4fb25116704169e91cb92f486809e353beab989b2bec6d99ab1e"
+    },
+    "euiv_references": {
+      "columns": [
+        "id",
+        "product_id",
+        "brand",
+        "model",
+        "title",
+        "sku",
+        "category",
+        "subcategory",
+        "colors",
+        "image_ref",
+        "phash",
+        "hist_json",
+        "orb_json",
+        "source",
+        "evidence_json",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "00d1469ef1b93b09aaa377799fcbbf0ee0505777641d0b5b9def09d85b41a718"
+    },
+    "intelligence_decisions": {
+      "columns": [
+        "id",
+        "product_id",
+        "review_id",
+        "source",
+        "confidence",
+        "input_json",
+        "result_json",
+        "evidence_json",
+        "action",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "aefb0a784743c9d5c9e1b38eedb42348440092b72dabb82b4424fea90654f5cd"
+    },
+    "intelligence_settings": {
+      "columns": [
+        "id",
+        "web_enabled",
+        "auto_publish",
+        "learning_enabled",
+        "local_only",
+        "show_evidence",
+        "save_decisions",
+        "complete_confidence",
+        "publish_confidence",
+        "web_timeout_seconds",
+        "updated_at"
+      ],
+      "rows": 1,
+      "sha256": "47f49145dc42afd5c8962014f72717263bf621d218f517dbf5d18c5cf50deccc"
+    },
+    "inventory_movements": {
+      "columns": [
+        "id",
+        "product_id",
+        "variant_id",
+        "movement_type",
+        "quantity",
+        "before_stock",
+        "after_stock",
+        "note",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "b1b96cd61c1e4842ce509c189bf846a127e95b5dfb8ef88051259f176a693eae"
+    },
+    "media_assets": {
+      "columns": [
+        "id",
+        "sha256",
+        "original_name",
+        "stored_path",
+        "media_type",
+        "kind",
+        "status",
+        "product_id",
+        "source",
+        "parent_id",
+        "metadata_json",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "bceff24a6e301e1d154694f9f304daf2bca85c35edcaee6f02273fd5042c2a94"
+    },
+    "mobile_batches": {
+      "columns": [
+        "id",
+        "device_name",
+        "status",
+        "total",
+        "received",
+        "processed",
+        "duplicates",
+        "errors",
+        "products",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "e7096b62cc0e79750d916d3d346d3b2508b9c98c48e8b6ea289ea7cbcab9fc7b"
+    },
+    "mobile_files": {
+      "columns": [
+        "id",
+        "batch_id",
+        "original_name",
+        "sha256",
+        "source_path",
+        "thumb_path",
+        "status",
+        "error",
+        "result_json",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "c9f5a16f97296f2325df6a4cc8773dcd3835f236ce29589ed13f2675a105bf53"
+    },
+    "notifications": {
+      "columns": [
+        "id",
+        "customer_id",
+        "order_id",
+        "channel",
+        "template",
+        "subject",
+        "message",
+        "status",
+        "attempts",
+        "last_error",
+        "scheduled_at",
+        "sent_at",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "ff72dd88c792802b2ff080663c3517362c1fb2aa14ea87d2691402478cb1eac8"
+    },
+    "order_items": {
+      "columns": [
+        "id",
+        "order_id",
+        "product_id",
+        "title",
+        "size",
+        "color",
+        "quantity",
+        "unit_price",
+        "image_path"
+      ],
+      "rows": 0,
+      "sha256": "5f58387e46ec1ef0c9b8021e45a060f62f59cab33c0b274326ef6fb3c9b4138b"
+    },
+    "order_status_history": {
+      "columns": [
+        "id",
+        "order_id",
+        "old_status",
+        "new_status",
+        "note",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "4e7cb9037b947e46698528250f53329d76ad264195849c47b8a1e8d20ff6ce7e"
+    },
+    "orders": {
+      "columns": [
+        "id",
+        "folio",
+        "customer_id",
+        "status",
+        "total",
+        "subtotal",
+        "shipping_cost",
+        "delivery_type",
+        "address",
+        "references_text",
+        "tracking_number",
+        "payment_method",
+        "notes",
+        "layaway_due",
+        "stock_reserved",
+        "idempotency_key",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "31e7198b2c877af16b3a72bcea31c7451bea8f60f69195f4b39f8d9dc902f753"
+    },
+    "password_recovery": {
+      "columns": [
+        "id",
+        "user_id",
+        "token_hash",
+        "expires_at",
+        "used",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "bf1284baec6c26d10b42321730cd0c9dad4f6ebde48388e44f81796783fb2178"
+    },
+    "payments": {
+      "columns": [
+        "id",
+        "order_id",
+        "amount",
+        "method",
+        "reference",
+        "notes",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "8e710ce438364e79fdcb6e54fcb3bbb1ebca1594b71304a399fd4e24df407e97"
+    },
+    "product_attributes": {
+      "columns": [
+        "id",
+        "product_id",
+        "attribute_key",
+        "attribute_value",
+        "source",
+        "confidence",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "e9216a7c8bf982527b55dc87b61453fd464bf9857e31de346bbfcd078431a398"
+    },
+    "product_history": {
+      "columns": [
+        "id",
+        "product_id",
+        "event_type",
+        "before_json",
+        "after_json",
+        "note",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "fa836c9cff9806f5c57d248bdc8419d78cae82cc3aca39d3cb10d9b1a6fa4bd3"
+    },
+    "product_image_hashes": {
+      "columns": [
+        "sha256",
+        "product_id",
+        "original_path",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "b305a22df5d4f2d1559dc93e2c92619ad6da76e0ebaf01dab99e1f11e73404bf"
+    },
+    "product_publication": {
+      "columns": [
+        "product_id",
+        "status",
+        "featured",
+        "promotion_price",
+        "hide_when_sold_out",
+        "slug",
+        "public_title",
+        "public_description",
+        "published_at",
+        "updated_at"
+      ],
+      "rows": 2,
+      "sha256": "3f1a65f9f4c758dd4367235b5bf102457058b2912ed53a8a5d848f3c7731669f"
+    },
+    "product_variants": {
+      "columns": [
+        "id",
+        "product_id",
+        "size",
+        "color",
+        "sku",
+        "stock",
+        "purchase_price",
+        "sale_price",
+        "status",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "de0e7b9f93479220c3e0ae48310abf0d241cc0af7adc593bcaf97c6fca5bc1d3"
+    },
+    "product_versions": {
+      "columns": [
+        "id",
+        "product_id",
+        "snapshot_json",
+        "reason",
+        "source",
+        "user_name",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "0a5b3d3691d81146c729039c608dec857aabc22d68c2cd1dcb8379c825accb74"
+    },
+    "publication_settings": {
+      "columns": [
+        "id",
+        "public_base_url",
+        "auto_sync",
+        "preserve_history",
+        "updated_at"
+      ],
+      "rows": 1,
+      "sha256": "832ab42f5e687cc3bf3f78369f1f4028077e0985704241082c3bc6dbfb0c9bc0"
+    },
+    "purchase_items": {
+      "columns": [
+        "id",
+        "purchase_id",
+        "product_id",
+        "description",
+        "quantity",
+        "unit_cost",
+        "received_quantity"
+      ],
+      "rows": 0,
+      "sha256": "25c17b1995712357c4c81f0ccb62efb6ee10f97cf1a483d07e57448c623d3c39"
+    },
+    "purchase_orders": {
+      "columns": [
+        "id",
+        "folio",
+        "supplier_id",
+        "status",
+        "subtotal",
+        "shipping_cost",
+        "total",
+        "expected_at",
+        "received_at",
+        "notes",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "f21c5cf8719d448f760dad05ca100433bff3e96a860605a3b938fa1902e5737f"
+    },
+    "recognition_corrections": {
+      "columns": [
+        "id",
+        "review_id",
+        "product_id",
+        "category",
+        "subcategory",
+        "brand",
+        "model",
+        "attributes_json",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "13da000c21c0cb10411c8588137b583b18f0a5ae9121f15e4b9bd11f5013732c"
+    },
+    "recognition_reviews": {
+      "columns": [
+        "id",
+        "product_id",
+        "source_name",
+        "proposed_category",
+        "proposed_subcategory",
+        "proposed_brand",
+        "proposed_model",
+        "confidence",
+        "evidence_json",
+        "status",
+        "correction_json",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 1,
+      "sha256": "bd3960465a6952e0c803644a01e0bbaf716b33bf4e38eb4dda4562df1d6d7fd4"
+    },
+    "recognition_samples": {
+      "columns": [
+        "id",
+        "brand",
+        "model",
+        "title",
+        "sku",
+        "embedding",
+        "dimension",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "6d1b8640a4ae1ed5ce30dcd3c92ce6ee1df555a9030362e4e916a1989d013ee9"
+    },
+    "sales_request_items": {
+      "columns": [
+        "id",
+        "request_id",
+        "product_id",
+        "title",
+        "size",
+        "color",
+        "quantity",
+        "unit_price",
+        "image_path"
+      ],
+      "rows": 0,
+      "sha256": "b64108270d430d51e351227bde4b32cb1eed1dcb9d90574865838c117edfa2bd"
+    },
+    "sales_requests": {
+      "columns": [
+        "id",
+        "folio",
+        "customer_id",
+        "customer_name",
+        "phone",
+        "whatsapp",
+        "delivery_type",
+        "address",
+        "references_text",
+        "shipping_cost",
+        "subtotal",
+        "total",
+        "source",
+        "campaign",
+        "status",
+        "idempotency_key",
+        "notes",
+        "commercial_order_id",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "2fe812f1ca083a689948115660e30584737d4a17c509850e9e77107d763eeb87"
+    },
+    "sales_sync_queue": {
+      "columns": [
+        "id",
+        "entity_type",
+        "entity_id",
+        "operation",
+        "payload",
+        "status",
+        "attempts",
+        "next_attempt_at",
+        "last_error",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "1c2d541756040c3214892f216b41fb3a6639512dfa99e2d7f8d829b5f9a2e849"
+    },
+    "shipments": {
+      "columns": [
+        "id",
+        "order_id",
+        "carrier",
+        "service",
+        "tracking_number",
+        "status",
+        "shipping_cost",
+        "estimated_delivery",
+        "shipped_at",
+        "delivered_at",
+        "address",
+        "notes",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "962371f5c6174f10a007439132992f8e17d17817f4c0c2d7f47cb3d5925dd1e6"
+    },
+    "storage_history": {
+      "columns": [
+        "id",
+        "object_id",
+        "product_id",
+        "event",
+        "success",
+        "detail",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "d1a0c755538fc11397778cb04ba2ec1a6a6ea0718fc3b73aca4d69d2c146e642"
+    },
+    "storage_objects": {
+      "columns": [
+        "id",
+        "product_id",
+        "source_path",
+        "variant",
+        "sha256",
+        "size_bytes",
+        "content_type",
+        "local_path",
+        "bucket",
+        "object_path",
+        "cloud_url",
+        "cloud_verified",
+        "cloud_verified_at",
+        "status",
+        "attempts",
+        "last_error",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "36dfcbe2f6aad4e2eb1bac2ddfbdd14ff5e64f5932d4e20933525a992ccd61ee"
+    },
+    "storage_restore_jobs": {
+      "columns": [
+        "id",
+        "object_id",
+        "target_path",
+        "expected_sha256",
+        "status",
+        "error",
+        "created_at",
+        "completed_at"
+      ],
+      "rows": 0,
+      "sha256": "2eb6c71f0019633d86de9c8b66c8b0ada943ced4738325f58d175f704f1ee714"
+    },
+    "studio_assets": {
+      "columns": [
+        "id",
+        "product_id",
+        "original_path",
+        "original_sha256",
+        "original_name",
+        "created_at"
+      ],
+      "rows": 1,
+      "sha256": "2614c8a7b073c7c2a184d15ae6ca98e06d68aa60a86e92cb052c964b02d104f8"
+    },
+    "studio_versions": {
+      "columns": [
+        "id",
+        "asset_id",
+        "product_id",
+        "status",
+        "preset",
+        "options_json",
+        "outputs_json",
+        "created_at",
+        "decided_at",
+        "restored_from"
+      ],
+      "rows": 1,
+      "sha256": "1e4f13c09d272c4f3e7b88413383d5f1eaf14600a85f983f554ea71bee0e1e09"
+    },
+    "suppliers": {
+      "columns": [
+        "id",
+        "name",
+        "contact_name",
+        "phone",
+        "whatsapp",
+        "email",
+        "address",
+        "tax_id",
+        "notes",
+        "active",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "59eca02a063961da8928aa4b894b5d4363b14a75c52a5f286f132835b66080ec"
+    },
+    "visual_search_sessions": {
+      "columns": [
+        "id",
+        "product_id",
+        "review_id",
+        "image_ref",
+        "status",
+        "source",
+        "source_url",
+        "pasted_text",
+        "extracted_json",
+        "confidence",
+        "notes",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "4fa37bf76d7b0749e1dabcc20d88a99e12dc1cd8f037b18652a6b79021907348"
+    },
+    "whatsapp_conversations": {
+      "columns": [
+        "id",
+        "customer_id",
+        "phone",
+        "status",
+        "assigned_to",
+        "consent_status",
+        "last_message_at",
+        "created_at",
+        "updated_at"
+      ],
+      "rows": 0,
+      "sha256": "b7b2ff8a24ac90fe0bed1642ff2b455f133483a2c7ed0bc12f990d3392b30d63"
+    },
+    "whatsapp_messages": {
+      "columns": [
+        "id",
+        "conversation_id",
+        "direction",
+        "message_type",
+        "body",
+        "media_ref",
+        "provider_message_id",
+        "status",
+        "metadata",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "1e1ac3383b791a380fd50b434cb6ae4c530c84c60a74a386941729408553c957"
+    }
+  },
+  "dryRun": true
+}

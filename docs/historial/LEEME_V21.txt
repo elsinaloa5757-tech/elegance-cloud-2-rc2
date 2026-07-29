@@ -1,0 +1,23 @@
+﻿elegance V21 — RECONSTRUCCIÓN SOBRE V16
+
+CAMBIOS FUNCIONALES
+- OpenAI y Google Vision ya no son obligatorios.
+- El escenario no bloquea Catálogo.
+- Solo se eliminan duplicados exactos SHA-256.
+- Vistas diferentes siempre se conservan.
+- Auto Sync crea automáticamente productos, inventario y borradores de publicación.
+- Usa la mejor fotografía original como portada.
+- SQLite local guarda una segunda copia durable del estado.
+- El iniciador abre backend y Flutter automáticamente.
+
+FLUJO
+Seleccionar todas → Ejecutar flujo → grupos → título local → Catálogo/Inventario/Publicaciones.
+
+LIMITACIÓN HONESTA
+La identificación local reconoce marca y familia con CLIP, pero no puede garantizar el SKU o colorway exacto de cualquier modelo desconocido sin una base visual propia. Las correcciones manuales permanecen guardadas y pueden alimentar esa base en la siguiente etapa.
+
+INSTALACIÓN
+1. Cierra versiones anteriores.
+2. Ejecuta INSTALAR_ELEGANCE_V21.bat.
+3. Ejecuta INICIAR_ELEGANCE_V21.bat.
+4. Abre http://localhost:54105 si no se abre automáticamente.

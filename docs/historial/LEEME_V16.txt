@@ -1,0 +1,21 @@
+﻿ELEGANCE V16 — FLUJO AUTOMÁTICO Y PUBLICACIONES
+
+CAMBIOS PRINCIPALES
+1. Auto Sync conserva el mejor nombre encontrado y acepta automáticamente:
+   - consenso estricto de 3 fuentes, o
+   - consenso fuerte de 2 fuentes con alta confianza, o
+   - coincidencia decisiva de una fuente con confianza muy alta.
+2. Cuando el nombre es utilizable y la confianza es suficiente, genera el escenario elegance antes de publicar.
+3. Publica automáticamente en Catálogo cuando ya existen nombre fiable e imagen final.
+4. Desde Catálogo puedes seleccionar uno o varios productos y enviarlos a Publicaciones.
+5. En Publicaciones puedes elegir las mejores fotos del producto, descargar las seleccionadas y abrir WhatsApp, Facebook o Instagram.
+6. Publicaciones siempre parte de la imagen final editada; las vistas originales quedan disponibles como galería opcional.
+7. Google Vision continúa siendo respaldo opcional. OpenAI realiza la identificación principal.
+
+INSTALACIÓN
+- Ejecuta INSTALAR_ELEGANCE_V16.bat
+- Después ejecuta INICIAR_ELEGANCE_V16.bat
+- Abre http://localhost:54105
+
+IMPORTANTE
+La publicación directa completamente automática dentro de Facebook e Instagram requiere credenciales y autorización de Meta. V16 prepara las imágenes y textos, permite descargarlos y abre cada red para completar la publicación sin perder el material seleccionado.

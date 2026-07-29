@@ -1,0 +1,9 @@
+﻿ELEGANCE V23.2
+
+Correcciones:
+- Ajuste de confianza relativa para marcas: ya no exige porcentajes imposibles al repartir probabilidad entre muchas marcas.
+- Marca por OCR/texto visible (Nike, Jordan, Adidas, Hugo/Boss, Converse, etc.).
+- Modelo solo se asigna cuando la evidencia es suficiente.
+- Si no hay modelo, queda vacío internamente y el título indica modelo pendiente.
+- Productos sin identificar ya no se fusionan por color/título; cada grupo llega al catálogo.
+- SKU provisional único para pendientes.

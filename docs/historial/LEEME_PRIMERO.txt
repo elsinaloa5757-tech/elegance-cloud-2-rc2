@@ -1,0 +1,10 @@
+﻿elegance Complete V7.0.2
+
+1. Cierra todas las ventanas anteriores de Flutter y Python.
+2. Extrae todo este ZIP en una carpeta normal; no lo ejecutes dentro del ZIP.
+3. Ejecuta INSTALAR_ELEGANCE_V7_0_2.bat.
+4. Espera a que aparezca "Código Flutter verificado" y "Instalación terminada".
+5. Ejecuta INICIAR_ELEGANCE_V7_0_2.bat.
+6. Abre http://localhost:54105. Si Edge abre demasiado pronto, espera y presiona F5.
+
+Esta versión corrige el instalador que anteriormente no copiaba el main.dart corregido.

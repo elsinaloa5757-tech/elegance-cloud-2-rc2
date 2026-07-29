@@ -1,0 +1,1469 @@
+{
+  "block": "8",
+  "files": [
+    {
+      "path": "INICIAR_ELEGANCE.bat",
+      "sha256": "2b7dbe05bdba3fb319fb24c5866390ebde70acf168df2c28927ef540ce1739ab"
+    },
+    {
+      "path": "INSTALAR_BLOQUE_8_WINDOWS.bat",
+      "sha256": "68068e7241730901ace944bba468aad2d58308547dbd8ef01820600b49085d4b"
+    },
+    {
+      "path": "INSTALAR_ELEGANCE.bat",
+      "sha256": "d778d8d12839ba52064447d185686c0decdfbd01ca35c265a5b335900b149c00"
+    },
+    {
+      "path": "INSTALAR_SERVIDOR_WINDOWS.bat",
+      "sha256": "4c1358570a3080eb600ba1dc42eaff730c4cad3244f87aa2276c17b2dbdbd119"
+    },
+    {
+      "path": "LEEME_BLOQUE_7B.txt",
+      "sha256": "907c0a44ce2a596bee191fb69a74a2823c746c41300aca456506237f170ece26"
+    },
+    {
+      "path": "LEEME_BLOQUE_8.txt",
+      "sha256": "3fd5615e018af68c8162875a4f601f51700b1f8d10030f2d5d19078446b6b8aa"
+    },
+    {
+      "path": "LEEME_CLOUD_2.0.txt",
+      "sha256": "ee8ddf150556bef3c83200a7fcbf0965e3d7880810b2d9905305b23e594f551d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/.env.example",
+      "sha256": "81a95557f468beda5acf3d0dbe564ff12fc6b1c98bfcbb3f9335596f622023fe"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/.env.production.example",
+      "sha256": "b564e6638b8c43061d494d04282ce9d3a6f11d5df1810bb1205e405df15dee55"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/.github/workflows/validate.yml",
+      "sha256": "158106b63a269e4e6bc1229b957f72f1eb90a2f33062572de5bfb290fdcb083e"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/.gitignore",
+      "sha256": "9b506f11bb25f500cefe37a6868cde1e23b02a1d4b5b25cb9a17a4fb051411eb"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/.pytest_cache/.gitignore",
+      "sha256": "3ed731b65d06150c138e2dadb0be0697550888a6b47eb8c45ecc9adba8b8e9bd"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/.pytest_cache/CACHEDIR.TAG",
+      "sha256": "37dc88ef9a0abeddbe81053a6dd8fdfb13afb613045ea1eb4a5c815a74a3bde4"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/.pytest_cache/README.md",
+      "sha256": "73fd6fccdd802c419a6b2d983d6c3173b7da97558ac4b589edec2dfe443db9ad"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/.pytest_cache/v/cache/nodeids",
+      "sha256": "524b51bb303154199ffba644306556e40953cbdda79f329eb1df892b173e5d28"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/Dockerfile",
+      "sha256": "2f5024c02387c226c18e9c58ab92a639b4c160c2ad5649a28f8d36ffc4903f6d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/README.txt",
+      "sha256": "2f200f0e1fd7edf5bcab39163c99002f81f3f0fc56c768a2dbb09d91c9b5eaaa"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/README_V8.txt",
+      "sha256": "337f9e710bee7aae91e5331e2a61f19610d1b2953acf4485641a5180bb88665f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/__pycache__/server.cpython-313.pyc",
+      "sha256": "67c12469a7ba26e48bf1e50f439069addb11bc352d124ad40b9db6be3e739120"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/api/__init__.py",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/api/__pycache__/__init__.cpython-313.pyc",
+      "sha256": "4f35d5d9528e8d2fe982ea72c376d2c881068686bbe18457fca499a1385d766f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/api/__pycache__/app.cpython-313.pyc",
+      "sha256": "15853be541748348fa7843db880cf1944b4741442514ee6f7fb1feb4d95a7ea0"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/api/__pycache__/library_routes.cpython-313.pyc",
+      "sha256": "132a7042e425cd616ea581d8fac2e74ac0cc506aa5f23d3584517ab04f3c43b3"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/api/__pycache__/routes.cpython-313.pyc",
+      "sha256": "4f7d9d82e017e8e9efceb9fd00abf69cd1616b7d26979edfb7855a07caf40360"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/api/app.py",
+      "sha256": "704f460f5042c3ece2338e47582cf6b1fe5419e45974a43f06d64bdf4f3b1609"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/api/library_routes.py",
+      "sha256": "5df4550c1650fc94af252775c816e4ded5418efa82988c15c7fc535ccc27683c"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/api/routes.py",
+      "sha256": "ef49ed338720660f2a20646eeb99574dffd6fcd2a9e0965137f7ec3bb7a8c68c"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/assets/elegance_scenario_clean.png",
+      "sha256": "5149db74b25b7514703a7d5e051c03838c1dcf8f25827aee34809c0451cc833d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/assets/elegance_scenario_official.png",
+      "sha256": "7392cfbcb9bf03d26cc6a301cf60cff54f6c3ec9d2ddb828c9b6fe236003865f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/assets/web/admin.js",
+      "sha256": "5330927fde26cc645ddd0f769ad4605ccebb8e16696f0c1a02ca5b900ad81fdc"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/assets/web/catalog-admin.js",
+      "sha256": "2ed1a23909d03091ed43513ce1dd6dd62c7e7a1ac245f5a3e95f2915a0d6b9b5"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/assets/web/catalog.js",
+      "sha256": "405bcb9e9b35f6733bc457be74b4bcc2e3d6da422e1cf17df8dd1a5ebfc3b6f3"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/assets/web/elegance-hero.png",
+      "sha256": "7392cfbcb9bf03d26cc6a301cf60cff54f6c3ec9d2ddb828c9b6fe236003865f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/assets/web/elegance.css",
+      "sha256": "faf2226d116405d0e12d566c5f8e4ffcc92548501bcdc29732d198e056dbccd6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/assets/web/elegance.js",
+      "sha256": "e0b2700ba53628f6a8b1178636f801915f74e7cbedda7e2dca55171c0f3845b9"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/assets/web/home.js",
+      "sha256": "e8e1f693469d77da88514593a207e8a78b8b66e40d9f04ed4d0f6014899b204b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/assets/web/login.js",
+      "sha256": "f9a5c71fc0d3bf57c576ccb0903fc5b3a032528b19f499dec1e2184dd713eba7"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/assets/web/product.js",
+      "sha256": "5ae289dfb98303b1ddb522f82a190e282a4e2d6e16d598eda70c748c770cd89a"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/assets/web/setup.js",
+      "sha256": "4177ab1e2d89eb2c367e0f7dd5e6eaea94f125e3a3913c1ebc665480172cc44f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/config/public_cloud.json",
+      "sha256": "f668977abfda0a179364f264254a5f328b44defb83eed063a40c63e75b021de8"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260721_100652_566987.sqlite3",
+      "sha256": "2a456aabf9aebb5457adbdef953f9ed62a888e5ea6969605473a3b30a2bba3c6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260721_100656_999137.sqlite3",
+      "sha256": "2a456aabf9aebb5457adbdef953f9ed62a888e5ea6969605473a3b30a2bba3c6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260721_100748_192352.sqlite3",
+      "sha256": "2a456aabf9aebb5457adbdef953f9ed62a888e5ea6969605473a3b30a2bba3c6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260721_103121_253830.sqlite3",
+      "sha256": "ac657024281a6b096eb87f3a4e2096f799b727602d8ee27f9431ff019397aced"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260721_103140_989870.sqlite3",
+      "sha256": "ac657024281a6b096eb87f3a4e2096f799b727602d8ee27f9431ff019397aced"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260721_124827_431567.sqlite3",
+      "sha256": "fc8a97e434135cea29b1509983466c11fe2f0c8bbd093faafd2a99eb36d8ebbb"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260721_124827_499452.sqlite3",
+      "sha256": "fc8a97e434135cea29b1509983466c11fe2f0c8bbd093faafd2a99eb36d8ebbb"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260721_131340_680339.sqlite3",
+      "sha256": "8a75d0b1565e25c54267f8b897a25cb613e0d1d2d141506f2a2e806bff8930e3"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260721_131340_728783.sqlite3",
+      "sha256": "8a75d0b1565e25c54267f8b897a25cb613e0d1d2d141506f2a2e806bff8930e3"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260728_211332_894945.sqlite3",
+      "sha256": "a052fb2d3f1871f15a64b124144edbfa4c7a1d04b0ffce5e3e728b311318af39"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260728_211346_198632.sqlite3",
+      "sha256": "3f557ae2cdad9ddac68333ff8086badfbeb2e31038d27613aee5ab87c43b271b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260728_211415_031531.sqlite3",
+      "sha256": "6aeefbe7ed143265cf9ba4c21158d9c786ee35eaee8108d8fae433b214bf9d8c"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260728_211907_513087.sqlite3",
+      "sha256": "856f850701c5eabfdbf8a645fb21312cb2ea586f9fe4a3aacbb19e6b4baa7be0"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260728_211926_287647.sqlite3",
+      "sha256": "0929d6c9e1d7b9518257a0dc1eaa827984f3ab2d479a9318f722a709531bd00f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260728_212338_825925.sqlite3",
+      "sha256": "62341615320780ca3238cc6aa060d44a2d0d915ca86b81b1bc3a1e516ae3154f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260728_212420_981760.sqlite3",
+      "sha256": "a8b49a9393864f046fddc94a8c148b5c9fa4af9ba1a2c6b874d82180ed9797a9"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260728_212451_639294.sqlite3",
+      "sha256": "0263b5697c634f3b6f7202aa8db086be0b6b96cb6468bc0f308b08fdf22e2217"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260728_215555_920829.sqlite3",
+      "sha256": "6ae26e9c7b78f049cd67a6aeb9e64f8af9f3640f3d68dab0395d81f867fea60b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260728_215650_688142.sqlite3",
+      "sha256": "57652e3348021943e177aadb8e962b5e8269dd3ca2ca8b8cfecdc1959d1e2239"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260728_235210_791965.sqlite3",
+      "sha256": "880b6fac12f9a79c694fb05ea1b20e1903f18f1d2aaece33c5f9279be76f79fb"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/catalog_backups/elegance_catalog_20260729_001126_587284.sqlite3",
+      "sha256": "104e538ffdf0206a87c0770bbb340dfb3924eaa2f3109cbe86d00083ad32349b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/cloud_backups/elegance_cloud11_20260724_050338_621134.sqlite3",
+      "sha256": "6c1d195ec26fe396177352b71576cde6b05460fdd70d217addd2b5042f092967"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260721_100652_562089.sqlite3",
+      "sha256": "2a456aabf9aebb5457adbdef953f9ed62a888e5ea6969605473a3b30a2bba3c6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260721_100657_046474.sqlite3",
+      "sha256": "2a456aabf9aebb5457adbdef953f9ed62a888e5ea6969605473a3b30a2bba3c6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260721_100657_071536.sqlite3",
+      "sha256": "2a456aabf9aebb5457adbdef953f9ed62a888e5ea6969605473a3b30a2bba3c6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260721_100748_178075.sqlite3",
+      "sha256": "2a456aabf9aebb5457adbdef953f9ed62a888e5ea6969605473a3b30a2bba3c6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260721_103121_247082.sqlite3",
+      "sha256": "ac657024281a6b096eb87f3a4e2096f799b727602d8ee27f9431ff019397aced"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260721_103140_981391.sqlite3",
+      "sha256": "ac657024281a6b096eb87f3a4e2096f799b727602d8ee27f9431ff019397aced"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260728_211332_875680.sqlite3",
+      "sha256": "a052fb2d3f1871f15a64b124144edbfa4c7a1d04b0ffce5e3e728b311318af39"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260728_211346_192728.sqlite3",
+      "sha256": "3f557ae2cdad9ddac68333ff8086badfbeb2e31038d27613aee5ab87c43b271b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260728_211415_026268.sqlite3",
+      "sha256": "6aeefbe7ed143265cf9ba4c21158d9c786ee35eaee8108d8fae433b214bf9d8c"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260728_211907_508785.sqlite3",
+      "sha256": "856f850701c5eabfdbf8a645fb21312cb2ea586f9fe4a3aacbb19e6b4baa7be0"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260728_211926_282676.sqlite3",
+      "sha256": "0929d6c9e1d7b9518257a0dc1eaa827984f3ab2d479a9318f722a709531bd00f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260728_212338_819716.sqlite3",
+      "sha256": "62341615320780ca3238cc6aa060d44a2d0d915ca86b81b1bc3a1e516ae3154f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260728_212420_977101.sqlite3",
+      "sha256": "a8b49a9393864f046fddc94a8c148b5c9fa4af9ba1a2c6b874d82180ed9797a9"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260728_212451_634801.sqlite3",
+      "sha256": "0263b5697c634f3b6f7202aa8db086be0b6b96cb6468bc0f308b08fdf22e2217"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260728_215555_916450.sqlite3",
+      "sha256": "6ae26e9c7b78f049cd67a6aeb9e64f8af9f3640f3d68dab0395d81f867fea60b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260728_215650_683565.sqlite3",
+      "sha256": "57652e3348021943e177aadb8e962b5e8269dd3ca2ca8b8cfecdc1959d1e2239"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260728_235210_777738.sqlite3",
+      "sha256": "880b6fac12f9a79c694fb05ea1b20e1903f18f1d2aaece33c5f9279be76f79fb"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/commercial_backups/elegance_20260729_001126_575074.sqlite3",
+      "sha256": "104e538ffdf0206a87c0770bbb340dfb3924eaa2f3109cbe86d00083ad32349b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/elegance.sqlite3",
+      "sha256": "f8b05bafeba1c77d9f0a73c46b5ccc7bf16e42f3c6cec210ed172fa45b64105b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/fashion_library.sqlite3",
+      "sha256": "824b06c3c47f554ef724005ae3ba7c05bb5ccb5b4ed5a8e6ab3b931cfc616956"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/secure_backups/.pre_migration_2.2-rc1",
+      "sha256": "3f90526eaa8f97729295d80cc98fcd774e10544a9308a927e7460e5bfbb743d4"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/secure_backups/.pre_migration_4.3.0-rc3",
+      "sha256": "9ac0444b643b1c978457b3e9255897892dbfcd0c85b72c3ffe665c9a0f2af6eb"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/secure_backups/.pre_migration_5.1.0-rc1",
+      "sha256": "9a7d33d208edba4d0b20bd8a27c40af25e5689048fbae08214566de5b90c1a00"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/secure_backups/.pre_migration_final-rc1",
+      "sha256": "eaf6ccb1206207b26aadc80e93ea876e7265a8ee1d32a398ff50d5759c53ec3d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/secure_backups/elegance_pre_migration_2_2-rc1_20260728_173732_455647.sqlite3",
+      "sha256": "1412820bf75a6aa5a5123e5812cc4a2b390e73275456b045a670397233b7d67b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/secure_backups/elegance_pre_migration_4_3_0-rc3_20260720_045444_994038.sqlite3",
+      "sha256": "a7845abd71cf29dcc99890380e8cfb79afad7d13e36e14ecb27aebc2e6da76c2"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/secure_backups/elegance_pre_migration_5_1_0-rc1_20260720_045515_384413.sqlite3",
+      "sha256": "91f0573ba00a1bdaade8d47e9ebaf8ebf11075f8ba266c5e916794d5898fa46d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/secure_backups/elegance_pre_migration_final-rc1_20260721_100652_547839.sqlite3",
+      "sha256": "2a456aabf9aebb5457adbdef953f9ed62a888e5ea6969605473a3b30a2bba3c6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/data/secure_backups/elegance_secure_20260721_093815_115283.sqlite3",
+      "sha256": "67a4415a26e0f1d51941e6ea8ef0794dfe494b0b83aaf09399f5e42f79c070ef"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/download_model.bat",
+      "sha256": "ae7f6f3b2285800df20b4315c1f283f2f868ccbe9738c246fa8742521000d141"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/migrations/0001_supabase_private_schema.sql",
+      "sha256": "8ae17b6169c3d398e20fd2ea135980136d685785e5a99dba62a4e12499cb35d2"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/models/__init__.py",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/models/__pycache__/__init__.cpython-313.pyc",
+      "sha256": "94b7690019fc40778a428cce64cb2adcc0a478474e831e4671d4367a7bf78254"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/models/__pycache__/clip_engine.cpython-313.pyc",
+      "sha256": "bb2932ad7f954b0adc12ed66c68990d6d89ca5827ad5c372a49d2ddf8b894ed7"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/models/__pycache__/schemas.cpython-313.pyc",
+      "sha256": "ae4fa1a7c2e5c11491a5ada04b74891b89231e4847b08202b3a75026f74ec3ed"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/models/clip_engine.py",
+      "sha256": "be436fdfb1d3ac8968341914dd29e76236ae3aa6e121a497cb45fbf990082a58"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/models/schemas.py",
+      "sha256": "13e6abf3eeff0cc93d43fcfe760ed2159b45b2f5c997347507be4dc741002bdb"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/pytest.ini",
+      "sha256": "a7c3b49c718f8b8880636813558e7633d91e412f9ee82b57d61cbef067140753"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/recognition/__init__.py",
+      "sha256": "a2066c0224fcb1c2339f03ccb96b18981c39f707bd69117dea893f9e63a2df84"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/recognition/__pycache__/__init__.cpython-313.pyc",
+      "sha256": "afeb881638cf44b0d5fe22163639dcf86d80ccb7a414476039b2608daa8def4d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/recognition/__pycache__/catalog.cpython-313.pyc",
+      "sha256": "fe18802e676cb8b63952385ff2ca9d547f08f5ec3d1e67252ded0700c887ac23"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/recognition/__pycache__/learning_store.cpython-313.pyc",
+      "sha256": "ff0f92f53d985af03ebe6838c759a3bab246fe19f02084c3323d0903fcfd41b0"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/recognition/__pycache__/ocr_engine.cpython-313.pyc",
+      "sha256": "63564c3d06f4df88cba985adc0ef553e376cd1ee2c2f655f210bfa93437d7850"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/recognition/__pycache__/recognizer.cpython-313.pyc",
+      "sha256": "2fb8e6bafaa2e1484cc6ceaf9dfe57e531afa138a37641d93b1f474d4373611f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/recognition/__pycache__/title_builder.cpython-313.pyc",
+      "sha256": "151678ad8658aec05321ba7f3bbed41334cbf3a64d3f6ee8a7d337e7f7a138e3"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/recognition/catalog.py",
+      "sha256": "8bdcd8ba7e8be14079b2adf317b2047c356898435dbb70b524f4fa979e4179a3"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/recognition/learning_store.py",
+      "sha256": "c54be342fa5ead731ead1083346513becffeadf5cba8cddbb370b97ab0bebf28"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/recognition/ocr_engine.py",
+      "sha256": "b860ad8aebff5627c2fc599820af31ee9efa92e7a7572a682333d50cbc6447c9"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/recognition/recognizer.py",
+      "sha256": "b99497646d6b5b21b96e92c9a8416e603f8cacb5351eeeb70319984496e30810"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/recognition/title_builder.py",
+      "sha256": "37c82d470b921132b2735873f2e74634408db0e09843ac8982314eca1f453a5b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/render.yaml",
+      "sha256": "9423672151284a001fb9f562886e6e2142a9f412f5ef8c228fd3a0629b1a87e1"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/repository_config.json",
+      "sha256": "63c3c5ec2498d54601b00cee291f3f3c1d635714c7224544ff3f183d415ea38c"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/requirements-ai-optional.txt",
+      "sha256": "f5f8246876b2f1d9bbd003bbd26bd05bf693136e91e624d9c68aeaafae20df77"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/requirements-core.txt",
+      "sha256": "7ce8ceb15d600ac762785b5a31fbde8cbbeee6cd41e4dca1167f73523c7f6083"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/requirements.txt",
+      "sha256": "e7f1ad485d0d0b6e55ea968f697dd53ed353ebacb295684ecd98614d0a1c3445"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/scripts/__pycache__/check_activation.cpython-313.pyc",
+      "sha256": "18ec47cf6848d627f9f8089c4d6570c68dcf81d0a36ce7cf2e64aa4269d6c0b2"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/scripts/__pycache__/download_model.cpython-313.pyc",
+      "sha256": "893746878fea4e61065616abca2e859a09cfa6a7a97c4871378fd475ad7166ec"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/scripts/__pycache__/prepare_clip_model.cpython-313.pyc",
+      "sha256": "c275c13e9e2270ce59d8a64f27e3682fe590c9d84cad472e67c6492d97240c44"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/scripts/__pycache__/prepare_visual_model.cpython-313.pyc",
+      "sha256": "e1bee14e9a0332361710e0e86a63c3ffaa44c1e7946bfa34aad16005601adcf8"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/scripts/__pycache__/sqlite_to_postgres.cpython-313.pyc",
+      "sha256": "a317833aa2be2adc1a262678c0d5b924eaf041774b6f9f20170430bb5a8a4aed"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/scripts/__pycache__/test_client.cpython-313.pyc",
+      "sha256": "22526f7052d08ff4755f089cc9eb33f2ca58500f49c7516aa994f2df6d8d3d04"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/scripts/__pycache__/verify_cloud_database.cpython-313.pyc",
+      "sha256": "18bac516b29c1b3d59c39083645ca91a365c40c8a5fa1f12f68027f8376de0ef"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/scripts/check_activation.py",
+      "sha256": "a8061872f5a67f64a18d14d2e0845f3f467dce8471ea5d584f7340186072dc44"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/scripts/download_model.py",
+      "sha256": "6b3265c8d9430b81489fbad3a7d6f12fffe49d813c43aee070dd48d62f27f542"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/scripts/prepare_clip_model.py",
+      "sha256": "eff8aca08bc66cb0608850438d5d0235f9c6a56b5901e0f09f5f05ecfdde8fa5"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/scripts/prepare_visual_model.py",
+      "sha256": "e480522c3ebd47e135afc6779d7639ab0f15463d02ff22fdfef24a7d91b2fe4c"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/scripts/sqlite_to_postgres.py",
+      "sha256": "810b0de7f7b4fd6ee3cd8418f7f4f67d4c03f734311e671a169aa4a287f18053"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/scripts/test_client.py",
+      "sha256": "6e2c3a3eb3aa440ee04d9cdf59e3d87610d53dd54e4eb5aecc195aa6f066868c"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/scripts/verify_cloud_database.py",
+      "sha256": "10a62b2bb596968dc433a4f44a49a9d61a8299d570e1fef376a3f4ca9d2cb713"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/server.py",
+      "sha256": "a3f250ca62ee9d93ad344047da002070f8d0a257477b0975e2a95a16594ad35e"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/server_windows/Configurar-PostgreSQL-Bloque8.ps1",
+      "sha256": "f214d855429f3ec396964de3d4bd9e2b7d5c59254716b7120b6181f88cd2e433"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/server_windows/Configurar-PostgreSQL-Local.ps1",
+      "sha256": "11e94798cffc9b27aa2f28e903071d33b0aea224e96f7019ccf87b0248767415"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/server_windows/Crear-Respaldo-Ahora.ps1",
+      "sha256": "1398cabadde8cb9cf4214709af7982da783c8fcace6dc35fa6af6fb6ea832342"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/server_windows/Diagnosticar-Bloque8.ps1",
+      "sha256": "317a3e866ddf6074dae0e44f8e3bc45dc66ec13f979c4b78a5f76937fd980b0f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/server_windows/Instalar-Servidor-Elegance.ps1",
+      "sha256": "7a5dbd0b3565a6b3e6ba8da0d4d6fd783961b101dd5f00e86c633bfbf8ac846e"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/server_windows/Instalar-Tunel-Cloudflare-Bloque8.ps1",
+      "sha256": "997566f4726d31d083b9bf2d1f500e88e5d52142d915c1fc7098cff650851a7f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/server_windows/Instalar-Tunel-Cloudflare.ps1",
+      "sha256": "a5f4051ff33b47d937f94a5ab760a1d22eac3180ae451120a2e93d1e22a95d9b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/server_windows/LEEME_SERVIDOR_WINDOWS.txt",
+      "sha256": "d03f4c40358c23f90a4264bcf9bd8a15bbd10c2ad7fd3f90309697727761c976"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/server_windows/Prueba-Final-Bloque8.ps1",
+      "sha256": "913f741a57153e290dad10957c40bee9a2fc546d1d2be849e5d316be12ea3fa1"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__init__.py",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/__init__.cpython-313.pyc",
+      "sha256": "973feb3881a59b4f971d477f0ae46f993197529a38b597e53d4b1efc36b0a19b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/admin_dashboard.cpython-313.pyc",
+      "sha256": "ec300b4b44b1d02b75afe2c64676c941dc6dfe2ae73e11e02fde9b82fdfae403"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/analyzer.cpython-313.pyc",
+      "sha256": "57dba5535ea73d646e3e8a2aa6ac2bce38e4c17640177374bec8dc324938c593"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/batch_automation.cpython-313.pyc",
+      "sha256": "5174612104d336fbf8ce91cfad4490558f467ef150a9875b8f9a4554a0d6f4df"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/catalog_crud.cpython-313.pyc",
+      "sha256": "646614d2c1caebfc58fad276fba9ed48f096de0f3c6eb67adb5b125d3f5a046d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/catalog_organizer.cpython-313.pyc",
+      "sha256": "07f9ae1021b1630825b580fb2d975835295c91131185fc8d2d0b7d33bcdf71da"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/classifier.cpython-313.pyc",
+      "sha256": "6672f4357768fb67b3e4fe0456abcd84a044dd2653718695e09faa35e0fee55a"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/cloud_database.cpython-313.pyc",
+      "sha256": "8a67dac68d7244787d47bb34c9ff841755626ec6cfe274f8cd459fb8bf32c597"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/cloud_storage.cpython-313.pyc",
+      "sha256": "d7738f8b6a3a94360f7c75c8e9077626f8d871dc1bf99e3702ad708d2a86ed2d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/cloud_sync.cpython-313.pyc",
+      "sha256": "eaa8e873cb1bccae39a8f2e5c5ee0aba152e92e782be62112abf84b93947e30e"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/color.cpython-313.pyc",
+      "sha256": "9c4ca7ba5076467b6fd795dcd86f927f64772a3e208f86f18df871c1e5dac788"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/commercial_automation.cpython-313.pyc",
+      "sha256": "3ec85e921af4fd9d5d739c271ab13a364892b51a579cd72a323cf170b1cfac7e"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/composer.cpython-313.pyc",
+      "sha256": "765b8435c7f4723cabf72b791dba50569b6c1ca7861856e9f39199056aa2a03d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/deployment_readiness.cpython-313.pyc",
+      "sha256": "49646b0110714fc9ea72ac617ddee1c977a1b3e2d99fbf4be998c6c2763a8184"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/duplicate.cpython-313.pyc",
+      "sha256": "e0978a788f07170deafe0f597c509f4b39b7d3a7c776b4e8b0cf652f73c8ff31"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/elegance_ai.cpython-313.pyc",
+      "sha256": "789e45c327b930064cb2daf6cd2188e00c32b32ef85ee36b0259edc426ac5dc8"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/elegance_brain.cpython-313.pyc",
+      "sha256": "0b6599c14aeb01705a6c989dc06c00b2f8b7bdeb6a8eff98016d44f3060850a8"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/elegance_studio.cpython-313.pyc",
+      "sha256": "7a69a926283185f17ce2e202ff86abef6a209a9a4eb48341a8c25a84f8517ca7"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/euiv.cpython-313.pyc",
+      "sha256": "09f20267932547ca7fa8ccd6eafc250d1c7ec21a6af979e5d7b1875b7acd952a"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/fashion_library.cpython-313.pyc",
+      "sha256": "b6a1d8e6c108a025b995b5df54a27f3315ce5667106aa98dfe2c293b85945c6d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/full_backup.cpython-313.pyc",
+      "sha256": "f0e2cd450c52fce006cbbcb8e6ee1356a316a3538b285ac80aa5726daa7c990b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/generative_editor.cpython-313.pyc",
+      "sha256": "4df9e48a5076e25ae2a1c1b441657af88584b4988694213d1f09ac414714fdb4"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/grouping.cpython-313.pyc",
+      "sha256": "696a6899cf2c11a1cb2786827f9582d6b09f84fea003ec34e07981d9f539a4a3"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/history_store.cpython-313.pyc",
+      "sha256": "a1fb72bc8d210c81b367859bccf2906d8795efe5fec50257358f917b3b3fc1ae"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/home_server.cpython-313.pyc",
+      "sha256": "308ea3cbd57e10fe56a34eb101ead056468cf74b0b6b38051392632958306f52"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/image_io.cpython-313.pyc",
+      "sha256": "f22ee85e386d1983a545bf8509ae5014df44648821bc38db41f0cf5a23608552"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/inventory_intelligence.cpython-313.pyc",
+      "sha256": "74af14faf809709255168ee41ec8080e6bf11eff90bc11496cc91310fd6ed67e"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/media_library.cpython-313.pyc",
+      "sha256": "48f2f046360a7ef5a82bdb0b519c5b41bd11350a7857909e94f1d410926fc6b9"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/mobile_command_center.cpython-313.pyc",
+      "sha256": "f2422d09a8b74ee6d6f806530e02ab688e4f5af0fb0bec88b687f1cc2af2d1d2"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/mobile_inbox.cpython-313.pyc",
+      "sha256": "059942ed271b927e755998fd763234f4f6835fd2e6e4c57dbd6762a62bf63ef2"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/mobile_ui.cpython-313.pyc",
+      "sha256": "7919049ab48111f7df6c1201a8d50b16e66a9bd8647f81d4f6decd9954425a64"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/openai_identifier.cpython-313.pyc",
+      "sha256": "9ca7fe9e328b1f9d5fc6d349e4aa0878057103524a3b43c40a63a250b16b4647"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/premium_web.cpython-313.pyc",
+      "sha256": "dff3705e6f2feb11d9959868af5dc39d873637c558106a1ff2bdb4093855d2dd"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/product_media_flow.cpython-313.pyc",
+      "sha256": "25026c365552ad53c273c3b5d3355833a2b18989f81821ae1c32955fcdaa5818"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/product_workflow.cpython-313.pyc",
+      "sha256": "d59dc1cfdcffe4c2fa336677f099219b102352f4a7793b3999479e12a4f9ab52"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/public_catalog.cpython-313.pyc",
+      "sha256": "b27a1004523d244db36c5e818543f8b5d3dd4d6a45f7fbf6e69d2374d0db546e"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/quality.cpython-313.pyc",
+      "sha256": "9b967743deb416d41defebaa0dce5e69e20e04e5948632a885265d25b9327052"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/runtime_config.cpython-313.pyc",
+      "sha256": "29d449b0f200f61c341debe8bad660145d51f47ad0fd2f60da29fc2b519ee643"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/sales_manager.cpython-313.pyc",
+      "sha256": "260976e27df818868c3aa986f77101f65bc759bd8627db802b76f8955a7493c6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/security_platform.cpython-313.pyc",
+      "sha256": "2d5c8ddc5a4edbc0371e5f2fd4193328ee72d2281c93d6df1116ad004bdbe997"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/server_installation.cpython-313.pyc",
+      "sha256": "3c9a9d1a55494b9d0fa608db86fec829bfb769b73426c3a5abcef9df9f0e4611"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/smart_catalog.cpython-313.pyc",
+      "sha256": "40e392003bdf1a8255f470aca5af2b3ab939bf9a1c6bcc8fa0c7c201c8cd01c5"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/state_store.cpython-313.pyc",
+      "sha256": "43a31089ebae8098c272a7c922a3759fc3302df589ad458b680e0da97c265a74"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/storage_manager.cpython-313.pyc",
+      "sha256": "df90a17232d3b1cedb9b86fc24b97a1d7387af929cc487413294eb700ae032b2"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/universal_intelligence.cpython-313.pyc",
+      "sha256": "0ee93fcae95406646604d2c68523f4e99978a6cbe1d17fc6d8aae94f1b76ced7"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/universal_products.cpython-313.pyc",
+      "sha256": "c0c401c22200b61d0804e719cdf013ea261b1dc1cacb34e2c879b7946ab56078"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/visual_search_assistant.cpython-313.pyc",
+      "sha256": "60a6fc523779735c07809a6c1f56da53f6895aec68137a57a286fee30ef41b82"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/__pycache__/web_verifier.cpython-313.pyc",
+      "sha256": "fda32f41566877ff9a23a5e88e3185f1f026041f2774e5c51986efc07387eb78"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/admin_dashboard.py",
+      "sha256": "91a6c6080dfc006b7319298e1896798a3cf8ced47e398b3717044ac72d0bb1fa"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/analyzer.py",
+      "sha256": "9990c338d983d51e790ea351134c37481eeaeebb51ff7ee10f74c3a03f2821cd"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/batch_automation.py",
+      "sha256": "1a7650822285c8ae080baaca8163679e4381b186c7159d9f38a7b3177479854c"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/catalog_crud.py",
+      "sha256": "c19430f803a6afd5c44a0e8cd8f8f06862c8836eb79fae52cf79c442caf295f7"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/catalog_organizer.py",
+      "sha256": "d16d365d15d35f2536fbcb17db0c5c54f59aab66c7964f066a2030062efd25d7"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/classifier.py",
+      "sha256": "837cde070503cc388dbe7d22f652041fe1273740c748ce08fb378c860ea0abe0"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/cloud_database.py",
+      "sha256": "b8dbd6077489e1b13088eca259883ec7d443fe8ab4cc68f8afe39575f27cd1fd"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/cloud_storage.py",
+      "sha256": "e87b9ab6ed1e61b8d96f169e93de766bf1242722c95b6f2bac8206c55c17ca4a"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/cloud_sync.py",
+      "sha256": "41c32bb9c703980cf7d6572db71aa940fa09718bd87b6971024857aadaf7b45e"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/color.py",
+      "sha256": "8b75c75d6a020f9b3ea4190d980569b134322767f93e981ef53f994be9fae2fc"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/commercial_automation.py",
+      "sha256": "e74b08776b809ce05d1f88a7894f1992c6b627f610cb5dabbd32f924a8cbc77f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/composer.py",
+      "sha256": "e25be0a71d15bd8957533c73b660e1425db7cc008fd8d276926f832439e3fc8c"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/deployment_readiness.py",
+      "sha256": "425f4677ca7c61202fdf010b66dad13511bc2be6e3ccf949ec315f1816cb8735"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/duplicate.py",
+      "sha256": "7900ab5bcbd52b83bb00788c5e4effe8dd8326308649674f65b6ab0a1b5923b1"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/elegance_ai.py",
+      "sha256": "72d723ccb11de366501656f8350cc64789bf6f1b04375b8e4a9488f25e7f1fad"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/elegance_brain.py",
+      "sha256": "e510f084b52013a6bc75c71db673576afdf53ab33acdb45a8d7c847b054044f3"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/elegance_studio.py",
+      "sha256": "bb2fc72501158d6ebc75702d6194d40d0290da1c3a1abf19f97f471125e8be79"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/euiv.py",
+      "sha256": "c97d0ffb6de9e0e45153a87943babc4bc9e1ff1de537d0e00f836ec5a34a8655"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/fashion_library.py",
+      "sha256": "33ad3da2f852a1316b06a53750f1003b01dc5b21881a8da2fa50e04f47b3784e"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/full_backup.py",
+      "sha256": "f9dc8dd1e699edeb866ef64027d072530f1bb242bb4870df10a8c09e75d2939b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/generative_editor.py",
+      "sha256": "6f6168271887ea7728ae3e49fe5e0b36f8a358cc8425e52eecb7cc72f2b4b179"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/grouping.py",
+      "sha256": "8ff46223ccc76b156a9da7f5c77914f415dbb3b4d43dd6dcaeaebe16ee4e9422"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/history_store.py",
+      "sha256": "d01886944c9d742750e759229c9b011d594843568c5acbdf7992c4b00ac676d6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/home_server.py",
+      "sha256": "302b640f0d06fc5505c3f72e18ea6dd5c697e0c8f402952abd53e498817e4de8"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/image_io.py",
+      "sha256": "0948a41031de2865fa5fbb10eeb010d380252efc7db26732b5a4ed0135e044b3"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/inventory_intelligence.py",
+      "sha256": "ef80dc543b6cf8eb7ded24b632f765f391b090216f7f633883f455e660783523"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/media_library.py",
+      "sha256": "5d1e5567f04e5b1d73911691891ecab90bc0ca879ffeed110eb42ee899f48459"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/mobile_command_center.py",
+      "sha256": "28b692d721dd48ff8aab5f8fa8d7506cdcb5062878fd7e0bf9bcd4e1ea981a0b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/mobile_inbox.py",
+      "sha256": "faaf0b72c1cf1ae4b451b43bc5f8b2b1c33ee74151b67f35422a6ad3130cfacb"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/mobile_ui.py",
+      "sha256": "fffc82bdb59b582706c2d89cc1a18d524cc2e511e7fd57a3c9c7d8f88893c262"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/openai_identifier.py",
+      "sha256": "4b0ea1207df2a51977bc12568fd7ec9cc8a9830ddbf9e1141cbf5ab22d583e22"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/premium_web.py",
+      "sha256": "1a86fc8016f448a2a75d5150cf17d2b2e625251815847005d944f6dcbe674ce3"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/product_media_flow.py",
+      "sha256": "8794f646c9825ea0fa36bf9639190d2797d72c1d9a2dd52330b86a908e9e51e9"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/product_workflow.py",
+      "sha256": "84aed171b4181091bc9896c344a004382b2fa2feaa2a57d46263337abb78efa3"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/public_catalog.py",
+      "sha256": "89c9644296e0487bd80c93a368f3210ed6428232cbaaa53577349ef53227fb88"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/quality.py",
+      "sha256": "69ebe65fdf53cefa9253ef6ab69723872401febff957f351ab8acee7183fbf23"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/runtime_config.py",
+      "sha256": "db43fc4bfbd5faac731ccb464ef8af82722b5aab7f3fb234ae798a1cd2314c30"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/sales_manager.py",
+      "sha256": "ff7e3ee4c2f3d06d6c6da5ee94acece876bd1f205cb2229ceec14f0af6092bfc"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/security_platform.py",
+      "sha256": "24e3961136c15bda494a3951cf7d12fc42d7de69e773924f1a3ee75fe87fe890"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/server_installation.py",
+      "sha256": "44db3cdc7a1ca20f125b9d04afc489e44c355b9dc1ee47ba5b533379bf0e38fe"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/smart_catalog.py",
+      "sha256": "8c11f4c6ab94b05c99bbbe92ad5a391a5e1b414f4368a7cae0dcb6e5ee4e1bc5"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/state_store.py",
+      "sha256": "dd533f3dacb69e91c56e4ef1ddcec2c2734b90d70d3346fb14ac403b211a9945"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/storage_manager.py",
+      "sha256": "eb9887ac7d5b7113702e3a1055b7b54cbe63c2a572a92e8672f3285d5441eac6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/universal_intelligence.py",
+      "sha256": "9779f6ea9446e93aea8bc263e718186707fff8c330a566e639d2472bf7fd7ed0"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/universal_products.py",
+      "sha256": "f4196841e4176374ca970b8d2382ca4418e458558ea2f345febcfc85c25252c4"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/visual_search_assistant.py",
+      "sha256": "c33f67fa1ffb87cabd9b00c55d86b62f67a97a2f5a0c4c1eeead4b4c044cab9d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/services/web_verifier.py",
+      "sha256": "49218ced25c601be74e0b42e69f5cfe2a6127cae14c532adec5d3113d14693fb"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/start-development.sh",
+      "sha256": "276b653f3c3405d31a1ec5e4ac16f516f7488179909bca842b7b977a2bae78fb"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/start-production.sh",
+      "sha256": "4fce8e1422a617fbcf204487c2998edc6346c358cf964a27fb6ceb1a5940f691"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/supabase_elegance_sync_v2.ts",
+      "sha256": "036408157612a691a5d274aa7755fd90d9cbbafc3978f1e472e837fb06a486e8"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/__pycache__/test_block2.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "24c788f615877e32ca9a1cfb366b77af04548a08b335fbc335eb7322309f5771"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/__pycache__/test_block2.cpython-313.pyc",
+      "sha256": "1b544c230915dbef09c6be5f0a22bdf616ef5156551e46ef0c16960db4ad66d4"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/__pycache__/test_block3.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "c63d99c8bb57ab6d409a408f39721db55426a37b6f5e30603b01c072473609ef"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/__pycache__/test_block3.cpython-313.pyc",
+      "sha256": "d71ac0622634a705278f563ffd728d4a9a53e4f2aaa000e68aeb84d056603b0d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/__pycache__/test_block4.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "d4d72b76feb914e7e495a68be2ff593f801971fc0cd0a0e4d05034ba6270b17d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/__pycache__/test_block4.cpython-313.pyc",
+      "sha256": "f9b46e22f23ee565f0bd6d5ac690156a84504befbd8f608b311a0d8f5ecb227e"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/__pycache__/test_block5.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "3b44d2edfc47c2e3545f8fa8c0ef958bd8323af2a1c55032e2e1928a6232698f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/__pycache__/test_block5.cpython-313.pyc",
+      "sha256": "d9e261667c9cfd44e96ac56643fbb8e5989a748fd5375c773616552c843a2fae"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/__pycache__/test_block6.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "5984ea92ab6e3d0a0f77d21d7059c59922e9cd94599394881d86c09a329e6c03"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/__pycache__/test_block6.cpython-313.pyc",
+      "sha256": "0a1d3292cb1a41eaa286411b4fb8797e07bd5705fe3718d77e8709cabc58beb8"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/__pycache__/test_block7.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "f7ed51959c8e38781c99fd43e69abb24999f922777a9a2dbe9ec43bc4431c4a7"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/__pycache__/test_block7.cpython-313.pyc",
+      "sha256": "e4f90963f0a64ae0ace7d02a57953416fc46de02f7045557f778bc8b28fc4fe8"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/__pycache__/test_block7b.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "a1dea4cacd7844df8e049773f048df90e932720213dcdd7995388c872457ee4b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/__pycache__/test_block7b.cpython-313.pyc",
+      "sha256": "e7662076498f24f43fc7c042b76d5f09ba31b3cef0dcbf70a8aa2475fb3af6d5"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/__pycache__/test_block8.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "b6125d2aafe0a867b5c9789140257ed961060013f63d5ccac47390139d568762"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/__pycache__/test_block8.cpython-313.pyc",
+      "sha256": "d4d2a989e1b01f9b1836f76ddea190a0daddeebac8a082149f910c496910a50d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/test_block2.py",
+      "sha256": "ed8753a3dc3a69ab8904f39e893e9e85481b5684cad093e0de4f852f6de5909c"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/test_block3.py",
+      "sha256": "5528fa7b94257c3fff1cbcecfd478f0e048f5722714844e9ef10caf15a01d230"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/test_block4.py",
+      "sha256": "a4aad6bca9a7d8e36762d2903e9cdfd890029c5bdc2ad35f488af82d78042c4f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/test_block5.py",
+      "sha256": "3b6051f0c0d49539eab237ad330272f6f4121fba08d47275931e08050da46ad9"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/test_block6.py",
+      "sha256": "9cd61114c3a6768d22f1216f7d1b6714e2d468de2fc8aa31824f49c5cc99461a"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/test_block7.py",
+      "sha256": "2647529c09df1d91b7df07350a7d5e31fffc0905a0ae3a558e026758bf30af9a"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/test_block7b.py",
+      "sha256": "46497f344783d2d24cb55e277f2e3af11b4484b873544ef77e8efa1c6672a49a"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/tests/test_block8.py",
+      "sha256": "768bdc9e52879c5369728611536e7ec6cac9b8b726ee5fe36458453987425a79"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/_head.html",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/admin.html",
+      "sha256": "a4e77bbf0f19902bee0db2f67a6a0a4e2d8f9963743dda063c900d15b91b439a"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/ai-enterprise.html",
+      "sha256": "f148930f44ee4755c0019d56eb5b9658b015f85cd4e1957f324f51bd586b9b2e"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/automation.html",
+      "sha256": "7572ce497609e871e09fa90b093274074daf550d0f8b002790570fcf5ba4eb43"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/backups.html",
+      "sha256": "c10848084bf7a729f8397f9f7a36a0c13eaf604145f6fdf682a364f0ed98b23b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/brain.html",
+      "sha256": "497ff6eb58ee8cd1d441f29ab36db5f55cb6135bbf1dd3cdeeabac749d60467d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/catalog-admin.html",
+      "sha256": "8bcca6c8737d148a63b20723111b6cfdc05a0eb7c2fbb07ec055cd335942b85f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/catalog.html",
+      "sha256": "660e86ee77f35b121d58b20eec34cdfe5cd57e0b90d5f91b099f260bc6538eae"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/cloud-admin.html",
+      "sha256": "a6d31a2a964303d874f89e8696f3c39e409fac16903f5b87ca7fe42bd0d01e71"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/error.html",
+      "sha256": "3822db04249d771df5a07779e7d8bb62c36f319e38a82c230b86a005864ce28c"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/home.html",
+      "sha256": "bad2f1e4f96b14fc6d7cfb189aa5aceeb0352dc2ec3f2fa6ed055091a7086a7e"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/intelligence.html",
+      "sha256": "4601492ea786ba4a0cd0eaea36964f885ff917aace620ae00546a42ccc53633c"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/inventory.html",
+      "sha256": "3aab31801e089669444e15a8f9df583a4157293c01245ac328c5d01617d81619"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/login.html",
+      "sha256": "5a6601bdb90c0512f99f7f529eef0d85fa4460b2b16c91d8daaf5c844a97cbd6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/media-library.html",
+      "sha256": "cba7971977002c8574054c5a291da7fb90b0b670d2a127462d9fbd0bc1357d07"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/mobile-center.html",
+      "sha256": "431eea70e17f1d8832bf39f548a436614713e90288f6089f94ba51871fdbc3b8"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/new-product.html",
+      "sha256": "c9f296efcd1bb1eeb508548b05412a4c90847d948e90f0323616a0c8bb6fbe21"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/product-reviews.html",
+      "sha256": "1db7d487d5ddbaaa015c8f37bbd6c1677b6256bd5ecf6bf8dad9c63ee16d3f87"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/product.html",
+      "sha256": "96d539b2884403375c0f576681b89c192de50bed2f3f25de5d67c442c22c95e2"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/publication-center.html",
+      "sha256": "fbcfb917333ae258459da9ad9d5c01e366e84060a789e72d6a21e94fbd9e8960"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/server-status.html",
+      "sha256": "4d65985435d6f07d573fb50f16ab49aee68b8646a86e3303a6cd7208ca07fec4"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/backend/web/setup.html",
+      "sha256": "c84bc8d8d936043d2383bdbde89411be6180d66ac83dc7856f3636420fac3d97"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/flutter/assets/elegance_boutique_official.png",
+      "sha256": "6832d4aca0a001a6aa66849fa60f98e79b2d172f0866a5c2722a96ba18d00268"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/flutter/assets/elegance_mountain_scene.png",
+      "sha256": "792738bf67e7fb6c7c89d1484d0a65524ca724422a4cde51b5219a9a27dc8d99"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/flutter/assets/elegance_scenario_clean.png",
+      "sha256": "5149db74b25b7514703a7d5e051c03838c1dcf8f25827aee34809c0451cc833d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/flutter/assets/elegance_scenario_official.png",
+      "sha256": "7392cfbcb9bf03d26cc6a301cf60cff54f6c3ec9d2ddb828c9b6fe236003865f"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/flutter/lib/main.dart",
+      "sha256": "f3dc1d72fce3e7bcb1936d6dabd7f7aacb102e932a0f4063682f02cb3ea4be09"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/app/flutter/pubspec.yaml",
+      "sha256": "a36f33fca84689d5ac581d805414bcb28139554ac9ddfe17248a2b387e0bc78b"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/BIBLIOTECA_MUNDIAL_DE_MODA.md",
+      "sha256": "23b640fbbe1a6f84c1059e77beec7bc8b112683a21802e99ee5ddef9e19cfdca"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/BLOQUE_2_MIGRATION_DRY_RUN.json",
+      "sha256": "13ab29b36169e7edda71bb71cb1997134b05aa3f48bec6c98ae84f32d0137771"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/INSTRUCCIONES_PUBLICACION_SPRINT5.md",
+      "sha256": "29b12a1ce14ae3bcbd502172bc0b9b2b561bdb0c912ca4d987567d1ac8b193a7"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/README.md",
+      "sha256": "8779fbae9b134687d6a023667d91186c4d310082cd92a189ece2353a11774ae8"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_BLOQUE_1_RC2.md",
+      "sha256": "fe6e3ef5892870a7526f1fec41c41d34b15d6bacb18a3a6e19d016f6273bed28"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_BLOQUE_2_RC2.md",
+      "sha256": "a6ce827390a900657af13ebf83d2934e9451e7d7c1c71d715ad74402df41c520"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_BLOQUE_3_RC2.md",
+      "sha256": "7b2eec7dc7d297eac7b55ab3bf0858255396c08b51229a930b9bfac3d66edcdb"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_BLOQUE_4_RC2.md",
+      "sha256": "d0003601de02d65426b00d0f9803c701b40fe1d57a4f2e37de3813f43443bdfa"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_BLOQUE_5_RC2.md",
+      "sha256": "69cddd3f1dc9d8358f72256b10debfc712852683c893153bd84496d546c194d1"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_BLOQUE_6_RC2.md",
+      "sha256": "aaab29308496ed03eccf1c62c59f1a082c7ca966d8268d5853fb729b82a07875"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_BLOQUE_7A_RC2.md",
+      "sha256": "2c920a4d208b4332134421e330192bf363164da795c9d5a1e360395cdb0460b6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_BLOQUE_8_RC2.md",
+      "sha256": "abc83e60282efdbbebbbe381c7a4a72bb2787002b08ab85cf27eead1317a5594"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_ELEGANCE_2_2_RC1.md",
+      "sha256": "b90d24f723b1a16df7491a3b76e3463e752ca96219caf1c130b8809d6cb9f912"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_SPRINT_1_RC1.md",
+      "sha256": "b7a9c2b6e8592bed9697283b309745c0fa1acab26ccd927a689dcffdc8b83794"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_SPRINT_1_RC2.md",
+      "sha256": "ea5070891f78bf29a2beebdb9b4a56674a808c116def5adfb26076dd3691a074"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_SPRINT_2_RC1.md",
+      "sha256": "d6bdadca6d940e0c6eb00846c9eb16b4bc73cf506485bf67b9363b955c639ce4"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_SPRINT_2_RC2.md",
+      "sha256": "c8a79c147c691a11a2305f2257a6b0b4b66db07e51626b86234775cf08519437"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_SPRINT_3_RC1.md",
+      "sha256": "d713fe205ce2cb2bf48a64cd74f7a4fb77d238eb3718842f06cbfabeb16e1059"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_SPRINT_3_RC2.md",
+      "sha256": "aa4f5d4490b8f0cdeb00c62ab2ab11ecf7df30724f013ef3632071512e99ae87"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_SPRINT_3_RC3.md",
+      "sha256": "d0f7958df3dc85ea79e18cd2d5d18ace35afe0cf06ed1ca042ce73f33a14c272"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_SPRINT_3_RC4.md",
+      "sha256": "78ce4dee023ee68c928aacf86824512753d5e3d1c1c605d658cecbc43becb1c8"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_SPRINT_4_RC1.md",
+      "sha256": "1f76ee5dfaf5037a3db8c177e16cf7551696166d6df79b219511e9eacc337ff2"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_SPRINT_4_RC2.md",
+      "sha256": "14bd29ffeb4849da8a862b9ce89d3d664838e30e3c0c8441071fb8bda5a9aef4"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_SPRINT_4_RC3.md",
+      "sha256": "afb1c37e3e709d50b40a9a6109d3917a505aa027213560d9d9bdb04ee34cf5eb"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_SPRINT_5_RC1.md",
+      "sha256": "cd141f17c709bc45a1a19ba9f8f032dbf5fd934b97cd8ea58d543f883cc9a3c6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/REPORTE_SPRINT_5_RC2.md",
+      "sha256": "a30082841f25bda094d36a406cff72cec0c611188ee43fb43a475e6972cba8cd"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/CAMBIOS_V11.txt",
+      "sha256": "0d3d2b381770db371bf2b4416c4e907b15e7b30cb88dae0f82f725660dc380a8"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/CAMBIOS_V13.txt",
+      "sha256": "f32bf4e32225b261bdf33a476816c30d5fa09dbbd487584a33097ee40c81cd78"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/CAMBIOS_V25_SPRINT3.txt",
+      "sha256": "9ec2a8d1d429d1d862d3861b3f044b5b763c49a7cb8e71a8cc8810e9fe679360"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/CAMBIOS_V7.txt",
+      "sha256": "c6769d82ce621d53e24dc63bd9095ea7ef94e8f8742e550fc9699d1e2e4ddd26"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/CAMBIOS_V7_1.txt",
+      "sha256": "2d0b553511e002f89283af4bc5be6b7d78a461992e057950bae51458da286227"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/CAMBIOS_V9.txt",
+      "sha256": "ada355e6fdde7b5be5edb3d83b60a22b2237bf129612b17d5c7b667cfa83a5f7"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/CORRECCION_V13_1.txt",
+      "sha256": "58965a9686116a5d40615ca6922a27513872347c42da10bb2c4254840b403e3d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/CORRECCION_V7_0_1.txt",
+      "sha256": "d91f8563a58a0f730fec5e6ec87872dff29df468b3909281e95f700b043310f6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/CORRECCION_V7_0_2.txt",
+      "sha256": "d22a517134d04cede006d707d2b4851e6385049c4715e489d4fe69974bc59552"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/LEEME_PRIMERO.txt",
+      "sha256": "09c11a07f0521dd5682c086ba62d8d47402fbff40126faa7cd7477b25b115ef3"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/LEEME_PRIMERO_V9.txt",
+      "sha256": "af4e2a2663a081e9fb8fb0a2d511153924434056e7c99019216959a7dd4a0953"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/LEEME_V14.txt",
+      "sha256": "ff9a968796dcc89f8be3c23d0411cf9c84d1607b854108d42b7632f88b4869fc"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/LEEME_V15.txt",
+      "sha256": "dbaa2134896b2ac87c901beb5a054e0c3c34d9ae32e3288ad2f1ca6f2029039c"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/LEEME_V16.txt",
+      "sha256": "da3caf879229382702c311473538079f622f0c709ec59e526fee5edf12d2bddf"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/LEEME_V21.txt",
+      "sha256": "44d74a044de288bf70696aac4af6b5b7e333e2011f4c863d41e6466f32fb4365"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/LEEME_V22.txt",
+      "sha256": "77f929a31ef0e68784d48af52a480b8237177463ec101c1b50853b3947849260"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/LEEME_V23.txt",
+      "sha256": "6ea4d99efe522754a3c17489f72e46bcd56c0d7351b865031177b72f7f168a42"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/LEEME_V23_0_2.txt",
+      "sha256": "0c1c8ebf3aae6356bccd29bc8f149658e05dbcb9c940aef7429e640fad9e1815"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/LEEME_V23_1_RENDIMIENTO.txt",
+      "sha256": "eddce5cd6ba24ac218188297ee87965ab9f12149953216f0315686bcb0d0fd74"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/LEEME_V23_2_IDENTIFICACION_CATALOGO.txt",
+      "sha256": "2fe184ef952aa69621ce0945f4ba606b9f5e6a58d6eed7baa365f5541fcc5b57"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/LEEME_V23_CORRECCION.txt",
+      "sha256": "2cadceec92bd74651284ab39a566d8b75977e6bb071d0d05b88cd64d55cc31e6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/LEEME_V24_SPRINT2.txt",
+      "sha256": "ebb7c76c292c781ba4e72ef77a250df2aa00bbb5f4c6b356820b9ed6a7a57b02"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/LEEME_V25_SPRINT3.txt",
+      "sha256": "c98971d26cd944d79364bbc74d206a020866467468276e87e3baecd7ff850917"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/LEEME_V26_ENTREGA_CONTROLADA.txt",
+      "sha256": "8700bb84dabfdaa9dc9b44f6688929331d2c8dda2ac3d5459a9a4729763667f3"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/MANIFEST_SHA256.txt",
+      "sha256": "e0aafe9a546fd05347c7ebf8a6a252cd2c7111c5465aa0f62023433d0fece1cf"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/README_V10.txt",
+      "sha256": "73e3882fb11fd1c113ff24a4d6e56d7c1799a7325bb4eb3759861500ae11c831"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/README_V12.txt",
+      "sha256": "f9527400b58bf40f02da655909db87df251b0dab4875529161087ee07ae79070"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/docs/historial/README_V13.txt",
+      "sha256": "1adb3b9ac8040a0155edc96f292c9d1d18f70aaa5d5f0928c99ddaeff5bcbf99"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/public_web/DEPLOYMENT.txt",
+      "sha256": "c8fd586e8ab9a5df166c6a114c2b8658db65f2f2833ea620d60582f2444bb5ae"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/public_web/app.js",
+      "sha256": "afd027f158b2228046bddd3abbea95cbe950d997bd6caa1ed61b0b8ea71a9fa6"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/public_web/index.html",
+      "sha256": "0a35a5f3d65eeec375c56ecb0849d8fac78896acf0e8a7c94f6f5cd04cd5bcae"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/public_web/package.json",
+      "sha256": "177314777230550eadc7ba99f7d7ec5a1998e6c51dfea529cc011e1ff3c04339"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/public_web/product.html",
+      "sha256": "1b59d078683554e382a985b49ec2bb6ed09f25cddbdcc5196156cc9c6c32b1f2"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/public_web/styles.css",
+      "sha256": "a4530b91fcef918c35c75ef00e84341504096c9eca9eb6cae1614a0849d42e4d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/public_web/vercel.json",
+      "sha256": "5ff2442b8e96d4d61484c02dce0c023d9758d2eb706e34f16fe6b40b840da55d"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/scripts/COMPROBAR_REQUISITOS.ps1",
+      "sha256": "f9dc933fcb9444261c4f7ba25ff85defb18dd57a060d784a583060e9db52bb7a"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/scripts/INICIAR_ELEGANCE.ps1",
+      "sha256": "00bf0858994f5425daac921548d6a4f81a86ceb49ce7f8306827ce98d6ad308e"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/scripts/INICIAR_ELEGANCE_V24_SPRINT2.bat",
+      "sha256": "6469be92d934b19a0cd6eaa56e9b1a06744e80d769c70607ad7e975e362428c7"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/scripts/INICIAR_ELEGANCE_V24_SPRINT2.ps1",
+      "sha256": "a1b8e8ea0e171800e20b30db705395b105c661b736e86b33162efe5fa88445a0"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/scripts/INSTALAR_ELEGANCE.ps1",
+      "sha256": "a09997838f47252934ab655f8e6ca9db6974a40f1daadc2def8a808ff24b2731"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/scripts/INSTALAR_ELEGANCE_2_0.ps1",
+      "sha256": "2bf4db02f21ed40877bbfb2c68a134b11a681945a0b69334bdaab1f96e2daa65"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/scripts/INSTALAR_ELEGANCE_V24_SPRINT2.bat",
+      "sha256": "b645df0e38436e227ba09798a517796f5e3b98626575de860317a5440733f5d8"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/scripts/INSTALAR_ELEGANCE_V24_SPRINT2.ps1",
+      "sha256": "82bb17d64b4dcbd96949f58b8ae596d0c54229e6b4cb08a5df28673ec959714a"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/scripts/elegance_maintenance.py",
+      "sha256": "258059ab8662a2c849699a1dde9742c87e55c656730decda1e4dc6b5f4069ecd"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/tools/COMPROBAR_REQUISITOS.bat",
+      "sha256": "61bb21d210577ee29280a7dffe9e9cffc05254a88e380f08467ace183ec7d2be"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/tools/legacy_launchers/INICIAR_DESARROLLO.bat",
+      "sha256": "4e4eb24e627dbc9444d29b94bdff1e12b0736d143b507c0a3cb2c3254e4f06d9"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/tools/legacy_launchers/INICIAR_PRODUCCION.bat",
+      "sha256": "7820197f59f68b5e1da572574e734391243d2325d07732cfbd2aef326458bfba"
+    },
+    {
+      "path": "_ELEGANCE_SYSTEM/tools/legacy_launchers/INICIAR_SPRINT5_RC1.bat",
+      "sha256": "7ba5b3a7fe202a4c5bff477c47084a2f1d921e9b13190ddfedcec2eac4e3017e"
+    }
+  ]
+}

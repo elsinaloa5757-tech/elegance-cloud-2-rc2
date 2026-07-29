@@ -1,0 +1,25 @@
+﻿ELEGANCE V25 — SPRINT 3: CATÁLOGO INTELIGENTE
+
+NOVEDADES
+- Al editar un producto, la marca se normaliza automáticamente.
+- Ejemplos: "boss", "HUGO BOSS" y "hugoboss" se convierten en "Hugo Boss".
+- Un producto que estaba en "Sin identificar" aparece inmediatamente bajo su nueva marca al guardar.
+- Los productos importados desde el S26 también mueven sus archivos físicos a:
+  backend/data/catalogo/MARCA/MODELO/
+- Cuando no hay modelo confirmado, se usa la carpeta "Modelo pendiente".
+- Se crean automáticamente las carpetas que todavía no existen.
+- Se añadió el botón "Reorganizar catálogo" para auditar y corregir todo el catálogo.
+- El selector de marcas ahora muestra contadores y deja "Sin identificar" al final.
+- La base de datos, el catálogo visual y las rutas físicas quedan sincronizados.
+
+PRUEBA RECOMENDADA
+1. Abre Catálogo.
+2. Filtra por "Sin identificar".
+3. Edita un producto y cambia la marca a "boss" o "Hugo Boss".
+4. Pulsa Guardar.
+5. El producto debe aparecer en "Hugo Boss".
+6. Pulsa "Reorganizar catálogo" para revisar todos los productos existentes.
+
+IMPORTANTE
+- No borres la carpeta backend/data: ahí se conserva la base y el catálogo físico.
+- Esta versión mantiene el sistema QR y la bandeja móvil del Sprint 2.

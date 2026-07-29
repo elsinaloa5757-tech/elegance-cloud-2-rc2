@@ -1,0 +1,20 @@
+﻿ELEGANCE V23 - NUCLEO LOCAL Y PUBLICACION AUTOMATICA
+
+BASE REAL: V22 reconocimiento local mejorado.
+
+CAMBIOS PRINCIPALES
+1. OpenAI y Google Vision dejan de ser requisitos del flujo diario.
+2. Auto Sync publica siempre en Catálogo e Inventario después del análisis local.
+3. La marca se conserva cuando existe evidencia suficiente.
+4. El modelo queda vacío/modelo pendiente cuando no alcanza confianza; nunca se inventa para desbloquear el catálogo.
+5. La edición de escenarios deja de ser requisito de publicación. Se conserva la fotografía original.
+6. /auto-process funciona localmente y devuelve publishable=true sin solicitar claves.
+7. Duplicados: solo SHA-256 exactos se omiten; otras vistas se conservan.
+8. SQLite y aprendizaje de correcciones se mantienen.
+
+INSTALACION
+- Ejecuta INSTALAR_ELEGANCE_V23.bat
+- Después ejecuta INICIAR_ELEGANCE_V23.bat
+
+NOTA
+Esta entrega prioriza el núcleo automático y gratuito. Las 23 pantallas premium se integrarán por módulos sobre esta base, no en un reemplazo monolítico.

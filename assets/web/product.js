@@ -1,0 +1,16 @@
+const p=JSON.parse(document.getElementById('productData').textContent.replace(/&quot;/g,'"').replace(/&amp;/g,'&').replace(/&#x27;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>'));
+let size=p.sizes?.[0]||'',color=p.colors?.[0]||'';
+productBrand.textContent=[p.brand,p.category].filter(Boolean).join(' · ');
+productDescription.textContent=p.description||'Producto seleccionado por Elegance.';
+productStatus.textContent=!p.available?'Agotado':p.lowStock?`Últimas ${p.stock} piezas`:`${p.stock} disponibles`;
+if(p.promotionPrice!=null)oldPrice.textContent=Elegance.currency(p.price);
+const gallery=[...new Set((p.images||[]).filter(Boolean))];let imageIndex=0;
+function showImage(index){if(!gallery.length)return;imageIndex=(index+gallery.length)%gallery.length;mainProductImage.src=gallery[imageIndex];zoomImage.src=gallery[imageIndex];document.querySelectorAll('[data-image-index]').forEach(x=>x.classList.toggle('active',+x.dataset.imageIndex===imageIndex))}
+if(gallery.length)showImage(0);
+productThumbs.innerHTML=gallery.map((x,i)=>`<button class="${i===0?'active':''}" data-image-index="${i}"><img src="${x}" alt="Vista ${i+1}" loading="lazy"></button>`).join('');
+mainProductImage.onerror=()=>{if(gallery.length>1){gallery.splice(imageIndex,1);imageIndex=0;showImage(0)}else{mainProductImage.src='/assets/web/elegance-hero.png';zoomImage.src=mainProductImage.src}};
+sizeOptions.innerHTML=(p.sizes?.length?p.sizes:['Única']).map((x,i)=>`<button class="${i===0?'active':''}" data-size="${x}">${x}</button>`).join('');
+colorOptions.innerHTML=(p.colors?.length?p.colors:['Original']).map((x,i)=>`<button class="${i===0?'active':''}" data-color="${x}">${x}</button>`).join('');
+function add(){Elegance.add({productId:p.id,title:p.title,slug:p.slug,image:gallery[imageIndex]||Elegance.image(p),price:p.effectivePrice,size,color,quantity:+quantity.value});addProduct.textContent='Agregado al carrito ✓';setTimeout(()=>addProduct.textContent='Agregar al carrito',1200)}
+document.addEventListener('click',e=>{const im=e.target.closest('[data-image-index]');if(im)showImage(+im.dataset.imageIndex);const s=e.target.closest('[data-size]');if(s){size=s.dataset.size;document.querySelectorAll('[data-size]').forEach(x=>x.classList.toggle('active',x===s))}const c=e.target.closest('[data-color]');if(c){color=c.dataset.color;document.querySelectorAll('[data-color]').forEach(x=>x.classList.toggle('active',x===c))}});
+addProduct.onclick=add;buyWhatsapp.onclick=()=>{add();location='/catalog#carrito'};favoriteProduct.onclick=()=>favoriteProduct.textContent=Elegance.toggleFavorite(p.id)?'♥ Guardado':'♡ Guardar';shareProduct.onclick=async()=>navigator.share?navigator.share({title:p.title,text:p.description,url:location.href}):navigator.clipboard.writeText(location.href);zoomBtn.onclick=()=>{zoomImage.src=mainProductImage.src;zoomModal.classList.add('active')};closeZoom.onclick=()=>zoomModal.classList.remove('active');fetch('/api/public/products').then(r=>r.json()).then(j=>{const rel=(j.products||[]).filter(x=>x.id!==p.id&&(x.category===p.category||x.brand===p.brand)).slice(0,3);relatedProducts.innerHTML=rel.map(x=>Elegance.card(x)).join('')});fetch('/api/public/events',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({eventType:'product_view',productId:p.id,source:new URLSearchParams(location.search).get('source')||'product'})});

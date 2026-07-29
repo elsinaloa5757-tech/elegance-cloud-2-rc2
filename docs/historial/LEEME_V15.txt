@@ -1,0 +1,32 @@
+﻿elegance V15 — identificación precisa y flujo más rápido
+
+CAMBIOS PRINCIPALES
+1. Identificación en dos etapas:
+   - análisis visual del producto;
+   - búsqueda web separada para verificar candidatos.
+2. Nombre confirmado únicamente con consenso de al menos 3 dominios independientes.
+3. SKU y colorway solo se guardan cuando coinciden en fuentes fiables; no se inventan.
+4. Caché local de identificación durante 120 días: una imagen repetida no vuelve a consumir búsqueda.
+5. Auto Sync procesa hasta 2 productos en paralelo para reducir el tiempo sin saturar la API.
+6. Auto Sync no gasta una generación de imagen mientras el nombre siga sin confirmar.
+7. La fotografía final se genera antes de entrar al catálogo.
+8. Al aprobarse un producto se crea automáticamente:
+   - producto de catálogo;
+   - registro en inventario;
+   - borrador de publicación con la imagen final.
+9. Salida visual optimizada en JPEG para evitar que el almacenamiento del navegador se llene rápidamente.
+10. Google Vision quedó como respaldo opcional. La verificación principal utiliza la misma clave OpenAI ya configurada.
+11. El escenario oficial fijo de elegance se usa como referencia visual; el motor recibe instrucciones de ignorar el sneaker y brazo de ejemplo.
+
+INSTALACIÓN
+1. Cierra las ventanas anteriores de Flutter y Python.
+2. Ejecuta INSTALAR_ELEGANCE_V15.bat.
+3. Después ejecuta INICIAR_ELEGANCE_V15.bat.
+4. Abre http://localhost:54105 si el navegador no se abre solo.
+
+CONFIGURACIÓN VISUAL EN LA WEB
+Si la OpenAI API key aparece configurada, la verificación web principal ya está ACTIVA.
+Google Vision es opcional y solo sirve como respaldo. No es necesario pagar o configurar otra API para probar V15.
+
+NOTA
+La primera identificación de un modelo tarda más porque analiza y busca. Las siguientes veces puede usar la caché.

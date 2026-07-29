@@ -1,0 +1,20 @@
+﻿elegance V14 — reconstrucción estable del instalador e iniciador
+
+1. Cierra todas las ventanas anteriores de elegance, Python y Flutter.
+2. Extrae TODO el ZIP en una carpeta normal (no lo ejecutes dentro del ZIP).
+3. Ejecuta INSTALAR_ELEGANCE_V14.bat.
+4. Cuando termine, ejecuta INICIAR_ELEGANCE_V14.bat.
+5. El navegador se abrirá en http://localhost:54105 cuando Flutter esté realmente listo.
+
+Correcciones principales:
+- Eliminado el ciclo infinito de comprobaciones a /routes.
+- El iniciador ya no exige una cadena exacta de versión para continuar.
+- Espera al backend mediante /health y a Flutter mediante el puerto web.
+- Nombres de BAT y PowerShell corregidos y consistentes.
+- Repara/crea la estructura web y Windows de Flutter si falta.
+- Conserva respaldo automático en C:\src\elegance_backups.
+- Mantiene el flujo funcional de V13.1 y la migración segura del selector de modelos.
+
+Notas:
+- Las funciones generativas y de identificación web requieren claves válidas y facturación en los servicios configurados.
+- Mantén abiertas las dos ventanas negras mientras uses la aplicación.

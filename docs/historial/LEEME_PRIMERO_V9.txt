@@ -1,0 +1,15 @@
+﻿elegance V9.0
+
+INSTALACIÓN
+1. Cierra las ventanas negras anteriores de Flutter y Python.
+2. Ejecuta INSTALAR_ELEGANCE_V9.bat.
+3. Ejecuta INICIAR_ELEGANCE_V9.bat.
+4. Abre http://localhost:54105 si Edge no se abre automáticamente.
+5. Si la página aparece blanca al principio, espera y presiona F5.
+
+VERIFICACIÓN WEB AUTOMÁTICA
+En la aplicación entra a Configuración y guarda una Google Vision API key.
+Sin esa clave, elegance no inventa nombres ni publica automáticamente productos no confirmados.
+
+CATÁLOGO
+Solo muestra imágenes finales con el escenario de elegance. Las fotografías originales permanecen como vistas auxiliares dentro de la ficha del producto.
