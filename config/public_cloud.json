@@ -9,7 +9,7 @@
   "admin_panel_public": false,
   "destructive_sync": false,
   "sync_endpoint": "https://czekazhacqaamwecjthp.supabase.co/functions/v1/elegance-sync",
-  "sync_key": "Hsi-upmZJYmm6xV4eydljLPXCm7CyA9gCy2glZC68XhF1m5FJtMcSQlgkmpZ_uCd",
+  "sync_key": "",
   "auto_sync": true,
   "upload_images": true,
   "max_image_mb": 14,

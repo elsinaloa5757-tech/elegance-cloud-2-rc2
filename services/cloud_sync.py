@@ -5,6 +5,7 @@ import hashlib
 import io
 import json
 import mimetypes
+import os
 import shutil
 import sqlite3
 import threading
@@ -97,6 +98,7 @@ def load_cloud_config() -> dict[str, Any]:
             config = {}
     config.setdefault('sync_endpoint', DEFAULT_ENDPOINT)
     config.setdefault('sync_key', '')
+    config['sync_key'] = os.getenv('ELEGANCE_SYNC_KEY', '').strip() or config['sync_key']
     config.setdefault('public_catalog_url', 'https://elegance-public-catalog.vercel.app')
     config.setdefault('auto_sync', True)
     config.setdefault('upload_images', True)

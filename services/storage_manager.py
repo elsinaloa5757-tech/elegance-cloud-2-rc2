@@ -161,7 +161,7 @@ def prepare_product_images(product: dict[str,Any]) -> dict[str,Any]:
 
 
 def _edge(action: str, payload: dict[str,Any], timeout: float|None=None) -> dict[str,Any]:
-    cfg=load_cloud_config(); key=str(cfg.get('sync_key') or '')
+    cfg=load_cloud_config(); key=str(os.getenv('ELEGANCE_SYNC_KEY','').strip() or cfg.get('sync_key') or '')
     if not key: raise RuntimeError('Falta sync_key.')
     r=requests.post(str(cfg.get('sync_endpoint')),json={'action':action,**payload},headers={'x-elegance-sync-key':key,'content-type':'application/json'},timeout=timeout or float(cfg.get('timeout_seconds') or 90))
     try: data=r.json()
