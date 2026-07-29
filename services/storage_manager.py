@@ -18,11 +18,12 @@ from PIL import Image, ImageOps
 
 from services.state_store import database_path
 from services.cloud_sync import load_cloud_config, create_backup
+from services.runtime_config import data_dir
 
 BACKEND = Path(__file__).resolve().parents[1]
-STORE = BACKEND / 'data' / 'storage_manager'
+STORE = data_dir() / 'storage_manager'
 VARIANTS = STORE / 'variants'
-RESTORED = BACKEND / 'data' / 'restored_from_cloud'
+RESTORED = data_dir() / 'restored_from_cloud'
 
 
 def _now() -> str:

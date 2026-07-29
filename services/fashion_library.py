@@ -9,8 +9,10 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
+from services.runtime_config import data_dir
+
 ROOT = Path(__file__).resolve().parents[1]
-DATA_DIR = ROOT / "data"
+DATA_DIR = data_dir()
 DB_PATH = DATA_DIR / "fashion_library.sqlite3"
 SCHEMA_VERSION = 1
 LIBRARY_VERSION = "2026.07-sprint2-rc1"

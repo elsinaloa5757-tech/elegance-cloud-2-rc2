@@ -8,7 +8,7 @@ from typing import Any
 from services.smart_catalog import classify_brand, classify_colors, classify_gender, classify_season, plain
 from services.state_store import load_state, save_state
 
-from services.runtime_config import database_file
+from services.runtime_config import data_dir, database_file
 _DB = database_file()
 
 MODEL_HINTS = {
@@ -145,7 +145,7 @@ try:
 except Exception:  # pragma: no cover
     Image = None
 
-_AI_DIR = Path(__file__).resolve().parents[1] / "data" / "ai_generated"
+_AI_DIR = data_dir() / "ai_generated"
 _AI_DIR.mkdir(parents=True, exist_ok=True)
 
 def _image_path(product: dict[str, Any]) -> Path | None:

@@ -5,10 +5,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from services.runtime_config import data_dir
 from services.state_store import database_path
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA = ROOT / 'data'
+DATA = data_dir()
 BACKUPS = DATA / 'secure_backups'
 ENV_FILE = ROOT / '.env'
 ROLES = {

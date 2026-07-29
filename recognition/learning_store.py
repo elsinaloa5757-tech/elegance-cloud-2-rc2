@@ -8,7 +8,9 @@ from threading import Lock
 
 import numpy as np
 
-_DB = Path(__file__).resolve().parents[1] / "data" / "elegance.sqlite3"
+from services.runtime_config import database_file
+
+_DB = database_file()
 _LOCK = Lock()
 
 @dataclass(frozen=True)
