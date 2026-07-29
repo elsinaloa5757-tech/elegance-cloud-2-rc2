@@ -23,6 +23,7 @@ from services.media_library import migrate_media_library, backfill_state_assets
 from services.sales_manager import migrate_sales_manager
 from services.elegance_brain import migrate_brain
 from services.runtime_config import data_dir, require_production_configuration
+from services.persistent_sqlite import PersistentSQLiteLease, should_sync
 from services.product_media_flow import migrate_product_media
 from services.home_server import start_backup_scheduler, stop_backup_scheduler
 
@@ -107,6 +108,17 @@ def create_app() -> FastAPI:
         response.headers.setdefault("Content-Security-Policy", "default-src 'self'; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'")
         if __import__('os').getenv('ELEGANCE_ENV','development') == 'production':
             response.headers.setdefault("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+        return response
+
+    @app.middleware("http")
+    async def persistent_database(request: Request, call_next):
+        if not should_sync(request.url.path):
+            return await call_next(request)
+        with PersistentSQLiteLease() as lease:
+            request.state.persistence = lease
+            response = await call_next(request)
+        response.headers.setdefault("X-Elegance-Persistence", "postgres")
+        response.headers.setdefault("X-Elegance-Revision", str(lease.revision))
         return response
 
     app.mount('/assets', StaticFiles(directory=str(__import__('pathlib').Path(__file__).resolve().parents[1] / 'assets')), name='assets')
