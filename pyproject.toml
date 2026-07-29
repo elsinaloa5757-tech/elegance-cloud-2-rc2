@@ -1,2 +1,20 @@
+[project]
+name = "elegance-cloud-2-rc2"
+version = "2.0.0rc2"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi",
+  "uvicorn",
+  "python-multipart",
+  "pillow",
+  "numpy",
+  "opencv-python-headless",
+  "scikit-learn",
+  "requests",
+  "pytesseract",
+  "qrcode[pil]",
+  "psycopg[binary]>=3.2,<4",
+]
+
 [tool.vercel]
 entrypoint = "server:app"
