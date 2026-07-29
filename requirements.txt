@@ -1,0 +1,4 @@
+-r requirements-core.txt
+# Las funciones visuales avanzadas son opcionales para evitar una instalación inicial excesiva.
+# Para habilitarlas: pip install -r requirements-ai-optional.txt
+psycopg[binary]>=3.2,<4

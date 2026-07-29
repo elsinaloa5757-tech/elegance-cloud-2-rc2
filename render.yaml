@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: elegance-cloud-2-rc2
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/system/status
+    autoDeploy: false
+    envVars:
+      - key: ELEGANCE_ENV
+        value: production
+      - key: ELEGANCE_DATA_DIR
+        value: /data
+      - key: ELEGANCE_ALLOWED_ORIGINS
+        sync: false
+      - key: ELEGANCE_PUBLIC_URL
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+    disk:
+      name: elegance-data
+      mountPath: /data
+      sizeGB: 1

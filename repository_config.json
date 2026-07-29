@@ -1,0 +1,6 @@
+{
+  "active": "sqlite",
+  "sqlite": {"managed_locally": true},
+  "future_adapters": ["postgresql", "supabase"],
+  "note": "La capa de servicios evita que las rutas dependan directamente del proveedor futuro."
+}
