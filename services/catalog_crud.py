@@ -243,6 +243,22 @@ def list_products(filters: dict[str, Any] | None = None) -> dict[str, Any]:
     size = str(filters.get("size") or "").strip().lower()
     color = str(filters.get("color") or "").strip().lower()
     result = []
+    thumbnails: dict[str, str] = {}
+    try:
+        with _db() as connection:
+            rows = connection.execute(
+                """SELECT a.product_id,a.is_cover,o.backend,o.public_url
+                   FROM product_media_assets a
+                   JOIN product_media_outputs o ON o.asset_id=a.id
+                   WHERE a.status='ready' AND o.format='thumbnail'
+                   ORDER BY a.is_cover DESC,
+                            CASE WHEN o.backend='supabase' THEN 0 ELSE 1 END,
+                            a.created_at"""
+            ).fetchall()
+        for row in rows:
+            thumbnails.setdefault(str(row["product_id"]), str(row["public_url"] or ""))
+    except sqlite3.OperationalError:
+        pass
     for product in products:
         haystack = " ".join(str(product.get(key) or "") for key in ("title", "brand", "model", "category", "subcategory")).lower()
         if q and q not in haystack:
@@ -257,7 +273,44 @@ def list_products(filters: dict[str, Any] | None = None) -> dict[str, Any]:
             continue
         if color and color not in [str(item).lower() for item in product.get("colors", [])]:
             continue
-        result.append(product)
+        fallback_images: list[str] = []
+        for field in ("catalogImage", "image", "imagePath", "approvedStudioImage"):
+            value = product.get(field)
+            if isinstance(value, str) and value.strip():
+                fallback_images.append(value.strip())
+        for field in ("originalImages", "images", "approvedStudioImages"):
+            values = product.get(field)
+            if isinstance(values, list):
+                for value in values:
+                    candidate = (
+                        value.get("publicUrl") or value.get("path")
+                        if isinstance(value, dict)
+                        else value
+                    )
+                    if isinstance(candidate, str) and candidate.strip():
+                        fallback_images.append(candidate.strip())
+        encoded = str(product.get("imageBase64") or "").strip()
+        if not encoded:
+            gallery = product.get("galleryBase64")
+            if isinstance(gallery, list) and gallery:
+                encoded = str(gallery[0] or "").strip()
+        if encoded:
+            fallback_images.append(
+                encoded if encoded.startswith("data:") else f"data:image/webp;base64,{encoded}"
+            )
+        fallback_images.sort(
+            key=lambda value: 0
+            if value.startswith(("https://", "http://"))
+            else 1
+            if value.startswith("data:")
+            else 2
+        )
+        item = dict(product)
+        item["thumbnailUrl"] = (
+            thumbnails.get(str(product.get("id") or ""))
+            or (fallback_images[0] if fallback_images else "")
+        )
+        result.append(item)
     result.sort(key=lambda item: str(item.get("updatedAt") or item.get("createdAt") or ""), reverse=True)
     return {"products": result, "count": len(result), "facets": facets(products)}
 

@@ -19,7 +19,7 @@ from services.server_installation import installation_report as block8_installat
 from services.mobile_command_center import (mobile_status, register_device, heartbeat as mobile_heartbeat, list_devices as mobile_devices, disable_device, create_emergency_snapshot, list_emergency_snapshots, snapshot_path)
 
 from services.product_media_flow import (
-    upload_batch as media_upload_batch, list_assets as media_list_assets, set_cover as media_set_cover,
+    upload_batch as media_upload_batch, list_assets as product_media_list_assets, set_cover as media_set_cover,
     assign_variant as media_assign_variant, retry_asset as media_retry_asset, delete_asset as media_delete_asset,
 )
 from services.catalog_organizer import organize_state, normalize_brand
@@ -1267,7 +1267,7 @@ def accept_euiv_candidate(candidate_id:str,payload:dict=Body(default={})):
 
 
 # Elegance Platform 2.2 RC1: biblioteca permanente y centro de publicación.
-from services.media_library import list_assets as media_list_assets, archive_asset as media_archive_asset, settings as publication_settings, update_settings as update_publication_settings, backfill_state_assets
+from services.media_library import list_assets as library_media_list_assets, archive_asset as media_archive_asset, settings as publication_settings, update_settings as update_publication_settings, backfill_state_assets
 
 @router.get('/media-library', response_class=HTMLResponse)
 def media_library_page()->HTMLResponse:
@@ -1279,7 +1279,7 @@ def publication_center_page()->HTMLResponse:
 
 @router.get('/api/media/assets')
 def api_media_assets(status:str='active',product_id:str='',limit:int=500)->dict:
-    return {'status':'ok','assets':media_list_assets(status,product_id,limit)}
+    return {'status':'ok','assets':library_media_list_assets(status,product_id,limit)}
 
 @router.post('/api/media/assets/{asset_id}/status')
 def api_media_asset_status(asset_id:str,payload:dict=Body(...))->dict:
@@ -1643,7 +1643,7 @@ async def product_images_batch(
 
 @router.get("/api/admin/catalog/products/{product_id}/images")
 def product_images_list(product_id: str) -> dict:
-    return media_list_assets(product_id)
+    return product_media_list_assets(product_id)
 
 
 @router.put("/api/admin/catalog/products/{product_id}/images/{asset_id}/cover")

@@ -6,6 +6,7 @@ from contextlib import asynccontextmanager
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, RedirectResponse, HTMLResponse
+from starlette.concurrency import run_in_threadpool
 
 from api.routes import router
 from api.library_routes import router as library_router, public_router as library_public_router
@@ -23,7 +24,7 @@ from services.media_library import migrate_media_library, backfill_state_assets
 from services.sales_manager import migrate_sales_manager
 from services.elegance_brain import migrate_brain
 from services.runtime_config import data_dir, require_production_configuration
-from services.persistent_sqlite import PersistentSQLiteLease, should_sync
+from services.persistent_sqlite import PersistentSQLiteLease, hydrate_persistent_snapshot, should_sync
 from services.product_media_flow import migrate_product_media
 from services.home_server import start_backup_scheduler, stop_backup_scheduler
 
@@ -114,6 +115,13 @@ def create_app() -> FastAPI:
     async def persistent_database(request: Request, call_next):
         if not should_sync(request.url.path):
             return await call_next(request)
+        if request.method in {"GET", "HEAD", "OPTIONS"}:
+            lease = await run_in_threadpool(hydrate_persistent_snapshot)
+            request.state.persistence = lease
+            response = await call_next(request)
+            response.headers.setdefault("X-Elegance-Persistence", "postgres-read")
+            response.headers.setdefault("X-Elegance-Revision", str(lease.revision))
+            return response
         with PersistentSQLiteLease() as lease:
             request.state.persistence = lease
             response = await call_next(request)

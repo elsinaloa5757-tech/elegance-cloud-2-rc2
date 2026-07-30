@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import os
 import sqlite3
+import threading
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -11,6 +12,8 @@ from services.runtime_config import database_file
 
 _SNAPSHOT_ID = "main"
 _LOCK_ID = 7_575_702_002
+_HYDRATE_LOCK = threading.RLock()
+_LOCAL_REVISION: dict[str, int] = {}
 _SKIP_PREFIXES = (
     "/assets/",
     "/favicon",
@@ -67,6 +70,49 @@ def _snapshot(path: Path) -> bytes:
     with sqlite3.connect(path, timeout=30) as connection:
         connection.execute("PRAGMA wal_checkpoint(TRUNCATE)")
     return path.read_bytes()
+
+
+def hydrate_persistent_snapshot() -> LeaseStatus:
+    """Refresh a reader without holding the writer lock during its request."""
+    status = LeaseStatus(enabled=enabled())
+    if not status.enabled:
+        return status
+
+    import psycopg
+
+    path = database_file()
+    with _HYDRATE_LOCK:
+        with psycopg.connect(
+            os.environ["DATABASE_URL"].strip(),
+            autocommit=False,
+            prepare_threshold=None,
+            connect_timeout=10,
+            application_name="elegance-vercel-reader",
+        ) as connection:
+            cursor = connection.cursor()
+            cursor.execute("set local lock_timeout = '8s'")
+            cursor.execute("select pg_advisory_xact_lock_shared(%s)", (_LOCK_ID,))
+            cursor.execute(
+                "select revision, sqlite_blob, sha256, size_bytes "
+                "from elegance_private.runtime_databases where id=%s",
+                (_SNAPSHOT_ID,),
+            )
+            row = cursor.fetchone()
+            if not row:
+                return status
+            revision, payload, digest, size_bytes = row
+            data = bytes(payload)
+            if len(data) != int(size_bytes) or _sha256(data) != str(digest):
+                raise RuntimeError("La instantánea persistente de Elegance no superó la verificación de integridad.")
+            cache_key = str(path)
+            if _LOCAL_REVISION.get(cache_key) != int(revision) or not path.exists():
+                _restore(path, data)
+                _LOCAL_REVISION[cache_key] = int(revision)
+            status.hydrated = True
+            status.revision = int(revision)
+            status.size_bytes = len(data)
+            status.sha256 = str(digest)
+    return status
 
 
 @dataclass
@@ -136,6 +182,7 @@ class PersistentSQLiteLease:
                 self.status.revision = int(revision)
                 self.status.size_bytes = len(data)
                 self.status.sha256 = str(digest)
+                _LOCAL_REVISION[str(self._path)] = int(revision)
             return self.status
         except Exception:
             # __exit__ is not called when __enter__ raises. Explicit cleanup is
@@ -170,6 +217,7 @@ class PersistentSQLiteLease:
                         (_SNAPSHOT_ID, payload, digest, len(payload)),
                     )
                     self.status.revision = int(cursor.fetchone()[0])
+                    _LOCAL_REVISION[str(self._path)] = self.status.revision
                     self.status.persisted = True
                     self.status.size_bytes = len(payload)
                     self.status.sha256 = digest

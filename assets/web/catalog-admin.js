@@ -12,19 +12,22 @@ async function api(url, options={}){
 }
 function query(){const p=new URLSearchParams();['q','category','brand','status'].forEach(k=>{const el=$(k);if(el?.value)p.set(k,el.value)});return p.toString();}
 async function load(){
-  const data=await api('/api/admin/catalog/products?'+query());state.products=data.products;state.facets=data.facets;renderFilters();render();
-  const pubs=await api('/api/admin/publications');
-  $('publishedCount').textContent=pubs.products.filter(x=>x.status==='published').length;
-  $('draftCount').textContent=pubs.products.filter(x=>x.status==='draft').length;
+  const catalogPromise=api('/api/admin/catalog/products?'+query());
+  const publicationsPromise=api('/api/admin/publications').catch(()=>({products:[]}));
+  const requestsPromise=api('/api/public/requests?status=new').catch(()=>({requests:[]}));
+  const data=await catalogPromise;state.products=data.products;state.facets=data.facets;renderFilters();render();
+  const [pubs,req]=await Promise.all([publicationsPromise,requestsPromise]);
+  $('publishedCount').textContent=(pubs.products||[]).filter(x=>x.status==='published').length;
+  $('draftCount').textContent=(pubs.products||[]).filter(x=>x.status==='draft').length;
   $('soldCount').textContent=state.products.filter(x=>Number(x.stock||0)<=0).length;
-  try{const req=await api('/api/public/requests?status=new');$('requestCount').textContent=(req.requests||[]).length}catch{$('requestCount').textContent='—'}
+  $('requestCount').textContent=(req.requests||[]).length;
 }
 function renderFilters(){
   const fill=(id,items,label)=>{const el=$(id);const current=el.value;el.innerHTML=`<option value="">${label}</option>`+(items||[]).map(x=>`<option ${x===current?'selected':''}>${esc(x)}</option>`).join('')};
   fill('category',state.facets.categories,'Todas las categorías');fill('brand',state.facets.brands,'Todas las marcas');fill('status',state.facets.statuses,'Todos los estados');
 }
 function render(){
-  $('adminProducts').innerHTML=state.products.length?state.products.map(p=>`<button class="product-row" onclick="editProduct('${esc(p.id)}')"><span><b>${esc(p.title||'Sin nombre')}</b><small>${esc([p.brand,p.model,p.category].filter(Boolean).join(' · '))}</small></span><span><b>${money(p.price)}</b><small>${Number(p.stock||0)} disponibles</small></span></button>`).join(''):'<p class="empty">No hay productos con estos filtros.</p>';
+  $('adminProducts').innerHTML=state.products.length?state.products.map(p=>`<button class="product-row" onclick="editProduct('${esc(p.id)}')">${p.thumbnailUrl?`<img class="product-thumb" src="${esc(p.thumbnailUrl)}" alt="" loading="lazy" decoding="async">`:'<span class="product-thumb placeholder" aria-hidden="true">e</span>'}<span class="product-main"><b>${esc(p.title||'Sin nombre')}</b><small>${esc([p.brand,p.model,p.category].filter(Boolean).join(' · '))}</small></span><span class="product-price"><b>${money(p.price)}</b><small>${Number(p.stock||0)} disponibles</small></span></button>`).join(''):'<p class="empty">No hay productos con estos filtros.</p>';
 }
 function variantsFromProduct(p){return (p.variants||[]).map(v=>({id:v.id,size:v.size,color:v.color,stock:v.stock,salePrice:v.sale_price,purchasePrice:v.purchase_price,sku:v.sku}));}
 function openEditor(p={}){
