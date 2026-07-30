@@ -61,6 +61,9 @@ def _connect() -> sqlite3.Connection:
           status TEXT NOT NULL DEFAULT 'queued',
           error TEXT NOT NULL DEFAULT '',
           result_json TEXT NOT NULL DEFAULT '',
+          cloud_object_id TEXT NOT NULL DEFAULT '',
+          cloud_status TEXT NOT NULL DEFAULT 'pending',
+          cloud_verified_at TEXT,
           created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
           updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
           UNIQUE(sha256)
@@ -69,6 +72,15 @@ def _connect() -> sqlite3.Connection:
         CREATE INDEX IF NOT EXISTS idx_mobile_files_status ON mobile_files(status);
         """
     )
+    columns = {row["name"] for row in con.execute("PRAGMA table_info(mobile_files)")}
+    for name, ddl in (
+        ("cloud_object_id", "TEXT NOT NULL DEFAULT ''"),
+        ("cloud_status", "TEXT NOT NULL DEFAULT 'pending'"),
+        ("cloud_verified_at", "TEXT"),
+    ):
+        if name not in columns:
+            con.execute(f"ALTER TABLE mobile_files ADD COLUMN {name} {ddl}")
+    con.commit()
     return con
 
 
@@ -142,7 +154,49 @@ async def save_upload(batch_id: str, upload: UploadFile) -> dict[str, Any]:
             (batch_id,),
         )
         con.commit()
-    return {"status": "queued", "id": file_id, "sha256": digest, "size": size}
+
+    # Vercel's filesystem is temporary. Persist and verify the original before
+    # telling the phone that the upload can be removed from its gallery.
+    cloud_status = "pending"
+    safe_to_delete = False
+    cloud_error = ""
+    try:
+        from services.storage_manager import prepare_source_original, upload_objects
+        prepared = prepare_source_original(f"mobile-{file_id}", target)
+        object_id = str(prepared["object"]["id"])
+        uploaded = upload_objects([object_id])
+        safe_to_delete = bool(uploaded.get("ok") and uploaded.get("verified"))
+        cloud_status = "verified" if safe_to_delete else "retry"
+        with _LOCK, _connect() as con:
+            con.execute(
+                """UPDATE mobile_files
+                   SET cloud_object_id=?,cloud_status=?,cloud_verified_at=CASE WHEN ? THEN CURRENT_TIMESTAMP ELSE NULL END,
+                       updated_at=CURRENT_TIMESTAMP WHERE id=?""",
+                (object_id, cloud_status, 1 if safe_to_delete else 0, file_id),
+            )
+            con.commit()
+    except Exception as exc:  # local queue remains recoverable and retryable
+        cloud_status = "retry"
+        cloud_error = str(exc)
+        with _LOCK, _connect() as con:
+            con.execute(
+                "UPDATE mobile_files SET cloud_status='retry',error=?,updated_at=CURRENT_TIMESTAMP WHERE id=?",
+                (f"Copia remota pendiente: {cloud_error}"[:1000], file_id),
+            )
+            con.commit()
+    return {
+        "status": "queued",
+        "id": file_id,
+        "sha256": digest,
+        "size": size,
+        "cloudStatus": cloud_status,
+        "safeToDeleteFromPhone": safe_to_delete,
+        "message": (
+            "Original verificado en la nube. Ya puedes borrarlo del teléfono."
+            if safe_to_delete
+            else "No lo borres todavía: la copia remota sigue pendiente."
+        ),
+    }
 
 
 def batch_status(batch_id: str) -> dict[str, Any]:
@@ -152,10 +206,25 @@ def batch_status(batch_id: str) -> dict[str, Any]:
             raise KeyError(batch_id)
         data = dict(row)
         latest = con.execute(
-            "SELECT original_name,status,error,result_json FROM mobile_files WHERE batch_id=? ORDER BY created_at DESC LIMIT 12",
+            """SELECT original_name,status,error,result_json,cloud_status,cloud_verified_at
+               FROM mobile_files WHERE batch_id=? ORDER BY created_at DESC LIMIT 12""",
             (batch_id,),
         ).fetchall()
+        cloud = con.execute(
+            """SELECT COUNT(*) total,
+                      SUM(CASE WHEN cloud_status='verified' THEN 1 ELSE 0 END) verified,
+                      SUM(CASE WHEN cloud_status!='verified' THEN 1 ELSE 0 END) pending
+               FROM mobile_files WHERE batch_id=?""",
+            (batch_id,),
+        ).fetchone()
     data["latest"] = [dict(x) | {"result": json.loads(x["result_json"]) if x["result_json"] else None} for x in latest]
+    data["cloudVerified"] = int(cloud["verified"] or 0)
+    data["cloudPending"] = int(cloud["pending"] or 0)
+    data["safeToDeleteFromPhone"] = bool(
+        int(data["received"]) >= int(data["total"])
+        and int(data["total"]) > 0
+        and data["cloudPending"] == 0
+    )
     return data
 
 

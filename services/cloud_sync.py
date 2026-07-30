@@ -107,6 +107,11 @@ def load_cloud_config() -> dict[str, Any]:
     config.setdefault('image_quality', 86)
     config.setdefault('max_image_edge', 1800)
     config.setdefault('thumbnail_edge', 480)
+    config.setdefault('public_storage_bucket', 'elegance-public')
+    config.setdefault('private_storage_bucket', 'elegance-private')
+    config.setdefault('storage_keep_original', True)
+    config.setdefault('storage_keep_edited', True)
+    config.setdefault('storage_verify_sha256', True)
     config.setdefault('max_attempts', 5)
     config.setdefault('retry_base_seconds', 15)
     config.setdefault('worker_interval_seconds', 4)
@@ -118,7 +123,9 @@ def save_cloud_config(payload: dict[str, Any]) -> dict[str, Any]:
     allowed = {
         'sync_endpoint','sync_key','public_catalog_url','auto_sync','upload_images','max_image_mb',
         'timeout_seconds','image_quality','max_image_edge','thumbnail_edge','max_attempts',
-        'retry_base_seconds','worker_interval_seconds'
+        'retry_base_seconds','worker_interval_seconds',
+        'public_storage_bucket','private_storage_bucket','storage_keep_original',
+        'storage_keep_edited','storage_verify_sha256'
     }
     for key in allowed:
         if key in payload:

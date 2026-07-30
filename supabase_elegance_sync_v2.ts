@@ -4,6 +4,7 @@ const cors={"Access-Control-Allow-Origin":"*","Access-Control-Allow-Headers":"co
 const out=(v:unknown,s=200)=>new Response(JSON.stringify(v),{status:s,headers:{...cors,"content-type":"application/json"}});
 async function shaBytes(bytes:Uint8Array){const d=await crypto.subtle.digest("SHA-256",bytes);return [...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,"0")).join("")}
 async function sha(v:string){return shaBytes(new TextEncoder().encode(v))}
+function bytesToBase64(bytes:Uint8Array){let value="";const size=32768;for(let i=0;i<bytes.length;i+=size)value+=String.fromCharCode(...bytes.subarray(i,i+size));return btoa(value)}
 const slug=(v:string)=>v.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,100)||crypto.randomUUID();
 Deno.serve(async req=>{
  if(req.method==="OPTIONS")return new Response("ok",{headers:cors});
@@ -20,13 +21,14 @@ Deno.serve(async req=>{
    const gb=await sb.storage.getBucket(bucket); if(gb.error){const cb=await sb.storage.createBucket(bucket,{public:bucket==="elegance-public",fileSizeLimit:52428800});if(cb.error && !String(cb.error.message||"").toLowerCase().includes("already"))throw cb.error;} const up=await sb.storage.from(bucket).upload(path,bytes,{contentType:String(o.content_type||"application/octet-stream"),upsert:true}); if(up.error)throw up.error;
    const meta={id:String(o.id||crypto.randomUUID()),product_id:String(o.product_id||""),variant:String(o.variant||"original"),sha256:digest,size_bytes:bytes.length,content_type:String(o.content_type||"application/octet-stream"),bucket,object_path:path,verified_at:new Date().toISOString()};
    const url=bucket==="elegance-public"?`${Deno.env.get("SUPABASE_URL")}/storage/v1/object/public/${bucket}/${path}`:null;
+   const manifest=await sb.from("elegance_storage_objects").upsert({local_object_id:meta.id,product_id:meta.product_id,variant:meta.variant,sha256:meta.sha256,size_bytes:meta.size_bytes,content_type:meta.content_type,bucket:meta.bucket,object_path:meta.object_path,public_url:url,verified:true,verified_at:meta.verified_at,updated_at:meta.verified_at},{onConflict:"local_object_id"});if(manifest.error)throw manifest.error;
    return out({ok:true,object:{...meta,url}});
   }
   if(b.action==="storage_download"){
    const bucket=String(b.bucket||""); const path=String(b.object_path||""); const dl=await sb.storage.from(bucket).download(path); if(dl.error)throw dl.error;
-   const bytes=new Uint8Array(await dl.data.arrayBuffer()); return out({ok:true,base64:btoa(String.fromCharCode(...bytes)),sha256:await shaBytes(bytes),size_bytes:bytes.length});
+   const bytes=new Uint8Array(await dl.data.arrayBuffer()); return out({ok:true,base64:bytesToBase64(bytes),sha256:await shaBytes(bytes),size_bytes:bytes.length});
   }
-  if(b.action==="storage_inventory") return out({ok:true,count:0,objects:[],source:"local_manifest"});
+  if(b.action==="storage_inventory"){const rows=await sb.from("elegance_storage_objects").select("local_object_id,product_id,variant,sha256,size_bytes,content_type,bucket,object_path,public_url,verified,verified_at").order("updated_at",{ascending:false}).limit(5000);if(rows.error)throw rows.error;return out({ok:true,count:rows.data.length,objects:rows.data,source:"supabase_manifest"})}
   if(b.action==="storage_cleanup_orphans") return out({ok:true,dry_run:true,count:0,orphans:[],message:"La limpieza destructiva requiere confirmación desde el manifiesto local."});
   const products=Array.isArray(b.products)?b.products:[];const results=[];
   for(const p of products){const id=String(p.id||crypto.randomUUID());const s=String(p.slug||slug(String(p.title||p.name||id)));const uploaded=[];

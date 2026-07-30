@@ -161,6 +161,25 @@ def prepare_product_images(product: dict[str,Any]) -> dict[str,Any]:
     return {'ok':True,'productId':pid,'sourceCount':len(sources),'objects':prepared,'deduplicated':duplicates}
 
 
+def prepare_source_original(product_id: str, source: str | Path) -> dict[str, Any]:
+    """Register an incoming original before any destructive/local processing.
+
+    Mobile uploads use this small path first so the source photograph is copied
+    to the private bucket and hash-verified before the phone reports it as safe
+    to delete.
+    """
+    pid = str(product_id or '').strip()
+    path = Path(source)
+    if not pid:
+        raise ValueError('Se requiere un identificador para la fotografía.')
+    if not path.exists() or not path.is_file():
+        raise ValueError('No se encontró la fotografía original.')
+    cfg = load_cloud_config()
+    bucket = str(cfg.get('private_storage_bucket') or 'elegance-private')
+    item = _prepare_one(pid, path, 'original', edge=0, quality=100, bucket=bucket)
+    return {'ok': True, 'productId': pid, 'object': item}
+
+
 def _edge(action: str, payload: dict[str,Any], timeout: float|None=None) -> dict[str,Any]:
     cfg=load_cloud_config(); key=str(os.getenv('ELEGANCE_SYNC_KEY','').strip() or cfg.get('sync_key') or '')
     if not key: raise RuntimeError('Falta sync_key.')
@@ -171,10 +190,8 @@ def _edge(action: str, payload: dict[str,Any], timeout: float|None=None) -> dict
     return data
 
 
-def upload_pending(limit: int=20) -> dict[str,Any]:
+def _upload_rows(rows: list[sqlite3.Row]) -> dict[str, Any]:
     create_backup('before_storage_upload')
-    with _connect() as con:
-        rows=con.execute("SELECT * FROM storage_objects WHERE status IN ('prepared','retry','failed') ORDER BY created_at LIMIT ?",(max(1,min(limit,100)),)).fetchall()
     ok=failed=0; results=[]
     for row in rows:
         local=Path(row['local_path'] or '')
@@ -196,6 +213,32 @@ def upload_pending(limit: int=20) -> dict[str,Any]:
                 _history(con,row['id'],row['product_id'],'upload_failed',False,{'error':str(exc)}); con.commit()
             failed+=1
     return {'ok':failed==0,'processed':len(rows),'verified':ok,'failed':failed,'results':results}
+
+
+def upload_objects(object_ids: list[str]) -> dict[str, Any]:
+    ids = [str(value).strip() for value in object_ids if str(value).strip()]
+    if not ids:
+        return {'ok': True, 'processed': 0, 'verified': 0, 'failed': 0, 'results': []}
+    marks = ','.join('?' for _ in ids)
+    with _connect() as con:
+        rows = con.execute(
+            f"SELECT * FROM storage_objects WHERE id IN ({marks}) AND status IN ('prepared','retry','failed')",
+            ids,
+        ).fetchall()
+        already = con.execute(
+            f"SELECT * FROM storage_objects WHERE id IN ({marks}) AND cloud_verified=1", ids
+        ).fetchall()
+    result = _upload_rows(list(rows))
+    result['alreadyVerified'] = len(already)
+    if not rows and already:
+        result['verified'] = len(already)
+    return result
+
+
+def upload_pending(limit: int=20) -> dict[str,Any]:
+    with _connect() as con:
+        rows=con.execute("SELECT * FROM storage_objects WHERE status IN ('prepared','retry','failed') ORDER BY created_at LIMIT ?",(max(1,min(limit,100)),)).fetchall()
+    return _upload_rows(list(rows))
 
 
 def storage_status(limit:int=200)->dict[str,Any]:
