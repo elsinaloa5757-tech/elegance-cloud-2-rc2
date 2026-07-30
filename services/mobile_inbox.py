@@ -136,19 +136,44 @@ async def save_upload(batch_id: str, upload: UploadFile) -> dict[str, Any]:
         raise ValueError("Archivo vacío")
 
     with _LOCK, _connect() as con:
-        exists = con.execute("SELECT id FROM mobile_files WHERE sha256=?", (digest,)).fetchone()
-        if exists:
+        exists = con.execute(
+            "SELECT id,cloud_status FROM mobile_files WHERE sha256=?",
+            (digest,),
+        ).fetchone()
+        if exists and exists["cloud_status"] == "verified":
             target.unlink(missing_ok=True)
             con.execute(
-                "UPDATE mobile_batches SET received=received+1,duplicates=duplicates+1,updated_at=CURRENT_TIMESTAMP WHERE id=?",
+                """UPDATE mobile_batches
+                   SET received=received+1,duplicates=duplicates+1,status='done',
+                       updated_at=CURRENT_TIMESTAMP WHERE id=?""",
                 (batch_id,),
             )
             con.commit()
-            return {"status": "duplicate", "sha256": digest, "size": size}
-        con.execute(
-            "INSERT INTO mobile_files(id,batch_id,original_name,sha256,source_path,status) VALUES(?,?,?,?,?,'queued')",
-            (file_id, batch_id, upload.filename or target.name, digest, str(target)),
-        )
+            return {
+                "status": "duplicate",
+                "sha256": digest,
+                "size": size,
+                "cloudStatus": "verified",
+                "safeToDeleteFromPhone": True,
+                "message": "Esta imagen ya estaba verificada en la nube.",
+            }
+        if exists:
+            # The previous serverless filesystem may already be gone. Reuse the
+            # database record but point it at the fresh upload and retry cloud
+            # verification instead of discarding the phone's only new copy.
+            file_id = str(exists["id"])
+            con.execute(
+                """UPDATE mobile_files
+                   SET batch_id=?,original_name=?,source_path=?,status='queued',
+                       error='',cloud_status='retry',updated_at=CURRENT_TIMESTAMP
+                   WHERE id=?""",
+                (batch_id, upload.filename or target.name, str(target), file_id),
+            )
+        else:
+            con.execute(
+                "INSERT INTO mobile_files(id,batch_id,original_name,sha256,source_path,status) VALUES(?,?,?,?,?,'queued')",
+                (file_id, batch_id, upload.filename or target.name, digest, str(target)),
+            )
         con.execute(
             "UPDATE mobile_batches SET received=received+1,status='processing',updated_at=CURRENT_TIMESTAMP WHERE id=?",
             (batch_id,),

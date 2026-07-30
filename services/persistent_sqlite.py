@@ -18,7 +18,16 @@ _SKIP_PREFIXES = (
     "/robots.txt",
     "/sw.js",
 )
-_SKIP_EXACT = {"/health", "/api/health"}
+_SKIP_EXACT = {
+    "/health",
+    "/api/health",
+    # These are immutable PWA shell resources. Acquiring the global SQLite
+    # lease for them can make Android receive a 500 while another request is
+    # processing an image, which prevents the app from being installable.
+    "/mobile/install",
+    "/mobile/manifest.webmanifest",
+    "/mobile/sw.js",
+}
 
 
 def enabled() -> bool:

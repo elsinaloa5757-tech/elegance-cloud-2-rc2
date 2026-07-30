@@ -480,17 +480,34 @@ def mobile_manifest() -> JSONResponse:
     return JSONResponse({
         "name": "elegance móvil",
         "short_name": "elegance",
+        "id": "/mobile",
         "start_url": "/mobile",
+        "scope": "/mobile",
         "display": "standalone",
         "background_color": "#02080c",
         "theme_color": "#02080c",
-        "icons": [],
+        "icons": [{
+            "src": "/pwa-icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable",
+        }],
     }, media_type="application/manifest+json")
 
 
 @router.get("/mobile/sw.js")
 def mobile_service_worker() -> Response:
-    script = "self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>self.clients.claim());"
+    script = (
+        "const C='elegance-mobile-v2';"
+        "self.addEventListener('install',e=>e.waitUntil("
+        "caches.open(C).then(c=>c.addAll(['/mobile','/mobile/install','/mobile/manifest.webmanifest','/pwa-icon.svg']))"
+        ".then(()=>self.skipWaiting())));"
+        "self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));"
+        "self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;"
+        "e.respondWith(fetch(e.request).then(r=>{const copy=r.clone();"
+        "caches.open(C).then(c=>c.put(e.request,copy));return r})"
+        ".catch(()=>caches.match(e.request).then(r=>r||caches.match('/mobile'))))});"
+    )
     return Response(script, media_type="application/javascript")
 
 

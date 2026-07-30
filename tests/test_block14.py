@@ -125,3 +125,71 @@ def test_mobile_upload_keeps_delete_warning_when_cloud_fails(monkeypatch, tmp_pa
     assert result["cloudStatus"] == "retry"
     assert result["safeToDeleteFromPhone"] is False
     assert "No lo borres" in result["message"]
+
+
+def test_pending_duplicate_is_retried_with_fresh_phone_copy(monkeypatch, tmp_path: Path):
+    monkeypatch.setenv("ELEGANCE_DATA_DIR", str(tmp_path))
+    import services.runtime_config as runtime_config
+    import services.state_store as state_store
+    import services.storage_manager as storage_manager
+    import services.mobile_inbox as mobile_inbox
+
+    importlib.reload(runtime_config)
+    importlib.reload(state_store)
+    importlib.reload(storage_manager)
+    mobile = importlib.reload(mobile_inbox)
+    first_batch = mobile.create_batch("S26 Ultra", 1)
+    monkeypatch.setattr(
+        storage_manager,
+        "prepare_source_original",
+        lambda product_id, source: (_ for _ in ()).throw(RuntimeError("sin conexión")),
+    )
+    first = asyncio.run(
+        mobile.save_upload(
+            first_batch["id"],
+            UploadFile(filename="1824.jpg", file=io.BytesIO(b"same-photo")),
+        )
+    )
+    assert first["cloudStatus"] == "retry"
+
+    monkeypatch.setattr(
+        storage_manager,
+        "prepare_source_original",
+        lambda product_id, source: {"object": {"id": "recovered-object"}},
+    )
+    monkeypatch.setattr(
+        storage_manager,
+        "upload_objects",
+        lambda ids: {"ok": True, "verified": 1, "failed": 0},
+    )
+    retry_batch = mobile.create_batch("S26 Ultra", 1)
+    retry = asyncio.run(
+        mobile.save_upload(
+            retry_batch["id"],
+            UploadFile(filename="1824.jpg", file=io.BytesIO(b"same-photo")),
+        )
+    )
+
+    assert retry["status"] == "queued"
+    assert retry["safeToDeleteFromPhone"] is True
+    assert retry["id"] == first["id"]
+
+
+def test_mobile_pwa_shell_does_not_take_database_lease(monkeypatch):
+    monkeypatch.setenv("DATABASE_URL", "postgresql://configured")
+    import services.persistent_sqlite as persistent_sqlite
+
+    persistent = importlib.reload(persistent_sqlite)
+    assert persistent.should_sync("/mobile/sw.js") is False
+    assert persistent.should_sync("/mobile/manifest.webmanifest") is False
+    assert persistent.should_sync("/mobile/install") is False
+    assert persistent.should_sync("/api/mobile/batches/abc") is True
+
+
+def test_mobile_page_uses_native_install_prompt():
+    from services.mobile_ui import mobile_html
+
+    page = mobile_html()
+    assert "beforeinstallprompt" in page
+    assert "installPrompt.prompt()" in page
+    assert "/mobile/install" in page

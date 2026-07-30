@@ -1,5 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-const EXPECTED_HASH="267e189e8d8005a64c520feba80897bd7969e6c91e26ccd2df9badd3e1c1148e";
+const EXPECTED_HASH="6f652a2a8f68c36018fdf64eeee9f7ae89d7b4c1f4d0737b61a73779048899f1";
 const cors={"Access-Control-Allow-Origin":"*","Access-Control-Allow-Headers":"content-type,x-elegance-sync-key","Access-Control-Allow-Methods":"POST,OPTIONS"};
 const out=(v:unknown,s=200)=>new Response(JSON.stringify(v),{status:s,headers:{...cors,"content-type":"application/json"}});
 async function shaBytes(bytes:Uint8Array){const d=await crypto.subtle.digest("SHA-256",bytes);return [...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,"0")).join("")}
