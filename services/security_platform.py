@@ -18,7 +18,7 @@ ROLES = {
     'seller': {'dashboard','inventory:view','catalog:view','customers','orders','payments'},
     'catalog_editor': {'dashboard','inventory:view','catalog','studio','ai'},
 }
-PUBLIC_PREFIXES = ('/catalog','/api/public','/health','/api/health','/manifest.webmanifest','/sw.js','/offline','/pwa-icon','/static','/assets','/docs','/openapi.json','/favicon')
+PUBLIC_PREFIXES = ('/catalog','/api/public','/health','/api/health','/manifest.webmanifest','/sw.js','/offline','/pwa-icon','/media','/static','/assets','/docs','/openapi.json','/favicon')
 PUBLIC_EXACT = {'/','/login','/setup','/api/auth/status','/api/auth/setup','/api/auth/login','/api/system/status','/api/system/deployment-readiness','/api/system/home-server','/robots.txt','/sitemap.xml','/system-status'}
 
 def _db() -> sqlite3.Connection:

@@ -7,3 +7,7 @@ def test_pwa_assets_are_public() -> None:
     assert is_public("/pwa-icon.svg")
     assert is_public("/pwa-icon-192.png")
     assert is_public("/pwa-icon-512.png")
+
+
+def test_catalog_media_is_public() -> None:
+    assert is_public("/media/products/originals/example.jpg")

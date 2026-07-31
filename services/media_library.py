@@ -1,7 +1,8 @@
 from __future__ import annotations
-import hashlib, json, sqlite3, uuid
+import hashlib, json, mimetypes, sqlite3, uuid
 from datetime import datetime, timezone
 from pathlib import Path
+from services.cloud_storage import store_bytes
 from services.state_store import database_path
 DB=Path(database_path()); DATA=DB.parent; LIB=DATA/'media_library'; ORIGINALS=LIB/'originals'; DERIVATIVES=LIB/'derivatives'; TRASH=LIB/'trash'
 for p in (ORIGINALS,DERIVATIVES,TRASH): p.mkdir(parents=True,exist_ok=True)
@@ -24,15 +25,19 @@ def get_asset(asset_id):
  if not r: raise KeyError('Archivo no encontrado.')
  x=dict(r); x['metadata']=json.loads(x.pop('metadata_json') or '{}'); return x
 def register_bytes(data:bytes,filename:str,product_id:str='',source:str='upload',kind:str='original',metadata:dict|None=None):
- migrate_media_library(); digest=hashlib.sha256(data).hexdigest(); ext=Path(filename or '').suffix.lower() or '.bin'; safe=f'{digest[:24]}{ext}'; folder=ORIGINALS if kind=='original' else DERIVATIVES; path=folder/safe; duplicate=path.exists()
+ migrate_media_library(); metadata=metadata or {}; digest=hashlib.sha256(data).hexdigest(); ext=Path(filename or '').suffix.lower() or '.bin'; safe=f'{digest[:24]}{ext}'; folder=ORIGINALS if kind=='original' else DERIVATIVES; path=folder/safe; duplicate=path.exists()
  if not duplicate:path.write_bytes(data)
- rel='/media/media_library/'+('originals' if kind=='original' else 'derivatives')+'/'+safe; stamp=_now(); aid='med_'+uuid.uuid4().hex
+ rel=str(metadata.get('legacyUrl') or '').strip()
+ if not rel.startswith(('http://','https://')):
+  stored=store_bytes('media-library/'+('originals' if kind=='original' else 'derivatives')+'/'+safe,data,mimetypes.guess_type(filename or safe)[0] or 'application/octet-stream')
+  rel=str(stored['primary']['publicUrl'])
+ stamp=_now(); aid='med_'+uuid.uuid4().hex
  with _db() as c:
   row=c.execute('SELECT * FROM media_assets WHERE sha256=? AND kind=? AND stored_path=?',(digest,kind,rel)).fetchone()
   if row:
    if product_id and not row['product_id']:c.execute('UPDATE media_assets SET product_id=?,updated_at=? WHERE id=?',(product_id,stamp,row['id']))
    return {'asset':dict(row),'duplicate':True,'url':rel}
-  c.execute('INSERT INTO media_assets VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',(aid,digest,filename or '',rel,'image',kind,'active',product_id,source,'',json.dumps(metadata or {},ensure_ascii=False),stamp,stamp))
+  c.execute('INSERT INTO media_assets VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',(aid,digest,filename or '',rel,'image',kind,'active',product_id,source,'',json.dumps(metadata,ensure_ascii=False),stamp,stamp))
  return {'asset':get_asset(aid),'duplicate':duplicate,'url':rel}
 def register_existing(path_or_url:str,product_id:str='',source:str='legacy',kind:str='original'):
  value=str(path_or_url or '').strip()

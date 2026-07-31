@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import csv, hashlib, io, json, re, shutil, sqlite3, uuid, zipfile
+import csv, hashlib, io, json, mimetypes, re, shutil, sqlite3, uuid, zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -8,6 +8,7 @@ from typing import Any
 from PIL import Image, ImageOps, ImageStat
 from services.state_store import database_path, load_state, save_state
 from services.elegance_studio import create_preview, decide
+from services.cloud_storage import store_bytes
 from services.public_catalog import sync_products, update_publication
 from services.universal_products import classify as universal_classify, settings as automation_settings, queue_review, save_product_attributes
 
@@ -191,7 +192,12 @@ def create_product(payload:dict,files:list[tuple[str,bytes]],edited_files:list[t
   digest=_image_hash(data);hit=_existing_hash(digest)
   if hit and duplicate_action=='skip':continue
   safe=_safe_name(filename);path=ORIGINAL_DIR/safe;path.write_bytes(data)
-  rel='/media/products/originals/'+safe;originals.append(rel)
+  stored=store_bytes(
+   f'products/{pid}/originals/{safe}',
+   data,
+   mimetypes.guess_type(filename)[0] or 'application/octet-stream',
+  )
+  rel=str(stored['primary']['publicUrl']);originals.append(rel)
   try:
    from services.media_library import register_bytes
    register_bytes(data,filename,pid,'new-product','original',{'legacyUrl':rel})
@@ -201,7 +207,16 @@ def create_product(payload:dict,files:list[tuple[str,bytes]],edited_files:list[t
   try:
    preview=create_preview(process_data,filename,pid,{'formats':['catalog','thumbnail','whatsapp'],'removeBackground':bool(payload.get('removeBackground',False)),'background':str(payload.get('background') or 'original'),'quality':88,'brightness':1.0,'contrast':1.0,'color':1.0,'sharpness':1.0})
    if preview.get('status')=='preview':
-    result=decide(preview['versionId'],'approve');outs=result.get('outputs',{});approved.extend('/media/'+x.removeprefix('data/') for x in outs.values())
+    result=decide(preview['versionId'],'approve');outs=result.get('outputs',{})
+    for output_path in outs.values():
+     local_output=ROOT/output_path
+     if not local_output.exists():continue
+     cloud_output=store_bytes(
+      f'products/{pid}/studio/{local_output.name}',
+      local_output.read_bytes(),
+      mimetypes.guess_type(local_output.name)[0] or 'application/octet-stream',
+     )
+     approved.append(str(cloud_output['primary']['publicUrl']))
   except Exception:
    pass
   with _db() as c:c.execute('INSERT OR REPLACE INTO product_image_hashes VALUES(?,?,?,?)',(digest,pid,rel,now()))
