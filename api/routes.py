@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import io
 import json
 from typing import Annotated
 
@@ -1015,19 +1016,34 @@ def system_status_page()->HTMLResponse:
 
 @router.get('/manifest.webmanifest')
 def pwa_manifest()->JSONResponse:
-    return JSONResponse({'name':'Elegance — Catálogo Premium','short_name':'Elegance','description':'Catálogo premium de Elegance','start_url':'/catalog?source=pwa','scope':'/','display':'standalone','orientation':'portrait-primary','background_color':'#02070b','theme_color':'#07131b','categories':['shopping','lifestyle'],'icons':[{'src':'/pwa-icon.svg','sizes':'any','type':'image/svg+xml','purpose':'any maskable'}]},media_type='application/manifest+json')
+    return JSONResponse({'id':'/catalog','name':'Elegance — Catálogo Premium','short_name':'Elegance','description':'Catálogo premium de Elegance','start_url':'/catalog?source=pwa','scope':'/','display':'standalone','display_override':['window-controls-overlay','standalone','minimal-ui'],'orientation':'portrait-primary','background_color':'#02070b','theme_color':'#07131b','categories':['shopping','lifestyle'],'icons':[{'src':'/pwa-icon-192.png','sizes':'192x192','type':'image/png','purpose':'any maskable'},{'src':'/pwa-icon-512.png','sizes':'512x512','type':'image/png','purpose':'any maskable'},{'src':'/pwa-icon.svg','sizes':'any','type':'image/svg+xml','purpose':'any'}]},media_type='application/manifest+json')
 
 @router.get('/pwa-icon.svg')
 def pwa_icon()->Response:
     return Response("""<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='110' fill='#02070b'/><circle cx='256' cy='256' r='190' fill='none' stroke='#6ee4ff' stroke-width='14'/><text x='256' y='305' text-anchor='middle' font-size='245' font-family='serif' fill='#6ee4ff'>E</text></svg>""",media_type='image/svg+xml')
+
+@router.get('/pwa-icon-{size}.png')
+def pwa_icon_png(size:int)->Response:
+    if size not in {192,512}:
+        raise HTTPException(status_code=404,detail='Tamaño de icono no disponible.')
+    from PIL import Image, ImageDraw, ImageFont
+    image=Image.new('RGB',(size,size),'#02070b')
+    draw=ImageDraw.Draw(image)
+    inset=max(6,round(size*.13));stroke=max(4,round(size*.027))
+    draw.ellipse((inset,inset,size-inset,size-inset),outline='#6ee4ff',width=stroke)
+    try:font=ImageFont.truetype('DejaVuSerif.ttf',round(size*.48))
+    except OSError:font=ImageFont.load_default()
+    draw.text((size/2,size*.53),'E',font=font,fill='#6ee4ff',anchor='mm')
+    output=io.BytesIO();image.save(output,'PNG',optimize=True)
+    return Response(output.getvalue(),media_type='image/png',headers={'Cache-Control':'public, max-age=604800, immutable'})
 
 @router.get('/offline',response_class=HTMLResponse)
 def offline_page()->HTMLResponse:return HTMLResponse("""<!doctype html><meta name=viewport content='width=device-width,initial-scale=1'><style>body{background:#02070b;color:white;font:18px system-ui;display:grid;place-items:center;min-height:100vh;text-align:center}h1{font:55px cursive;color:#6ee4ff}</style><main><h1>elegance</h1><h2>Sin conexión</h2><p>Tu carrito sigue guardado. Se sincronizará cuando vuelva internet.</p><button onclick=location.reload()>Reintentar</button></main>""")
 
 @router.get('/sw.js')
 def pwa_sw()->Response:
-    script="""const CACHE='elegance-s5rc1-v1',CORE=['/','/catalog','/offline','/manifest.webmanifest','/pwa-icon.svg','/assets/web/elegance.css','/assets/web/elegance.js'];self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(xs=>Promise.all(xs.filter(x=>x!==CACHE).map(x=>caches.delete(x)))).then(()=>self.clients.claim())));self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(fetch(e.request).then(r=>{let copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return r}).catch(()=>caches.match(e.request).then(r=>r||caches.match('/offline'))))});"""
-    return Response(script,media_type='application/javascript',headers={'Service-Worker-Allowed':'/'})
+    script="""const CACHE='elegance-rc2-v2',CORE=['/','/catalog','/offline','/manifest.webmanifest','/pwa-icon-192.png','/pwa-icon-512.png','/assets/web/elegance.css','/assets/web/elegance.js'];self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(xs=>Promise.all(xs.filter(x=>x!==CACHE).map(x=>caches.delete(x)))).then(()=>self.clients.claim())));self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;const u=new URL(e.request.url);if(u.origin!==location.origin||u.pathname.startsWith('/api/'))return;if(e.request.mode==='navigate'){e.respondWith(fetch(e.request).catch(()=>caches.match(e.request).then(r=>r||caches.match('/offline'))));return}if(u.pathname.startsWith('/assets/')||u.pathname.startsWith('/media/')||u.pathname.startsWith('/pwa-icon'))e.respondWith(caches.match(e.request).then(hit=>hit||fetch(e.request).then(r=>{if(r.ok){const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy))}return r}))) });"""
+    return Response(script,media_type='application/javascript',headers={'Service-Worker-Allowed':'/','Cache-Control':'no-cache'})
 
 # Sprint 6 RC1: flujo operativo unificado de producto, inventario y exportación.
 from fastapi.responses import FileResponse

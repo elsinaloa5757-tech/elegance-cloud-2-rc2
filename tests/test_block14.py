@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import importlib
 import io
+import json
 from pathlib import Path
 
 from starlette.datastructures import UploadFile
@@ -193,3 +194,15 @@ def test_mobile_page_uses_native_install_prompt():
     assert "beforeinstallprompt" in page
     assert "installPrompt.prompt()" in page
     assert "/mobile/install" in page
+
+
+def test_catalog_pwa_has_installable_png_icons_and_fresh_worker():
+    from api.routes import pwa_icon_png, pwa_manifest, pwa_sw
+
+    manifest = json.loads(pwa_manifest().body)
+    assert manifest["id"] == "/catalog"
+    assert {icon["sizes"] for icon in manifest["icons"]} >= {"192x192", "512x512"}
+    assert pwa_icon_png(192).media_type == "image/png"
+    worker = pwa_sw().body.decode()
+    assert "elegance-rc2-v2" in worker
+    assert "u.pathname.startsWith('/api/')" in worker

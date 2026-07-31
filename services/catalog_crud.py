@@ -16,6 +16,9 @@ UNIVERSAL_CATEGORIES = [
     "Hogar", "Electrónica", "Juguetes", "Deportes", "Otros",
 ]
 STATUS_VALUES = {"available", "sold_out", "inactive", "draft"}
+LIST_ONLY_HEAVY_FIELDS = {
+    "imageBase64", "galleryBase64", "image_base64", "gallery_base64",
+}
 
 
 def _now() -> str:
@@ -27,6 +30,22 @@ def _db() -> sqlite3.Connection:
     connection.row_factory = sqlite3.Row
     connection.execute("PRAGMA foreign_keys=ON")
     return connection
+
+
+def _browser_image_url(value: str) -> str:
+    """Turn legacy filesystem references into URLs the browser can request."""
+    raw = str(value or "").strip().replace("\\", "/")
+    if not raw or raw.startswith(("https://", "http://", "data:", "blob:", "/media/", "/assets/")):
+        return raw
+    if raw.startswith("data/"):
+        return "/media/" + raw[5:]
+    marker = "/data/"
+    if marker in raw:
+        return "/media/" + raw.split(marker, 1)[1]
+    for prefix in ("uploads/", "products/", "media_library/", "storage_manager/"):
+        if raw.startswith(prefix):
+            return "/media/" + raw
+    return raw if raw.startswith("/") else "/media/" + raw.lstrip("./")
 
 
 def _state() -> tuple[dict[str, Any], list[dict[str, Any]]]:
@@ -246,7 +265,7 @@ def list_products(filters: dict[str, Any] | None = None) -> dict[str, Any]:
     thumbnails: dict[str, str] = {}
     try:
         with _db() as connection:
-            rows = connection.execute(
+            cursor = connection.execute(
                 """SELECT a.product_id,a.is_cover,o.backend,o.public_url
                    FROM product_media_assets a
                    JOIN product_media_outputs o ON o.asset_id=a.id
@@ -254,9 +273,12 @@ def list_products(filters: dict[str, Any] | None = None) -> dict[str, Any]:
                    ORDER BY a.is_cover DESC,
                             CASE WHEN o.backend='supabase' THEN 0 ELSE 1 END,
                             a.created_at"""
-            ).fetchall()
+            )
+            rows = cursor.fetchall() if hasattr(cursor, "fetchall") else cursor
         for row in rows:
-            thumbnails.setdefault(str(row["product_id"]), str(row["public_url"] or ""))
+            thumbnails.setdefault(
+                str(row["product_id"]), _browser_image_url(str(row["public_url"] or ""))
+            )
     except sqlite3.OperationalError:
         pass
     for product in products:
@@ -277,7 +299,7 @@ def list_products(filters: dict[str, Any] | None = None) -> dict[str, Any]:
         for field in ("catalogImage", "image", "imagePath", "approvedStudioImage"):
             value = product.get(field)
             if isinstance(value, str) and value.strip():
-                fallback_images.append(value.strip())
+                fallback_images.append(_browser_image_url(value))
         for field in ("originalImages", "images", "approvedStudioImages"):
             values = product.get(field)
             if isinstance(values, list):
@@ -288,7 +310,7 @@ def list_products(filters: dict[str, Any] | None = None) -> dict[str, Any]:
                         else value
                     )
                     if isinstance(candidate, str) and candidate.strip():
-                        fallback_images.append(candidate.strip())
+                        fallback_images.append(_browser_image_url(candidate))
         encoded = str(product.get("imageBase64") or "").strip()
         if not encoded:
             gallery = product.get("galleryBase64")
@@ -306,6 +328,11 @@ def list_products(filters: dict[str, Any] | None = None) -> dict[str, Any]:
             else 2
         )
         item = dict(product)
+        # The catalog row only needs a small thumbnail. Keeping full embedded
+        # galleries here made every list request several megabytes and delayed
+        # rendering on phones. The detail endpoint still returns all fields.
+        for field in LIST_ONLY_HEAVY_FIELDS:
+            item.pop(field, None)
         item["thumbnailUrl"] = (
             thumbnails.get(str(product.get("id") or ""))
             or (fallback_images[0] if fallback_images else "")

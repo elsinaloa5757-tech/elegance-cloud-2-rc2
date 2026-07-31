@@ -38,6 +38,7 @@ def test_mobile_product_exposes_embedded_thumbnail(monkeypatch):
 
     assert result["count"] == 1
     assert result["products"][0]["thumbnailUrl"] == f"data:image/webp;base64,{encoded}"
+    assert "imageBase64" not in result["products"][0]
 
 
 def test_durable_cloud_thumbnail_is_preferred(monkeypatch):
@@ -63,3 +64,29 @@ def test_durable_cloud_thumbnail_is_preferred(monkeypatch):
     result = catalog_crud.list_products()
 
     assert result["products"][0]["thumbnailUrl"].startswith("https://example.supabase.co/")
+
+
+def test_legacy_local_thumbnail_is_exposed_as_media_url(monkeypatch):
+    monkeypatch.setattr(
+        catalog_crud,
+        "list_inventory",
+        lambda: [{"id": "legacy", "title": "Tenis", "imagePath": r"data\products\originals\foto.webp"}],
+    )
+    monkeypatch.setattr(catalog_crud, "_db", lambda: _MissingMediaDatabase())
+
+    result = catalog_crud.list_products()
+
+    assert result["products"][0]["thumbnailUrl"] == "/media/products/originals/foto.webp"
+
+
+def test_absolute_data_path_is_exposed_as_media_url(monkeypatch):
+    monkeypatch.setattr(
+        catalog_crud,
+        "list_inventory",
+        lambda: [{"id": "absolute", "title": "Bota", "image": "/data/uploads/products/bota.webp"}],
+    )
+    monkeypatch.setattr(catalog_crud, "_db", lambda: _MissingMediaDatabase())
+
+    result = catalog_crud.list_products()
+
+    assert result["products"][0]["thumbnailUrl"] == "/media/uploads/products/bota.webp"
