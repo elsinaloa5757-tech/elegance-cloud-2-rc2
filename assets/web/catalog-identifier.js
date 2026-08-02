@@ -62,6 +62,10 @@
     if (!window.Tesseract) throw new Error('El motor OCR no pudo cargarse. Revisa la conexión a internet.');
     byId('identifierProgress').textContent = `Leyendo imagen ${index + 1} de ${total}…`;
     const result = await Tesseract.recognize(url, 'eng', {
+      workerPath: '/assets/vendor/tesseract/worker.min.js',
+      corePath: '/assets/vendor/tesseract/tesseract-core-simd-lstm.wasm.js',
+      langPath: '/assets/vendor/tesseract',
+      gzip: true,
       logger: m => {
         if (m.status === 'recognizing text') {
           byId('identifierProgress').textContent = `Producto ${index + 1}/${total} · OCR ${Math.round((m.progress || 0) * 100)}%`;
@@ -109,7 +113,12 @@
 
   window.eleganceSearchSuggestion = index => {
     const item = results[index];
-    const terms = [item.suggestion.brand,item.suggestion.model,item.suggestion.ocr,'tenis'].filter(Boolean).join(' ');
+    const fallback = [item.product.brand, item.product.category, item.product.title]
+      .filter(Boolean)
+      .join(' ')
+      .replace(/\b(jordan|nike|adidas)\s+\d{1,4}\b/ig, '$1 tenis');
+    const terms = [item.suggestion.brand,item.suggestion.model,item.suggestion.ocr,fallback,'tenis']
+      .filter(Boolean).join(' ');
     window.open('https://www.google.com/search?tbm=isch&q=' + encodeURIComponent(terms), '_blank', 'noopener');
   };
 
@@ -147,6 +156,10 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     byId('identifyProducts')?.addEventListener('click', () => { byId('identifierPanel').classList.add('open'); render(); });
+    byId('identifyProductsShortcut')?.addEventListener('click', () => {
+      byId('identifierPanel').classList.add('open');
+      render();
+    });
     byId('closeIdentifier')?.addEventListener('click', () => { stopped = true; byId('identifierPanel').classList.remove('open'); });
     byId('identifyVisible')?.addEventListener('click', analyzeVisible);
     byId('applySafeNames')?.addEventListener('click', applySafe);
