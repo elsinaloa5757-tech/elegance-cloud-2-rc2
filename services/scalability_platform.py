@@ -54,8 +54,15 @@ def paginate(page=1,page_size=30,q="",category="",brand="",status=""):
         return not status or st==status
     rows=[p for p in products() if ok(p)]
     size=max(1,min(int(page_size),100)); page=max(1,int(page)); start=(page-1)*size
+    all_rows=products()
+    facets={
+        "categories":sorted({str(p.get("category") or "").strip() for p in all_rows if str(p.get("category") or "").strip()}),
+        "brands":sorted({str(p.get("brand") or "").strip() for p in all_rows if str(p.get("brand") or "").strip()}),
+        "statuses":sorted({str(p.get("status") or p.get("publicationStatus") or "draft").strip() for p in all_rows}),
+    }
     return {"status":"ok","items":rows[start:start+size],"page":page,"pageSize":size,
-            "total":len(rows),"pages":max(1,(len(rows)+size-1)//size),"hasMore":start+size<len(rows)}
+            "total":len(rows),"pages":max(1,(len(rows)+size-1)//size),
+            "hasMore":start+size<len(rows),"facets":facets}
 
 def create_job(kind,total,payload=None):
     migrate_scalability_platform(); jid=uuid.uuid4().hex; stamp=now()

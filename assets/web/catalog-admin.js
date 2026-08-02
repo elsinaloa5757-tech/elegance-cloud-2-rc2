@@ -1,5 +1,5 @@
 const $ = (id) => document.getElementById(id);
-let state = {products: [], facets: {}, selected: null};
+let state = {products: [], facets: {}, selected: null, page: 1, pageSize: 30, total: 0, pages: 1};
 
 function money(value){return new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(Number(value||0));}
 function esc(value){return String(value??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
@@ -10,12 +10,25 @@ async function api(url, options={}){
   if(!response.ok) throw new Error(data.detail||'No se pudo completar la operación.');
   return data;
 }
-function query(){const p=new URLSearchParams();['q','category','brand','status'].forEach(k=>{const el=$(k);if(el?.value)p.set(k,el.value)});return p.toString();}
+function query(){
+  const p=new URLSearchParams({page:String(state.page),pageSize:String(state.pageSize)});
+  ['q','category','brand','status'].forEach(k=>{const el=$(k);if(el?.value)p.set(k,el.value)});
+  return p.toString();
+}
 async function load(){
-  const catalogPromise=api('/api/admin/catalog/products?'+query());
+  $('adminProducts').textContent='Cargando productos…';
+  const catalogPromise=api('/api/scalability/products?'+query());
   const publicationsPromise=api('/api/admin/publications').catch(()=>({products:[]}));
   const requestsPromise=api('/api/public/requests?status=new').catch(()=>({requests:[]}));
-  const data=await catalogPromise;state.products=data.products;state.facets=data.facets;renderFilters();render();
+  const data=await catalogPromise;
+  state.products=data.items||[];
+  state.facets=data.facets||{};
+  state.total=Number(data.total||0);
+  state.pages=Math.max(1,Number(data.pages||1));
+  state.page=Math.min(Math.max(1,Number(data.page||1)),state.pages);
+  renderFilters();
+  render();
+  renderPagination();
   const [pubs,req]=await Promise.all([publicationsPromise,requestsPromise]);
   $('publishedCount').textContent=(pubs.products||[]).filter(x=>x.status==='published').length;
   $('draftCount').textContent=(pubs.products||[]).filter(x=>x.status==='draft').length;
@@ -28,6 +41,14 @@ function renderFilters(){
 }
 function render(){
   $('adminProducts').innerHTML=state.products.length?state.products.map(p=>`<button class="product-row" onclick="editProduct('${esc(p.id)}')">${p.thumbnailUrl?`<img class="product-thumb" src="${esc(p.thumbnailUrl)}" alt="" loading="lazy" decoding="async">`:'<span class="product-thumb placeholder" aria-hidden="true">e</span>'}<span class="product-main"><b>${esc(p.title||'Sin nombre')}</b><small>${esc([p.brand,p.model,p.category].filter(Boolean).join(' · '))}</small></span><span class="product-price"><b>${money(p.price)}</b><small>${Number(p.stock||0)} disponibles</small></span></button>`).join(''):'<p class="empty">No hay productos con estos filtros.</p>';
+}
+function renderPagination(){
+  const start=state.total?((state.page-1)*state.pageSize)+1:0;
+  const end=Math.min(state.page*state.pageSize,state.total);
+  $('pageStatus').textContent=`Página ${state.page} de ${state.pages} · ${start}-${end} de ${state.total}`;
+  $('previousPage').disabled=state.page<=1;
+  $('nextPage').disabled=state.page>=state.pages;
+  $('pageSize').value=String(state.pageSize);
 }
 function variantsFromProduct(p){return (p.variants||[]).map(v=>({id:v.id,size:v.size,color:v.color,stock:v.stock,salePrice:v.sale_price,purchasePrice:v.purchase_price,sku:v.sku}));}
 function openEditor(p={}){
@@ -43,9 +64,25 @@ function payload(){
   return {title:$('title').value,brand:$('editBrand').value,model:$('model').value,category:$('editCategory').value,subcategory:$('subcategory').value,price:Number($('price').value||0),purchasePrice:Number($('purchasePrice').value||0),description:$('description').value,sizes:$('sizes').value,colors:$('colors').value,variants,publicationStatus:$('publicationStatus').value||undefined};
 }
 async function saveProduct(){try{const id=$('productId').value;const data=await api(id?'/api/admin/catalog/products/'+id:'/api/admin/catalog/products',{method:id?'PUT':'POST',body:JSON.stringify(payload())});$('notice').textContent='Producto guardado correctamente.';openEditor(data.product);await load();}catch(e){$('notice').textContent=e.message;}}
-async function removeProduct(){const id=$('productId').value;if(!id||!confirm('¿Eliminar definitivamente este producto y sus variantes?'))return;try{await api('/api/admin/catalog/products/'+id+'?confirm=true',{method:'DELETE'});closeEditor();await load();}catch(e){$('notice').textContent=e.message;}}
+async function removeProduct(){
+  const id=$('productId').value;
+  if(!id||!confirm('¿Enviar este producto a la papelera? Podrás restaurarlo después.'))return;
+  try{
+    await api('/api/scalability/trash/'+encodeURIComponent(id),{
+      method:'POST',
+      body:JSON.stringify({reason:'Eliminado desde catálogo administrativo',days:30})
+    });
+    closeEditor();
+    if(state.products.length===1&&state.page>1)state.page--;
+    await load();
+  }catch(e){$('notice').textContent=e.message;}
+}
 async function duplicates(){const d=await api('/api/admin/catalog/duplicates');alert(`Hashes de imagen: ${d.imageHashCount}\nGrupos probables duplicados: ${d.probableGroupCount}`);}
-['q','category','brand','status'].forEach(id=>$(id)?.addEventListener(id==='q'?'input':'change',()=>{clearTimeout(window._f);window._f=setTimeout(load,180)}));
+['q','category','brand','status'].forEach(id=>$(id)?.addEventListener(id==='q'?'input':'change',()=>{
+  clearTimeout(window._f);
+  state.page=1;
+  window._f=setTimeout(load,180);
+}));
 $('newProduct')?.addEventListener('click',()=>openEditor({}));$('closeEditor')?.addEventListener('click',closeEditor);$('saveProduct')?.addEventListener('click',saveProduct);$('deleteProduct')?.addEventListener('click',removeProduct);$('duplicatesButton')?.addEventListener('click',duplicates);load().catch(e=>$('adminProducts').textContent=e.message);
 
 function renderVariantOptions(p){
@@ -79,3 +116,31 @@ async function setMediaCover(assetId){try{await api(`/api/admin/catalog/products
 async function retryMedia(assetId){try{await api(`/api/admin/catalog/images/${assetId}/retry`,{method:'POST',body:'{}'});await loadMedia($('productId').value);}catch(e){$('notice').textContent=e.message;}}
 async function deleteMedia(assetId){if(!confirm('¿Eliminar esta fotografía del producto?'))return;try{await api(`/api/admin/catalog/products/${$('productId').value}/images/${assetId}?confirm=true`,{method:'DELETE'});await loadMedia($('productId').value);}catch(e){$('notice').textContent=e.message;}}
 $('uploadMedia')?.addEventListener('click',uploadMedia);
+$('previousPage')?.addEventListener('click',()=>{if(state.page>1){state.page--;load();}});
+$('nextPage')?.addEventListener('click',()=>{if(state.page<state.pages){state.page++;load();}});
+$('pageSize')?.addEventListener('change',()=>{state.pageSize=Number($('pageSize').value||30);state.page=1;load();});
+$('openTrash')?.addEventListener('click',()=>{$('trashPanel').classList.add('open');loadTrash();});
+$('closeTrash')?.addEventListener('click',()=>$('trashPanel').classList.remove('open'));
+
+async function loadTrash(){
+  $('trashStatus').textContent='Cargando papelera…';
+  try{
+    const data=await api('/api/scalability/trash?limit=200');
+    const items=data.items||[];
+    $('trashStatus').textContent=`${items.length} producto(s) recuperable(s).`;
+    $('trashItems').innerHTML=items.length?items.map(item=>{
+      let snapshot={};try{snapshot=JSON.parse(item.snapshot_json||'{}')}catch{}
+      const title=snapshot.title||snapshot.name||item.product_id||'Producto';
+      return `<article class="product-row" style="cursor:default"><span class="product-thumb placeholder">↺</span><span><b>${esc(title)}</b><small>Eliminado: ${esc(item.deleted_at||'')}</small><small>${esc(item.reason||'Sin motivo')}</small></span><span class="actions"><button type="button" onclick="restoreTrash('${esc(item.id)}')">Restaurar</button></span></article>`;
+    }).join(''):'<p class="empty">La papelera está vacía.</p>';
+  }catch(e){$('trashStatus').textContent=e.message;}
+}
+async function restoreTrash(id){
+  try{
+    await api('/api/scalability/trash/'+encodeURIComponent(id)+'/restore',{method:'POST',body:'{}'});
+    await loadTrash();
+    state.page=1;
+    await load();
+  }catch(e){$('trashStatus').textContent=e.message;}
+}
+window.restoreTrash=restoreTrash;
