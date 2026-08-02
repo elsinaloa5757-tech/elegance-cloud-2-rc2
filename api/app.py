@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import os
 from fastapi import FastAPI, Request
@@ -27,6 +27,7 @@ from services.runtime_config import data_dir, require_production_configuration
 from services.persistent_sqlite import PersistentSQLiteLease, hydrate_persistent_snapshot, should_sync
 from services.product_media_flow import migrate_product_media
 from services.home_server import start_backup_scheduler, stop_backup_scheduler
+from services.cleanup_test_catalog_once import run_once as cleanup_test_catalog_once
 
 
 
@@ -47,6 +48,11 @@ async def _lifespan(app: FastAPI):
     migrate_sales_manager()
     migrate_brain()
     migrate_product_media()
+    try:
+        with PersistentSQLiteLease():
+            cleanup_test_catalog_once()
+    except Exception:
+        pass
     try:
         from services.state_store import load_state as _load_state
         backfill_state_assets(_load_state())
@@ -70,8 +76,8 @@ def create_app() -> FastAPI:
         version="Cloud 2.0",
         lifespan=_lifespan,
         description=(
-            "Elegance Brain Enterprise: plataforma modular para comercio, comunicaciones, finanzas, compras, automatización, analítica y nube. "
-            "de fotografías de sneakers. Flujo V26 controlado: catálogo automático, historial persistente y memoria local de correcciones."
+            "Elegance Brain Enterprise: plataforma modular para comercio, comunicaciones, finanzas, compras, automatizaciÃ³n, analÃ­tica y nube. "
+            "de fotografÃ­as de sneakers. Flujo V26 controlado: catÃ¡logo automÃ¡tico, historial persistente y memoria local de correcciones."
         ),
     )
 
@@ -94,11 +100,11 @@ def create_app() -> FastAPI:
             user = session_user(token)
             if setup_required():
                 if path.startswith("/api/"):
-                    return JSONResponse({"detail": "Configuración inicial requerida.", "setup": "/setup"}, status_code=428)
+                    return JSONResponse({"detail": "ConfiguraciÃ³n inicial requerida.", "setup": "/setup"}, status_code=428)
                 return RedirectResponse("/setup", status_code=303)
             if not user:
                 if path.startswith("/api/"):
-                    return JSONResponse({"detail": "Autenticación requerida."}, status_code=401)
+                    return JSONResponse({"detail": "AutenticaciÃ³n requerida."}, status_code=401)
                 return RedirectResponse(f"/login?next={path}", status_code=303)
             request.state.user = user
             response = await call_next(request)
@@ -136,10 +142,11 @@ def create_app() -> FastAPI:
         if request.url.path.startswith('/api/'):
             return JSONResponse({'detail':'Recurso no encontrado.'},status_code=404)
         from services.premium_web import error_page
-        return HTMLResponse(error_page(404,'Página no encontrada'),status_code=404)
+        return HTMLResponse(error_page(404,'PÃ¡gina no encontrada'),status_code=404)
 
     app.include_router(router)
     app.include_router(library_router)
     app.include_router(library_public_router)
 
     return app
+
