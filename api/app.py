@@ -11,6 +11,7 @@ from starlette.concurrency import run_in_threadpool
 
 from api.routes import router
 from api.library_routes import router as library_router, public_router as library_public_router
+from api.scalability_routes import router as scalability_router
 from services.fashion_library import initialize_library
 from services.mobile_inbox import start_worker, stop_worker
 from services.elegance_studio import migrate_studio
@@ -29,6 +30,7 @@ from services.persistent_sqlite import PersistentSQLiteLease, hydrate_persistent
 from services.product_media_flow import migrate_product_media
 from services.home_server import start_backup_scheduler, stop_backup_scheduler
 from services.performance_indexes import migrate_performance_indexes
+from services.scalability_platform import migrate_scalability_platform
 from services.cleanup_test_catalog_once import run_once as cleanup_test_catalog_once
 
 
@@ -51,6 +53,7 @@ async def _lifespan(app: FastAPI):
     migrate_brain()
     migrate_product_media()
     migrate_performance_indexes()
+    migrate_scalability_platform()
     try:
         with PersistentSQLiteLease():
             cleanup_test_catalog_once()
@@ -165,6 +168,7 @@ def create_app() -> FastAPI:
     app.include_router(router)
     app.include_router(library_router)
     app.include_router(library_public_router)
+    app.include_router(scalability_router)
 
     return app
 
