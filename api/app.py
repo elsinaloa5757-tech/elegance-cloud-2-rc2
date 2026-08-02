@@ -5,6 +5,7 @@ from fastapi import FastAPI, Request
 from contextlib import asynccontextmanager
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse, RedirectResponse, HTMLResponse
 from starlette.concurrency import run_in_threadpool
 
@@ -27,6 +28,7 @@ from services.runtime_config import data_dir, require_production_configuration
 from services.persistent_sqlite import PersistentSQLiteLease, hydrate_persistent_snapshot, should_sync
 from services.product_media_flow import migrate_product_media
 from services.home_server import start_backup_scheduler, stop_backup_scheduler
+from services.performance_indexes import migrate_performance_indexes
 from services.cleanup_test_catalog_once import run_once as cleanup_test_catalog_once
 
 
@@ -48,6 +50,7 @@ async def _lifespan(app: FastAPI):
     migrate_sales_manager()
     migrate_brain()
     migrate_product_media()
+    migrate_performance_indexes()
     try:
         with PersistentSQLiteLease():
             cleanup_test_catalog_once()
@@ -81,6 +84,8 @@ def create_app() -> FastAPI:
         ),
     )
 
+    app.add_middleware(GZipMiddleware, minimum_size=700, compresslevel=5)
+
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[x.strip() for x in __import__("os").getenv("ELEGANCE_ALLOWED_ORIGINS", "http://localhost:8000,http://127.0.0.1:8000").split(",") if x.strip()],
@@ -89,6 +94,19 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
+
+    @app.middleware("http")
+    async def performance_cache_headers(request: Request, call_next):
+        response = await call_next(request)
+        path = request.url.path
+        if path.startswith("/assets/"):
+            response.headers.setdefault("Cache-Control", "public, max-age=31536000, immutable")
+        elif path.startswith("/media/"):
+            response.headers.setdefault("Cache-Control", "public, max-age=86400, stale-while-revalidate=604800")
+        elif request.method == "GET" and path.startswith("/api/universal/taxonomy"):
+            response.headers.setdefault("Cache-Control", "private, max-age=300")
+        response.headers.setdefault("X-Elegance-Performance", "advanced-1")
+        return response
 
     @app.middleware("http")
     async def secure_admin(request: Request, call_next):
