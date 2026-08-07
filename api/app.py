@@ -21,6 +21,7 @@ from api.catalog_intelligence_routes import router as catalog_intelligence_route
 from api.catalog_brain_routes import router as catalog_brain_router
 from api.catalog_research_routes import router as catalog_research_router
 from api.catalog_research_rc3_routes import router as catalog_research_rc3_router
+from api.bulk_publish_routes import router as bulk_publish_router
 from services.fashion_library import initialize_library
 from services.mobile_inbox import start_worker, stop_worker
 from services.elegance_studio import migrate_studio
@@ -48,6 +49,7 @@ from services.catalog_intelligence import migrate_catalog_intelligence
 from services.catalog_brain import migrate_catalog_brain
 from services.catalog_research_worker import migrate_research_worker
 from services.catalog_research_rc3 import migrate_rc3
+from services.bulk_publish_optimizer import migrate_bulk_publish_optimizer, start_worker as start_bulk_publish_worker, stop_worker as stop_bulk_publish_worker
 from services.cleanup_test_catalog_once import run_once as cleanup_test_catalog_once
 
 
@@ -79,6 +81,7 @@ async def _lifespan(app: FastAPI):
     migrate_catalog_brain()
     migrate_research_worker()
     migrate_rc3()
+    migrate_bulk_publish_optimizer()
     try:
         with PersistentSQLiteLease():
             cleanup_test_catalog_once()
@@ -92,11 +95,13 @@ async def _lifespan(app: FastAPI):
     serverless = os.getenv("ELEGANCE_SERVERLESS", "").strip() == "1"
     if not serverless:
         start_worker()
+        start_bulk_publish_worker()
         start_backup_scheduler()
     try:
         yield
     finally:
         if not serverless:
+            stop_bulk_publish_worker()
             stop_backup_scheduler()
             stop_worker()
 
@@ -203,6 +208,7 @@ def create_app() -> FastAPI:
     app.include_router(catalog_brain_router)
     app.include_router(catalog_research_router)
     app.include_router(catalog_research_rc3_router)
+    app.include_router(bulk_publish_router)
 
     return app
 
