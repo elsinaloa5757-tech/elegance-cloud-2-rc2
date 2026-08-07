@@ -460,15 +460,43 @@ def regroup_job(job_id: str, similarity: float | None = None) -> dict[str, Any]:
         ).fetchall()
 
     items = []
+    fallback_ids = []
     for row in rows:
+        candidates = []
         stored = Path(row["original_path"])
-        path = stored if stored.is_absolute() else ROOT / stored
+        candidates.append(stored if stored.is_absolute() else ROOT / stored)
+
         try:
-            img = Image.open(path)
-            img.load()
-            items.append({"id": row["id"], "feat": _feature(img), "ph": row["perceptual_hash"] or _dhash(img)})
+            outputs = json.loads(row["outputs_json"] or "{}")
         except Exception:
+            outputs = {}
+
+        for key in ("webp", "thumbnail"):
+            value = outputs.get(key)
+            if value:
+                p = Path(value)
+                candidates.append(p if p.is_absolute() else ROOT / p)
+
+        loaded = None
+        for candidate in candidates:
+            try:
+                if candidate.exists():
+                    img = Image.open(candidate)
+                    img.load()
+                    loaded = img
+                    break
+            except Exception:
+                continue
+
+        if loaded is None:
+            fallback_ids.append(row["id"])
             continue
+
+        items.append({
+            "id": row["id"],
+            "feat": _feature(loaded),
+            "ph": row["perceptual_hash"] or _dhash(loaded),
+        })
 
     opts = _options(job_id)
     raw = float(similarity if similarity is not None else opts.get("groupSimilarity", 0.965))
@@ -510,10 +538,39 @@ def regroup_job(job_id: str, similarity: float | None = None) -> dict[str, Any]:
             "UPDATE automation_files SET group_no=NULL WHERE job_id=? AND status NOT IN ('deleted','duplicate','near_duplicate','failed')",
             (job_id,),
         )
-        for group_no, group in enumerate(groups, 1):
+        next_group = 1
+        for group in groups:
             for item in group:
-                c.execute("UPDATE automation_files SET group_no=? WHERE job_id=? AND id=?", (group_no, job_id, item["id"]))
-        c.execute("UPDATE automation_jobs SET stage='completed',status='completed',progress=100,updated_at=? WHERE id=?", (_now(), job_id))
+                c.execute(
+                    "UPDATE automation_files SET group_no=? WHERE job_id=? AND id=?",
+                    (next_group, job_id, item["id"]),
+                )
+            next_group += 1
+
+        for file_id in fallback_ids:
+            c.execute(
+                "UPDATE automation_files SET group_no=? WHERE job_id=? AND id=?",
+                (next_group, job_id, file_id),
+            )
+            next_group += 1
+
+        orphan_rows = c.execute(
+            "SELECT id FROM automation_files WHERE job_id=? AND group_no IS NULL "
+            "AND status NOT IN ('deleted','duplicate','near_duplicate','failed') "
+            "ORDER BY created_at,id",
+            (job_id,),
+        ).fetchall()
+        for orphan in orphan_rows:
+            c.execute(
+                "UPDATE automation_files SET group_no=? WHERE job_id=? AND id=?",
+                (next_group, job_id, orphan["id"]),
+            )
+            next_group += 1
+
+        c.execute(
+            "UPDATE automation_jobs SET stage='completed',status='completed',progress=100,updated_at=? WHERE id=?",
+            (_now(), job_id),
+        )
         c.commit()
 
     _ensure_group_rows(job_id)
