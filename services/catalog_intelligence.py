@@ -160,7 +160,22 @@ def apply_proposal(pid,force=False):
     if not p:raise ValueError("Producto no encontrado.")
     before={k:p.get(k) for k in FIELDS};_apply(p,prop);save_state(s)
     with _db() as c:c.execute("UPDATE catalog_ai_proposals SET status='applied',updated_at=? WHERE product_id=?",(_now(),str(pid)));c.commit()
-    return {"status":"ok","productId":pid,"before":before,"after":{k:p.get(k) for k in FIELDS}}
+    brain={}
+    try:
+        from services.public_catalog import sync_products, update_publication
+        sync_products()
+        pub={}
+        if p.get("title"):pub["title"]=str(p.get("title")).strip()
+        if p.get("description"):pub["description"]=str(p.get("description")).strip()
+        if pub:update_publication(str(pid),pub)
+    except Exception as e:
+        brain["publicationWarning"]=str(e)
+    try:
+        from services.catalog_learning_engine import enqueue
+        brain.update(enqueue(str(pid)))
+    except Exception as e:
+        brain["learningWarning"]=str(e)
+    return {"status":"ok","productId":pid,"before":before,"after":{k:p.get(k) for k in FIELDS},"brain":brain}
 
 def bulk_apply_high_confidence(threshold=.92):
     threshold=max(.80,min(1,float(threshold)))
@@ -175,7 +190,3 @@ def export_audit():
     d=list_audit(limit=10000)
     return {"status":"ok","generatedAt":_now(),"total":d["total"],"instructions":{"purpose":"Identificar y enriquecer catálogo real sin modificar originales hasta confirmar.","desiredFields":["title","brand","family","model","colorway","category","subcategory","color","sizes","keywords"],"confidenceRule":"Autoaplicar solo >=0.92; lo demás requiere revisión."},"items":d["items"]}
 
-
-# ELEGANCE_APPLY_AND_LEARN_V1
-from services.catalog_apply_learn import wrap_apply_function as _elegance_wrap_apply
-apply_proposal = _elegance_wrap_apply(apply_proposal)

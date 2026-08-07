@@ -18,6 +18,7 @@ from api.shoe_phase4_routes import router as shoe_phase4_router
 from api.shoe_phase5_routes import router as shoe_phase5_router
 from api.shoe_phase6_enterprise_routes import router as shoe_phase6_enterprise_router
 from api.catalog_intelligence_routes import router as catalog_intelligence_router
+from api.catalog_learning_routes import router as catalog_learning_router
 from api.catalog_brain_routes import router as catalog_brain_router
 from api.catalog_research_routes import router as catalog_research_router
 from api.catalog_research_rc3_routes import router as catalog_research_rc3_router
@@ -206,6 +207,7 @@ def create_app() -> FastAPI:
     app.include_router(shoe_phase5_router)
     app.include_router(shoe_phase6_enterprise_router)
     app.include_router(catalog_intelligence_router)
+    app.include_router(catalog_learning_router)
     app.include_router(catalog_brain_router)
     app.include_router(catalog_research_router)
     app.include_router(catalog_research_rc3_router)
