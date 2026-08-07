@@ -1,0 +1,40 @@
+from fastapi import APIRouter,Body,HTTPException,Query
+from fastapi.responses import HTMLResponse,JSONResponse
+from services.catalog_intelligence import migrate_catalog_intelligence,audit_catalog,audit_stats,list_audit,save_proposal,apply_proposal,bulk_apply_high_confidence,export_audit
+router=APIRouter()
+
+@router.get("/api/catalog-intelligence/stats")
+def stats():migrate_catalog_intelligence();return audit_stats()
+@router.post("/api/catalog-intelligence/audit")
+def audit():return audit_catalog()
+@router.get("/api/catalog-intelligence/items")
+def items(status:str=Query(default=""),q:str=Query(default=""),missingOnly:bool=Query(default=False),offset:int=Query(default=0,ge=0),limit:int=Query(default=40,ge=1,le=200)):return list_audit(status,q,missingOnly,offset,limit)
+@router.put("/api/catalog-intelligence/proposal/{product_id}")
+def proposal(product_id:str,payload:dict=Body(...)):
+    try:return save_proposal(product_id,payload)
+    except Exception as e:raise HTTPException(status_code=400,detail=str(e))
+@router.post("/api/catalog-intelligence/apply/{product_id}")
+def apply(product_id:str,force:bool=Query(default=False)):
+    try:return apply_proposal(product_id,force)
+    except Exception as e:raise HTTPException(status_code=400,detail=str(e))
+@router.post("/api/catalog-intelligence/apply-high")
+def apply_high(threshold:float=Query(default=.92,ge=.80,le=1)):return bulk_apply_high_confidence(threshold)
+@router.get("/api/catalog-intelligence/export")
+def export():return JSONResponse(export_audit(),headers={"Content-Disposition":"attachment; filename=elegance_catalog_audit.json"})
+
+@router.get("/catalog-intelligence",response_class=HTMLResponse)
+def page():
+ return HTMLResponse(r"""<!doctype html><html lang=es><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Elegance Catalog Intelligence</title>
+<style>:root{--i:#66dcfb;--p:#091721;--l:#24566b;--g:#63ef9b;--y:#ffd166}*{box-sizing:border-box}body{margin:0;background:#02080c;color:#f5fbff;font:15px system-ui}main{max-width:1250px;margin:auto;padding:22px}h1{font:48px cursive;color:var(--i);margin:0}.p{background:var(--p);border:1px solid #24566b88;border-radius:18px;padding:18px;margin:14px 0}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.c{border:1px solid var(--l);padding:12px;border-radius:12px}.n{font-size:25px;font-weight:900;color:var(--i)}button,a{background:#0785ae;color:#fff;border:0;border-radius:9px;padding:10px 13px;font-weight:800;text-decoration:none;cursor:pointer}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}input{background:#031018;color:#fff;border:1px solid var(--l);border-radius:8px;padding:9px;min-width:130px;flex:1}.item{display:grid;grid-template-columns:120px 1fr;gap:14px;border-top:1px solid #1e4353;padding:16px 0}.pic{width:115px;height:115px;object-fit:cover;border-radius:12px;background:#031018}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:9px}.missing{color:var(--y)}.score{color:var(--g);font-weight:900}.small{font-size:12px;color:#9fc4d5}@media(max-width:800px){.stats{grid-template-columns:1fr 1fr}.item{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}}</style></head><body><main>
+<h1>elegance</h1><h2>Catalog Intelligence · Auditoría Maestra</h2><p>Analiza el catálogo real, guarda propuestas y solo aplica cambios confirmados.</p><div class=row><a href=/catalog-admin>← Catálogo</a><a href=/shoe-intelligence/phase6>Vision Enterprise</a><a href=/api/catalog-intelligence/export>Exportar auditoría JSON</a></div>
+<section class=p><div class=stats><div class=c>Productos<div id=sprod class=n>—</div></div><div class=c>Propuestas<div id=sprop class=n>—</div></div><div class=c>Pendientes<div id=spend class=n>—</div></div><div class=c>Aplicados<div id=sapp class=n>—</div></div><div class=c>Alta confianza<div id=shigh class=n>—</div></div></div><p><button onclick=audit()>Auditar catálogo actual</button> <button onclick=applyHigh()>Aplicar ≥92%</button> <span id=msg></span></p></section>
+<section class=p><div class=row><input id=q placeholder="Buscar producto"><label><input id=missing type=checkbox checked> Solo incompletos</label><button onclick="pg=0;load()">Buscar</button></div><div id=list></div><div class=row><button onclick=prev()>Anterior</button><span id=pageinfo></span><button onclick=next()>Siguiente</button></div></section>
+<script>let pg=0,limit=30,total=0;const pct=v=>Math.round((v||0)*100);async function api(u,o={}){let r=await fetch(u,o),t=await r.text(),j={};try{j=JSON.parse(t)}catch{}if(!r.ok)throw Error(j.detail||'Error '+r.status);return j}
+async function stats(){let x=await api('/api/catalog-intelligence/stats');sprod.textContent=x.products;sprop.textContent=x.proposals;spend.textContent=x.pending;sapp.textContent=x.applied;shigh.textContent=x.highConfidence}
+async function audit(){msg.textContent='Auditando…';let x=await api('/api/catalog-intelligence/audit',{method:'POST'});msg.textContent=`${x.total} productos · ${x.suspicious} requieren atención`;stats();load()}
+async function applyHigh(){if(!confirm('¿Aplicar solo propuestas con confianza ≥92%?'))return;let x=await api('/api/catalog-intelligence/apply-high?threshold=.92',{method:'POST'});msg.textContent=`Aplicados ${x.applied}`;stats();load()}
+function esc(x){return (x??'').toString().replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;')}
+function card(x){let p=x.proposal||{},img=(x.images||[])[0]||'';return `<div class=item><div>${img?`<img class=pic src="${esc(img)}">`:'Sin imagen'}<div class=small>${esc(x.id)}</div></div><div><b>${esc(x.title)}</b> <span class=score>${pct(x.confidence)}%</span><div class=missing>${x.missing.length?'Falta: '+x.missing.join(', '):'Completo'}</div><div class=grid><input id="t_${x.id}" placeholder="Nombre correcto" value="${esc(p.title||'')}"><input id="b_${x.id}" placeholder=Marca value="${esc(p.brand||'')}"><input id="f_${x.id}" placeholder=Familia value="${esc(p.family||'')}"><input id="m_${x.id}" placeholder=Modelo value="${esc(p.model||'')}"><input id="cw_${x.id}" placeholder=Colorway value="${esc(p.colorway||'')}"><input id="cat_${x.id}" placeholder=Categoría value="${esc(p.category||'')}"><input id="sub_${x.id}" placeholder=Subcategoría value="${esc(p.subcategory||'')}"><input id="col_${x.id}" placeholder=Color value="${esc(p.color||'')}"><input id="cf_${x.id}" type=number min=0 max=100 placeholder="Confianza %" value="${pct(x.confidence)}"><input id="ev_${x.id}" placeholder="Evidencia / fuente" value="${esc(x.evidence||'')}"></div><p><button onclick="save('${x.id}')">Guardar propuesta</button> <button onclick="applyOne('${x.id}')">Aplicar</button></p></div></div>`}
+async function load(){let x=await api(`/api/catalog-intelligence/items?offset=${pg*limit}&limit=${limit}&missingOnly=${missing.checked?'true':'false'}&q=${encodeURIComponent(q.value)}`);total=x.total;list.innerHTML=x.items.map(card).join('')||'<p>No hay productos.</p>';pageinfo.textContent=`${Math.min(pg*limit+1,total)}–${Math.min((pg+1)*limit,total)} de ${total}`}
+async function save(id){let p={title:document.getElementById('t_'+id).value,brand:document.getElementById('b_'+id).value,family:document.getElementById('f_'+id).value,model:document.getElementById('m_'+id).value,colorway:document.getElementById('cw_'+id).value,category:document.getElementById('cat_'+id).value,subcategory:document.getElementById('sub_'+id).value,color:document.getElementById('col_'+id).value};let cf=Number(document.getElementById('cf_'+id).value||0)/100,ev=document.getElementById('ev_'+id).value;await api('/api/catalog-intelligence/proposal/'+id,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({proposal:p,confidence:cf,evidence:ev,status:'ready'})});stats();load()}
+async function applyOne(id){if(!confirm('¿Aplicar esta propuesta al producto real?'))return;try{await api('/api/catalog-intelligence/apply/'+id,{method:'POST'});stats();load()}catch(e){alert(e.message)}}function prev(){if(pg>0){pg--;load()}}function next(){if((pg+1)*limit<total){pg++;load()}}stats();load();</script></main></body></html>""")
