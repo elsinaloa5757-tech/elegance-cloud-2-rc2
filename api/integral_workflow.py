@@ -8,7 +8,7 @@ from fastapi.responses import FileResponse, HTMLResponse
 
 from services.batch_automation import (
     cancel_job, create_job, delete_file, get_job, list_jobs, merge_groups,
-    move_file, retry_job, resolve_batch_media, set_cover, split_group, update_group,
+    move_file, regroup_job, retry_job, resolve_batch_media, set_cover, split_group, update_group,
 )
 from services.scalability_platform import remember
 
@@ -84,6 +84,17 @@ def integral_media(job_id: str, kind: str, filename: str):
         headers={"Cache-Control": "public, max-age=31536000, immutable"},
     )
 
+
+
+@router.post("/api/integral/batches/{job_id}/regroup")
+def integral_regroup(job_id: str, payload: dict = {}) -> dict:
+    try:
+        value = payload.get("similarity")
+        return regroup_job(job_id, float(value) if value is not None else None)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail="Lote no encontrado.") from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @router.post("/api/integral/batches/{job_id}/groups/{group_no}")
@@ -186,7 +197,7 @@ input{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;ba
 .badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#123343;margin-right:6px}.muted{color:#9fc2d1}
 @media(max-width:800px){.fields{grid-template-columns:1fr 1fr}h1{font-size:38px}}@media(max-width:520px){.fields{grid-template-columns:1fr}}
 </style></head><body><main class="wrap"><h1>elegance</h1>
-<div class="top"><a href="/integral-upload">← Lotes</a><a href="/catalog-admin">Catálogo</a><a href="/diagnostics">Diagnóstico</a><button onclick="load()">Actualizar</button></div>
+<div class="top"><a href="/integral-upload">← Lotes</a><a href="/catalog-admin">Catálogo</a><a href="/diagnostics">Diagnóstico</a><button onclick="load()">Actualizar</button><button onclick="regroup()">Reagrupar lote</button></div>
 <section class="summary"><h2>Revisión visual del lote</h2><div id="summary">Cargando…</div></section>
 <div id="groups"></div></main>
 <script>
@@ -204,6 +215,14 @@ function render(){
  <div class=actions><button onclick="saveGroup(${g.group_no})">Guardar datos</button><button onclick="confirmGroup(${g.group_no})">${confirmed?'Confirmado ✓':'Confirmar y aprender'}</button><button onclick="mergePrompt(${g.group_no})">Unir con otro grupo</button></div></section>`}).join('')||'<p>No se generaron grupos.</p>';
 }
 async function load(){try{state=await api('/api/integral/batches/'+JOB);render()}catch(e){$('summary').textContent=e.message}}
+async function regroup(){
+ if(!confirm('¿Reagrupar este lote con el algoritmo visual mejorado? No se borrarán fotografías.'))return;
+ $('summary').textContent='Reagrupando…';
+ try{
+   state=await api(`/api/integral/batches/${JOB}/regroup`,{method:'POST',body:JSON.stringify({similarity:0.975})});
+   render();
+ }catch(e){$('summary').textContent=e.message}
+}
 function payload(n){return {category:$('cat'+n).value,subcategory:$('sub'+n).value,brand:$('brand'+n).value,model:$('model'+n).value}}
 async function saveGroup(n){await api(`/api/integral/batches/${JOB}/groups/${n}`,{method:'POST',body:JSON.stringify(payload(n))});await load()}
 async function confirmGroup(n){await api(`/api/integral/batches/${JOB}/groups/${n}/confirm`,{method:'POST',body:JSON.stringify(payload(n))});await load()}

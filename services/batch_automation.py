@@ -84,19 +84,37 @@ def _ham(a: str, b: str) -> int:
 
 
 def _feature(img: Image.Image) -> list[float]:
-    rgb = ImageOps.exif_transpose(img).convert("RGB").resize((96, 96), Image.Resampling.LANCZOS)
-    # 3x16 color histogram + aspect and luminance. This is real low-level visual analysis,
-    # intentionally not presented as semantic brand/model recognition.
-    hist = []
-    for channel in rgb.split():
-        h = channel.histogram()
-        for i in range(16):
-            hist.append(sum(h[i*16:(i+1)*16]) / (96*96))
-    stat = ImageStat.Stat(rgb)
-    hist.extend([rgb.width / max(rgb.height, 1), *(x / 255 for x in stat.mean)])
-    norm = math.sqrt(sum(x*x for x in hist)) or 1.0
-    return [x / norm for x in hist]
+    rgb_full = ImageOps.exif_transpose(img).convert("RGB")
+    w, h = rgb_full.size
+    left, top = int(w * 0.12), int(h * 0.10)
+    right, bottom = int(w * 0.88), int(h * 0.78)
+    crop = rgb_full.crop((left, top, right, bottom)) if right > left and bottom > top else rgb_full
+    rgb = crop.resize((96, 96), Image.Resampling.LANCZOS)
 
+    feat: list[float] = []
+    for gy in range(2):
+        for gx in range(2):
+            block = rgb.crop((gx*48, gy*48, (gx+1)*48, (gy+1)*48))
+            area = 48 * 48
+            for channel in block.split():
+                hist = channel.histogram()
+                for i in range(8):
+                    feat.append(sum(hist[i*32:(i+1)*32]) / area)
+
+    gray = rgb.convert("L")
+    edges = gray.filter(ImageFilter.FIND_EDGES)
+    ep = list(edges.getdata())
+    for ybin in range(12):
+        y0, y1 = ybin*8, (ybin+1)*8
+        feat.append(sum(ep[yy*96 + x] for yy in range(y0, y1) for x in range(96)) / (8*96*255))
+    for xbin in range(12):
+        x0, x1 = xbin*8, (xbin+1)*8
+        feat.append(sum(ep[y*96 + xx] for y in range(96) for xx in range(x0, x1)) / (8*96*255))
+
+    stat = ImageStat.Stat(rgb)
+    feat.extend([w / max(h, 1), *(x / 255 for x in stat.mean)])
+    norm = math.sqrt(sum(x*x for x in feat)) or 1.0
+    return [x / norm for x in feat]
 
 def _cos(a: list[float], b: list[float]) -> float:
     return sum(x*y for x, y in zip(a, b))
@@ -237,13 +255,23 @@ def _run_job(job_id: str) -> None:
                     break
         candidates = [x for x in unique if not x["duplicate_of"]]
         groups: list[list[dict[str, Any]]] = []
-        threshold = float(_options(job_id).get("groupSimilarity", 0.965))
+        raw_threshold = float(_options(job_id).get("groupSimilarity", 0.965))
+        threshold = 0.935 if raw_threshold >= 0.975 else (0.915 if raw_threshold >= 0.965 else 0.895)
         for item in candidates:
-            placed = False
+            best_group = None
+            best_score = -1.0
             for group in groups:
-                if max(_cos(item["feat"], other["feat"]) for other in group) >= threshold:
-                    group.append(item); placed = True; break
-            if not placed:
+                sims = [_cos(item["feat"], other["feat"]) for other in group]
+                rep_sim = _cos(item["feat"], group[0]["feat"])
+                mean_sim = sum(sims) / len(sims)
+                min_sim = min(sims)
+                score = rep_sim * 0.55 + mean_sim * 0.35 + min_sim * 0.10
+                if rep_sim >= threshold and mean_sim >= threshold - 0.015 and min_sim >= threshold - 0.045:
+                    if score > best_score:
+                        best_group, best_score = group, score
+            if best_group is not None:
+                best_group.append(item)
+            else:
                 groups.append([item])
         _set_job(job_id, stage="grouping", progress=60)
 
@@ -408,3 +436,61 @@ def resolve_batch_media(job_id: str, kind: str, filename: str) -> Path:
     if not path.exists():
         raise FileNotFoundError(path)
     return path
+
+def regroup_job(job_id: str, similarity: float | None = None) -> dict[str, Any]:
+    with _connect() as c:
+        job = c.execute("SELECT * FROM automation_jobs WHERE id=?", (job_id,)).fetchone()
+        if not job:
+            raise KeyError(job_id)
+        rows = c.execute(
+            "SELECT * FROM automation_files WHERE job_id=? AND status NOT IN ('deleted','duplicate','near_duplicate','failed') ORDER BY created_at,id",
+            (job_id,),
+        ).fetchall()
+
+    items = []
+    for row in rows:
+        stored = Path(row["original_path"])
+        path = stored if stored.is_absolute() else ROOT / stored
+        try:
+            img = Image.open(path)
+            img.load()
+            items.append({"id": row["id"], "feat": _feature(img)})
+        except Exception:
+            continue
+
+    opts = _options(job_id)
+    raw = float(similarity if similarity is not None else opts.get("groupSimilarity", 0.965))
+    threshold = 0.935 if raw >= 0.975 else (0.915 if raw >= 0.965 else 0.895)
+
+    groups: list[list[dict[str, Any]]] = []
+    for item in items:
+        best_group = None
+        best_score = -1.0
+        for group in groups:
+            sims = [_cos(item["feat"], other["feat"]) for other in group]
+            rep_sim = _cos(item["feat"], group[0]["feat"])
+            mean_sim = sum(sims) / len(sims)
+            min_sim = min(sims)
+            score = rep_sim * 0.55 + mean_sim * 0.35 + min_sim * 0.10
+            if rep_sim >= threshold and mean_sim >= threshold - 0.015 and min_sim >= threshold - 0.045:
+                if score > best_score:
+                    best_group, best_score = group, score
+        if best_group is not None:
+            best_group.append(item)
+        else:
+            groups.append([item])
+
+    with _connect() as c:
+        c.execute("DELETE FROM automation_groups WHERE job_id=?", (job_id,))
+        c.execute(
+            "UPDATE automation_files SET group_no=NULL WHERE job_id=? AND status NOT IN ('deleted','duplicate','near_duplicate','failed')",
+            (job_id,),
+        )
+        for group_no, group in enumerate(groups, 1):
+            for item in group:
+                c.execute("UPDATE automation_files SET group_no=? WHERE job_id=? AND id=?", (group_no, job_id, item["id"]))
+        c.execute("UPDATE automation_jobs SET stage='completed',status='completed',progress=100,updated_at=? WHERE id=?", (_now(), job_id))
+        c.commit()
+
+    _ensure_group_rows(job_id)
+    return get_job(job_id)
