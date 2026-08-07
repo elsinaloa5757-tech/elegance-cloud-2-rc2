@@ -1,0 +1,731 @@
+[
+  {
+    "brand": "Nike",
+    "family": "Cortez",
+    "model": "Cortez",
+    "aliases": [
+      "Nike Cortez"
+    ]
+  },
+  {
+    "brand": "Nike",
+    "family": "P-6000",
+    "model": "P-6000",
+    "aliases": [
+      "Nike P6000"
+    ]
+  },
+  {
+    "brand": "Nike",
+    "family": "Vomero",
+    "model": "Zoom Vomero 5",
+    "aliases": [
+      "Vomero 5"
+    ]
+  },
+  {
+    "brand": "Nike",
+    "family": "Shox",
+    "model": "Shox TL",
+    "aliases": [
+      "Nike Shox TL"
+    ]
+  },
+  {
+    "brand": "Nike",
+    "family": "Shox",
+    "model": "Shox R4",
+    "aliases": [
+      "Nike Shox R4"
+    ]
+  },
+  {
+    "brand": "Nike",
+    "family": "Air Max",
+    "model": "Air Max 270",
+    "aliases": [
+      "AM270"
+    ]
+  },
+  {
+    "brand": "Nike",
+    "family": "Air Max",
+    "model": "Air Max 720",
+    "aliases": [
+      "AM720"
+    ]
+  },
+  {
+    "brand": "Nike",
+    "family": "Air Max",
+    "model": "Air Max 98",
+    "aliases": [
+      "AM98"
+    ]
+  },
+  {
+    "brand": "Nike",
+    "family": "Air Max",
+    "model": "Air Max Dn",
+    "aliases": [
+      "Air Max DN"
+    ]
+  },
+  {
+    "brand": "Nike",
+    "family": "Air More Uptempo",
+    "model": "Air More Uptempo",
+    "aliases": [
+      "Uptempo"
+    ]
+  },
+  {
+    "brand": "Jordan",
+    "family": "Air Jordan",
+    "model": "Air Jordan 2 Retro",
+    "aliases": [
+      "Jordan 2",
+      "AJ2"
+    ]
+  },
+  {
+    "brand": "Jordan",
+    "family": "Air Jordan",
+    "model": "Air Jordan 7 Retro",
+    "aliases": [
+      "Jordan 7",
+      "AJ7"
+    ]
+  },
+  {
+    "brand": "Jordan",
+    "family": "Air Jordan",
+    "model": "Air Jordan 8 Retro",
+    "aliases": [
+      "Jordan 8",
+      "AJ8"
+    ]
+  },
+  {
+    "brand": "Jordan",
+    "family": "Air Jordan",
+    "model": "Air Jordan 9 Retro",
+    "aliases": [
+      "Jordan 9",
+      "AJ9"
+    ]
+  },
+  {
+    "brand": "Jordan",
+    "family": "Air Jordan",
+    "model": "Air Jordan 10 Retro",
+    "aliases": [
+      "Jordan 10",
+      "AJ10"
+    ]
+  },
+  {
+    "brand": "Jordan",
+    "family": "Air Jordan",
+    "model": "Air Jordan 12 Retro",
+    "aliases": [
+      "Jordan 12",
+      "AJ12"
+    ]
+  },
+  {
+    "brand": "Jordan",
+    "family": "Air Jordan",
+    "model": "Air Jordan 13 Retro",
+    "aliases": [
+      "Jordan 13",
+      "AJ13"
+    ]
+  },
+  {
+    "brand": "Jordan",
+    "family": "Air Jordan",
+    "model": "Air Jordan 14 Retro",
+    "aliases": [
+      "Jordan 14",
+      "AJ14"
+    ]
+  },
+  {
+    "brand": "Adidas",
+    "family": "Originals",
+    "model": "Handball Spezial",
+    "aliases": [
+      "Spezial"
+    ]
+  },
+  {
+    "brand": "Adidas",
+    "family": "Originals",
+    "model": "SL 72",
+    "aliases": [
+      "Adidas SL72"
+    ]
+  },
+  {
+    "brand": "Adidas",
+    "family": "Originals",
+    "model": "Stan Smith",
+    "aliases": [
+      "Adidas Stan Smith"
+    ]
+  },
+  {
+    "brand": "Adidas",
+    "family": "Originals",
+    "model": "NMD_R1",
+    "aliases": [
+      "NMD R1"
+    ]
+  },
+  {
+    "brand": "Adidas",
+    "family": "Originals",
+    "model": "Ozweego",
+    "aliases": [
+      "Adidas Ozweego"
+    ]
+  },
+  {
+    "brand": "Adidas",
+    "family": "Originals",
+    "model": "Response CL",
+    "aliases": [
+      "Adidas Response CL"
+    ]
+  },
+  {
+    "brand": "Adidas",
+    "family": "Originals",
+    "model": "Adistar Cushion 3",
+    "aliases": [
+      "Adistar Cushion"
+    ]
+  },
+  {
+    "brand": "Adidas",
+    "family": "Originals",
+    "model": "Adimatic",
+    "aliases": [
+      "Adidas Adimatic"
+    ]
+  },
+  {
+    "brand": "Adidas",
+    "family": "Forum",
+    "model": "Forum Mid",
+    "aliases": [
+      "Adidas Forum Mid"
+    ]
+  },
+  {
+    "brand": "Adidas",
+    "family": "Originals",
+    "model": "Gazelle Indoor",
+    "aliases": [
+      "Adidas Gazelle Indoor"
+    ]
+  },
+  {
+    "brand": "New Balance",
+    "family": "Lifestyle",
+    "model": "327",
+    "aliases": [
+      "NB 327"
+    ]
+  },
+  {
+    "brand": "New Balance",
+    "family": "Lifestyle",
+    "model": "530",
+    "aliases": [
+      "NB 530"
+    ]
+  },
+  {
+    "brand": "New Balance",
+    "family": "Lifestyle",
+    "model": "1906R",
+    "aliases": [
+      "NB 1906R"
+    ]
+  },
+  {
+    "brand": "New Balance",
+    "family": "Lifestyle",
+    "model": "1000",
+    "aliases": [
+      "NB 1000"
+    ]
+  },
+  {
+    "brand": "New Balance",
+    "family": "Lifestyle",
+    "model": "860v2",
+    "aliases": [
+      "NB 860 v2"
+    ]
+  },
+  {
+    "brand": "New Balance",
+    "family": "Trail",
+    "model": "610",
+    "aliases": [
+      "NB 610"
+    ]
+  },
+  {
+    "brand": "New Balance",
+    "family": "Lifestyle",
+    "model": "725",
+    "aliases": [
+      "NB 725"
+    ]
+  },
+  {
+    "brand": "New Balance",
+    "family": "Court",
+    "model": "480",
+    "aliases": [
+      "NB 480"
+    ]
+  },
+  {
+    "brand": "Puma",
+    "family": "Palermo",
+    "model": "Palermo",
+    "aliases": [
+      "Puma Palermo"
+    ]
+  },
+  {
+    "brand": "Puma",
+    "family": "Mostro",
+    "model": "Mostro",
+    "aliases": [
+      "Puma Mostro"
+    ]
+  },
+  {
+    "brand": "Puma",
+    "family": "Easy Rider",
+    "model": "Easy Rider",
+    "aliases": [
+      "Puma Easy Rider"
+    ]
+  },
+  {
+    "brand": "Puma",
+    "family": "Velophasis",
+    "model": "Velophasis",
+    "aliases": [
+      "Puma Velophasis"
+    ]
+  },
+  {
+    "brand": "Puma",
+    "family": "Inhale",
+    "model": "Inhale",
+    "aliases": [
+      "Puma Inhale"
+    ]
+  },
+  {
+    "brand": "ASICS",
+    "family": "GEL",
+    "model": "GEL-Nimbus 9",
+    "aliases": [
+      "Nimbus 9"
+    ]
+  },
+  {
+    "brand": "ASICS",
+    "family": "GEL",
+    "model": "GEL-Kayano 20",
+    "aliases": [
+      "Kayano 20"
+    ]
+  },
+  {
+    "brand": "ASICS",
+    "family": "GEL",
+    "model": "GEL-Quantum 360",
+    "aliases": [
+      "Quantum 360"
+    ]
+  },
+  {
+    "brand": "ASICS",
+    "family": "GT",
+    "model": "GT-2160",
+    "aliases": [
+      "ASICS 2160"
+    ]
+  },
+  {
+    "brand": "Reebok",
+    "family": "Instapump",
+    "model": "Instapump Fury 95",
+    "aliases": [
+      "Instapump Fury"
+    ]
+  },
+  {
+    "brand": "Reebok",
+    "family": "Workout",
+    "model": "Workout Plus",
+    "aliases": [
+      "Reebok Workout"
+    ]
+  },
+  {
+    "brand": "Converse",
+    "family": "Run Star",
+    "model": "Run Star Hike",
+    "aliases": [
+      "Converse Run Star Hike"
+    ]
+  },
+  {
+    "brand": "Converse",
+    "family": "Weapon",
+    "model": "Weapon",
+    "aliases": [
+      "Converse Weapon"
+    ]
+  },
+  {
+    "brand": "Converse",
+    "family": "One Star",
+    "model": "One Star",
+    "aliases": [
+      "Converse One Star"
+    ]
+  },
+  {
+    "brand": "Vans",
+    "family": "Authentic",
+    "model": "Authentic",
+    "aliases": [
+      "Vans Authentic"
+    ]
+  },
+  {
+    "brand": "Vans",
+    "family": "Knu Skool",
+    "model": "Knu Skool",
+    "aliases": [
+      "Vans Knu Skool"
+    ]
+  },
+  {
+    "brand": "Vans",
+    "family": "Era",
+    "model": "Era",
+    "aliases": [
+      "Vans Era"
+    ]
+  },
+  {
+    "brand": "Timberland",
+    "family": "Hiker",
+    "model": "Euro Hiker",
+    "aliases": [
+      "Timberland Euro Hiker"
+    ]
+  },
+  {
+    "brand": "Dr. Martens",
+    "family": "Jadon",
+    "model": "Jadon Boot",
+    "aliases": [
+      "Doc Martens Jadon"
+    ]
+  },
+  {
+    "brand": "Crocs",
+    "family": "Echo",
+    "model": "Echo Clog",
+    "aliases": [
+      "Crocs Echo"
+    ]
+  },
+  {
+    "brand": "Crocs",
+    "family": "Mellow",
+    "model": "Mellow Recovery Clog",
+    "aliases": [
+      "Crocs Mellow"
+    ]
+  },
+  {
+    "brand": "Skechers",
+    "family": "Uno",
+    "model": "Uno",
+    "aliases": [
+      "Skechers Uno"
+    ]
+  },
+  {
+    "brand": "Skechers",
+    "family": "Arch Fit",
+    "model": "Arch Fit",
+    "aliases": [
+      "Skechers Arch Fit"
+    ]
+  },
+  {
+    "brand": "Salomon",
+    "family": "ACS",
+    "model": "ACS Pro",
+    "aliases": [
+      "Salomon ACS Pro"
+    ]
+  },
+  {
+    "brand": "Salomon",
+    "family": "Speedcross",
+    "model": "Speedcross 6",
+    "aliases": [
+      "Salomon Speedcross 6"
+    ]
+  },
+  {
+    "brand": "Salomon",
+    "family": "XA Pro",
+    "model": "XA Pro 3D",
+    "aliases": [
+      "Salomon XA Pro 3D"
+    ]
+  },
+  {
+    "brand": "Hoka",
+    "family": "Speedgoat",
+    "model": "Speedgoat 5",
+    "aliases": [
+      "Hoka Speedgoat 5"
+    ]
+  },
+  {
+    "brand": "Hoka",
+    "family": "Mach",
+    "model": "Mach 6",
+    "aliases": [
+      "Hoka Mach 6"
+    ]
+  },
+  {
+    "brand": "Hoka",
+    "family": "Ora",
+    "model": "Ora Recovery Slide 3",
+    "subcategory": "Sandalias",
+    "aliases": [
+      "Hoka Ora Slide"
+    ]
+  },
+  {
+    "brand": "On",
+    "family": "Cloudnova",
+    "model": "Cloudnova",
+    "aliases": [
+      "On Cloudnova"
+    ]
+  },
+  {
+    "brand": "On",
+    "family": "Cloudrunner",
+    "model": "Cloudrunner 2",
+    "aliases": [
+      "On Cloudrunner"
+    ]
+  },
+  {
+    "brand": "On",
+    "family": "Cloudsurfer",
+    "model": "Cloudsurfer",
+    "aliases": [
+      "On Cloudsurfer"
+    ]
+  },
+  {
+    "brand": "Alexander McQueen",
+    "family": "Oversized",
+    "model": "Oversized Sneaker",
+    "aliases": [
+      "McQueen Oversized"
+    ]
+  },
+  {
+    "brand": "Gucci",
+    "family": "Rhyton",
+    "model": "Rhyton Sneaker",
+    "aliases": [
+      "Gucci Rhyton"
+    ]
+  },
+  {
+    "brand": "Dior",
+    "family": "B30",
+    "model": "B30 Sneaker",
+    "aliases": [
+      "Dior B30"
+    ]
+  },
+  {
+    "brand": "Louis Vuitton",
+    "family": "LV Skate",
+    "model": "LV Skate Sneaker",
+    "aliases": [
+      "LV Skate"
+    ]
+  },
+  {
+    "brand": "Prada",
+    "family": "America's Cup",
+    "model": "America's Cup Sneaker",
+    "aliases": [
+      "Prada Americas Cup"
+    ]
+  },
+  {
+    "brand": "Birkenstock",
+    "family": "Arizona",
+    "model": "Arizona",
+    "subcategory": "Sandalias",
+    "aliases": [
+      "Birkenstock Arizona"
+    ]
+  },
+  {
+    "brand": "Birkenstock",
+    "family": "Boston",
+    "model": "Boston Clog",
+    "subcategory": "Zuecos",
+    "aliases": [
+      "Birkenstock Boston"
+    ]
+  },
+  {
+    "brand": "Clarks",
+    "family": "Wallabee",
+    "model": "Wallabee",
+    "subcategory": "Zapatos",
+    "aliases": [
+      "Clarks Wallabee"
+    ]
+  },
+  {
+    "brand": "UGG",
+    "family": "Classic",
+    "model": "Classic Mini",
+    "subcategory": "Botas",
+    "aliases": [
+      "UGG Classic Mini"
+    ]
+  },
+  {
+    "brand": "UGG",
+    "family": "Tasman",
+    "model": "Tasman",
+    "subcategory": "Zuecos",
+    "aliases": [
+      "UGG Tasman"
+    ]
+  },
+  {
+    "brand": "Caterpillar",
+    "family": "Colorado",
+    "model": "Colorado 2.0",
+    "subcategory": "Botas",
+    "aliases": [
+      "CAT Colorado"
+    ]
+  },
+  {
+    "brand": "Caterpillar",
+    "family": "Intruder",
+    "model": "Intruder",
+    "aliases": [
+      "CAT Intruder"
+    ]
+  },
+  {
+    "brand": "Merrell",
+    "family": "Moab",
+    "model": "Moab 3",
+    "subcategory": "Senderismo",
+    "aliases": [
+      "Merrell Moab 3"
+    ]
+  },
+  {
+    "brand": "Merrell",
+    "family": "Hydro Moc",
+    "model": "Hydro Moc",
+    "subcategory": "Zuecos",
+    "aliases": [
+      "Merrell Hydro Moc"
+    ]
+  },
+  {
+    "brand": "Saucony",
+    "family": "Shadow",
+    "model": "Shadow 6000",
+    "aliases": [
+      "Saucony Shadow 6000"
+    ]
+  },
+  {
+    "brand": "Saucony",
+    "family": "Jazz",
+    "model": "Jazz Original",
+    "aliases": [
+      "Saucony Jazz"
+    ]
+  },
+  {
+    "brand": "Saucony",
+    "family": "ProGrid",
+    "model": "ProGrid Omni 9",
+    "aliases": [
+      "Saucony Omni 9"
+    ]
+  },
+  {
+    "brand": "Mizuno",
+    "family": "Wave Rider",
+    "model": "Wave Rider 10",
+    "aliases": [
+      "Mizuno Wave Rider 10"
+    ]
+  },
+  {
+    "brand": "Mizuno",
+    "family": "Wave Prophecy",
+    "model": "Wave Prophecy LS",
+    "aliases": [
+      "Mizuno Prophecy LS"
+    ]
+  },
+  {
+    "brand": "Brooks",
+    "family": "Ghost",
+    "model": "Ghost 16",
+    "aliases": [
+      "Brooks Ghost 16"
+    ]
+  },
+  {
+    "brand": "Brooks",
+    "family": "Adrenaline",
+    "model": "Adrenaline GTS 23",
+    "aliases": [
+      "Brooks Adrenaline 23"
+    ]
+  }
+]
