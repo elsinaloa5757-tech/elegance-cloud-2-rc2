@@ -5,7 +5,7 @@ services:
     plan: starter
     dockerfilePath: ./Dockerfile
     healthCheckPath: /api/system/status
-    autoDeploy: false
+    autoDeploy: true
     envVars:
       - key: ELEGANCE_ENV
         value: production
