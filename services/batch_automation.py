@@ -180,7 +180,7 @@ def create_job(files: list[tuple[str, bytes]], options: dict[str, Any] | None = 
             path.write_bytes(data)
             sha = hashlib.sha256(data).hexdigest()
             c.execute("INSERT INTO automation_files(id,job_id,filename,original_path,sha256,created_at) VALUES(?,?,?,?,?,?)",
-                      (fid, job_id, filename, str(path.relative_to(ROOT)).replace('\\','/'), sha, now))
+                      (fid, job_id, filename, str(path), sha, now))
         c.commit()
     EXECUTOR.submit(_run_job, job_id)
     return {"status": "queued", "jobId": job_id, "total": len(files)}
@@ -203,7 +203,8 @@ def _run_job(job_id: str) -> None:
             if _cancelled(job_id):
                 _set_job(job_id, status="cancelled", stage="cancelled")
                 return
-            path = ROOT / row["original_path"]
+            stored_path = Path(row["original_path"])
+            path = stored_path if stored_path.is_absolute() else ROOT / stored_path
             try:
                 img = Image.open(path)
                 img.load()
@@ -260,7 +261,12 @@ def _run_job(job_id: str) -> None:
                 tp = thumbs / f"{item['id']}.webp"; thumb.save(tp, "WEBP", quality=82, method=6)
                 full = img.copy(); full.thumbnail((1800,1800), Image.Resampling.LANCZOS)
                 wp = webps / f"{item['id']}.webp"; full.save(wp, "WEBP", quality=88, method=6)
-                outputs = {"thumbnail": str(tp.relative_to(ROOT)).replace('\\','/'), "webp": str(wp.relative_to(ROOT)).replace('\\','/')}
+                outputs = {
+                    "thumbnail": str(tp),
+                    "webp": str(wp),
+                    "thumbnailUrl": f"/api/integral/media/{job_id}/thumbnails/{tp.name}",
+                    "webpUrl": f"/api/integral/media/{job_id}/webp/{wp.name}",
+                }
                 with _connect() as c:
                     c.execute("UPDATE automation_files SET status='ready',group_no=?,outputs_json=? WHERE id=?", (group_no, json.dumps(outputs), item["id"]))
                     c.commit()
@@ -392,3 +398,13 @@ def retry_job(job_id: str) -> dict[str, Any]:
         c.commit()
     EXECUTOR.submit(_run_job, job_id)
     return {"status":"queued","jobId":job_id}
+
+
+def resolve_batch_media(job_id: str, kind: str, filename: str) -> Path:
+    if kind not in {"originals", "thumbnails", "webp"}:
+        raise ValueError("Tipo de archivo inválido.")
+    safe_name = Path(filename).name
+    path = STORE / job_id / kind / safe_name
+    if not path.exists():
+        raise FileNotFoundError(path)
+    return path

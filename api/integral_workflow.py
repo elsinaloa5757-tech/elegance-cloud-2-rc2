@@ -4,9 +4,9 @@ import json
 from typing import Annotated
 
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
-from fastapi.responses import HTMLResponse
+from fastapi.responses import FileResponse, HTMLResponse
 
-from services.batch_automation import cancel_job, create_job, get_job, list_jobs, retry_job
+from services.batch_automation import cancel_job, create_job, get_job, list_jobs, retry_job, resolve_batch_media
 
 router = APIRouter()
 
@@ -62,6 +62,23 @@ def integral_retry(job_id: str) -> dict:
         return retry_job(job_id)
     except KeyError as exc:
         raise HTTPException(status_code=404, detail="Lote no encontrado.") from exc
+
+
+@router.get("/api/integral/media/{job_id}/{kind}/{filename}")
+def integral_media(job_id: str, kind: str, filename: str):
+    try:
+        path = resolve_batch_media(job_id, kind, filename)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="Archivo no encontrado.") from exc
+    media_type = "image/webp" if path.suffix.lower() == ".webp" else None
+    return FileResponse(
+        path,
+        media_type=media_type,
+        filename=path.name,
+        headers={"Cache-Control": "public, max-age=31536000, immutable"},
+    )
 
 
 @router.get("/integral-upload", response_class=HTMLResponse)
