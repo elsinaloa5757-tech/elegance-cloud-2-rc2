@@ -18,6 +18,7 @@ from api.shoe_phase4_routes import router as shoe_phase4_router
 from api.shoe_phase5_routes import router as shoe_phase5_router
 from api.shoe_phase6_enterprise_routes import router as shoe_phase6_enterprise_router
 from api.catalog_intelligence_routes import router as catalog_intelligence_router
+from api.catalog_brain_routes import router as catalog_brain_router
 from services.fashion_library import initialize_library
 from services.mobile_inbox import start_worker, stop_worker
 from services.elegance_studio import migrate_studio
@@ -42,6 +43,7 @@ from services.shoe_phase4 import migrate_phase4
 from services.shoe_phase5 import migrate_phase5
 from services.shoe_phase6_enterprise import migrate_phase6_enterprise
 from services.catalog_intelligence import migrate_catalog_intelligence
+from services.catalog_brain import migrate_catalog_brain
 from services.cleanup_test_catalog_once import run_once as cleanup_test_catalog_once
 
 
@@ -70,6 +72,7 @@ async def _lifespan(app: FastAPI):
     migrate_phase5()
     migrate_phase6_enterprise()
     migrate_catalog_intelligence()
+    migrate_catalog_brain()
     try:
         with PersistentSQLiteLease():
             cleanup_test_catalog_once()
@@ -191,6 +194,7 @@ def create_app() -> FastAPI:
     app.include_router(shoe_phase5_router)
     app.include_router(shoe_phase6_enterprise_router)
     app.include_router(catalog_intelligence_router)
+    app.include_router(catalog_brain_router)
 
     return app
 
