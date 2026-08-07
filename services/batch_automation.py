@@ -355,6 +355,18 @@ def get_job(job_id: str) -> dict[str, Any]:
         for key in ("metadata_json", "outputs_json"):
             try: f[key[:-5]] = json.loads(f.pop(key))
             except Exception: f[key[:-5]] = {}
+
+        # Permanent preview fallback: if derivative URLs are missing, the original
+        # stored file can still be served by the integral media endpoint.
+        try:
+            original_name = Path(f.get("original_path") or "").name
+            f["originalUrl"] = (
+                f"/api/integral/media/{job_id}/originals/{original_name}"
+                if original_name else ""
+            )
+        except Exception:
+            f["originalUrl"] = ""
+
         data["files"].append(f)
     with _connect() as c:
         grows=c.execute("SELECT * FROM automation_groups WHERE job_id=? ORDER BY group_no",(job_id,)).fetchall()
