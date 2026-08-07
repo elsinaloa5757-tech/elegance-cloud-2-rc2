@@ -22,6 +22,7 @@ from api.catalog_brain_routes import router as catalog_brain_router
 from api.catalog_research_routes import router as catalog_research_router
 from api.catalog_research_rc3_routes import router as catalog_research_rc3_router
 from api.bulk_publish_routes import router as bulk_publish_router
+from api.unified_admin_routes import router as unified_admin_router
 from services.fashion_library import initialize_library
 from services.mobile_inbox import start_worker, stop_worker
 from services.elegance_studio import migrate_studio
@@ -209,6 +210,7 @@ def create_app() -> FastAPI:
     app.include_router(catalog_research_router)
     app.include_router(catalog_research_rc3_router)
     app.include_router(bulk_publish_router)
+    app.include_router(unified_admin_router)
 
     return app
 
