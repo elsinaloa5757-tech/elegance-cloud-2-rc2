@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import os
 from fastapi import FastAPI, Request
@@ -13,6 +13,7 @@ from api.routes import router
 from api.library_routes import router as library_router, public_router as library_public_router
 from api.scalability_routes import router as scalability_router
 from api.integral_workflow import router as integral_workflow_router
+from api.shoe_intelligence_routes import router as shoe_intelligence_router
 from services.fashion_library import initialize_library
 from services.mobile_inbox import start_worker, stop_worker
 from services.elegance_studio import migrate_studio
@@ -32,6 +33,7 @@ from services.product_media_flow import migrate_product_media
 from services.home_server import start_backup_scheduler, stop_backup_scheduler
 from services.performance_indexes import migrate_performance_indexes
 from services.scalability_platform import migrate_scalability_platform
+from services.shoe_intelligence import migrate_shoe_intelligence
 from services.cleanup_test_catalog_once import run_once as cleanup_test_catalog_once
 
 
@@ -55,6 +57,7 @@ async def _lifespan(app: FastAPI):
     migrate_product_media()
     migrate_performance_indexes()
     migrate_scalability_platform()
+    migrate_shoe_intelligence()
     try:
         with PersistentSQLiteLease():
             cleanup_test_catalog_once()
@@ -171,6 +174,7 @@ def create_app() -> FastAPI:
     app.include_router(library_public_router)
     app.include_router(scalability_router)
     app.include_router(integral_workflow_router)
+    app.include_router(shoe_intelligence_router)
 
     return app
 
