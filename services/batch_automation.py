@@ -149,8 +149,8 @@ def _ensure_group_rows(job_id: str) -> None:
                 except Exception: score=0
                 if score>best_score: best,best_score=row['id'],score
             count=len(rows)
-            confidence=max(0.25,min(0.96,0.52 + min(count,5)*0.06 + (best_score/100)*0.14))
-            explanation=f"Agrupado por similitud visual local; {count} vista(s). Portada elegida por nitidez, exposición y resolución."
+            confidence = 0.50 if count == 1 else min(0.82, 0.58 + min(count,4)*0.05)
+            explanation=f"Agrupación visual conservadora; {count} vista(s). Portada elegida por nitidez, exposición y resolución."
             c.execute("INSERT INTO automation_groups(job_id,group_no,cover_file_id,confidence,explanation,updated_at) VALUES(?,?,?,?,?,?) ON CONFLICT(job_id,group_no) DO UPDATE SET cover_file_id=COALESCE(automation_groups.cover_file_id,excluded.cover_file_id),confidence=excluded.confidence,explanation=excluded.explanation,updated_at=excluded.updated_at",(job_id,g,best,confidence,explanation,_now()))
         c.commit()
 
@@ -256,19 +256,31 @@ def _run_job(job_id: str) -> None:
         candidates = [x for x in unique if not x["duplicate_of"]]
         groups: list[list[dict[str, Any]]] = []
         raw_threshold = float(_options(job_id).get("groupSimilarity", 0.965))
-        threshold = 0.935 if raw_threshold >= 0.975 else (0.915 if raw_threshold >= 0.965 else 0.895)
+        feature_threshold = 0.982 if raw_threshold >= 0.975 else (0.974 if raw_threshold >= 0.965 else 0.965)
+        hash_limit = 11 if raw_threshold >= 0.975 else (14 if raw_threshold >= 0.965 else 17)
         for item in candidates:
             best_group = None
             best_score = -1.0
             for group in groups:
-                sims = [_cos(item["feat"], other["feat"]) for other in group]
-                rep_sim = _cos(item["feat"], group[0]["feat"])
-                mean_sim = sum(sims) / len(sims)
-                min_sim = min(sims)
-                score = rep_sim * 0.55 + mean_sim * 0.35 + min_sim * 0.10
-                if rep_sim >= threshold and mean_sim >= threshold - 0.015 and min_sim >= threshold - 0.045:
-                    if score > best_score:
-                        best_group, best_score = group, score
+                comparisons = []
+                for other in group:
+                    visual = _cos(item["feat"], other["feat"])
+                    hdist = _ham(item["ph"], other["ph"])
+                    comparisons.append((visual, hdist))
+                rep_visual, rep_hash = comparisons[0]
+                mean_visual = sum(v for v, _ in comparisons) / len(comparisons)
+                worst_hash = max(h for _, h in comparisons)
+                min_visual = min(v for v, _ in comparisons)
+                passes = (
+                    rep_visual >= feature_threshold
+                    and mean_visual >= feature_threshold - 0.004
+                    and min_visual >= feature_threshold - 0.010
+                    and rep_hash <= hash_limit
+                    and worst_hash <= hash_limit + 4
+                )
+                score = mean_visual - (worst_hash / 64.0) * 0.12
+                if passes and score > best_score:
+                    best_group, best_score = group, score
             if best_group is not None:
                 best_group.append(item)
             else:
@@ -454,27 +466,39 @@ def regroup_job(job_id: str, similarity: float | None = None) -> dict[str, Any]:
         try:
             img = Image.open(path)
             img.load()
-            items.append({"id": row["id"], "feat": _feature(img)})
+            items.append({"id": row["id"], "feat": _feature(img), "ph": row["perceptual_hash"] or _dhash(img)})
         except Exception:
             continue
 
     opts = _options(job_id)
     raw = float(similarity if similarity is not None else opts.get("groupSimilarity", 0.965))
-    threshold = 0.935 if raw >= 0.975 else (0.915 if raw >= 0.965 else 0.895)
+    feature_threshold = 0.982 if raw >= 0.975 else (0.974 if raw >= 0.965 else 0.965)
+    hash_limit = 11 if raw >= 0.975 else (14 if raw >= 0.965 else 17)
 
     groups: list[list[dict[str, Any]]] = []
     for item in items:
         best_group = None
         best_score = -1.0
         for group in groups:
-            sims = [_cos(item["feat"], other["feat"]) for other in group]
-            rep_sim = _cos(item["feat"], group[0]["feat"])
-            mean_sim = sum(sims) / len(sims)
-            min_sim = min(sims)
-            score = rep_sim * 0.55 + mean_sim * 0.35 + min_sim * 0.10
-            if rep_sim >= threshold and mean_sim >= threshold - 0.015 and min_sim >= threshold - 0.045:
-                if score > best_score:
-                    best_group, best_score = group, score
+            comparisons = []
+            for other in group:
+                visual = _cos(item["feat"], other["feat"])
+                hdist = _ham(item["ph"], other["ph"])
+                comparisons.append((visual, hdist))
+            rep_visual, rep_hash = comparisons[0]
+            mean_visual = sum(v for v, _ in comparisons) / len(comparisons)
+            min_visual = min(v for v, _ in comparisons)
+            worst_hash = max(h for _, h in comparisons)
+            passes = (
+                rep_visual >= feature_threshold
+                and mean_visual >= feature_threshold - 0.004
+                and min_visual >= feature_threshold - 0.010
+                and rep_hash <= hash_limit
+                and worst_hash <= hash_limit + 4
+            )
+            score = mean_visual - (worst_hash / 64.0) * 0.12
+            if passes and score > best_score:
+                best_group, best_score = group, score
         if best_group is not None:
             best_group.append(item)
         else:
