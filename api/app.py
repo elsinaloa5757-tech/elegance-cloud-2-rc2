@@ -12,6 +12,7 @@ from starlette.concurrency import run_in_threadpool
 from api.routes import router
 from api.library_routes import router as library_router, public_router as library_public_router
 from api.scalability_routes import router as scalability_router
+from api.integral_workflow import router as integral_workflow_router
 from services.fashion_library import initialize_library
 from services.mobile_inbox import start_worker, stop_worker
 from services.elegance_studio import migrate_studio
@@ -169,6 +170,7 @@ def create_app() -> FastAPI:
     app.include_router(library_router)
     app.include_router(library_public_router)
     app.include_router(scalability_router)
+    app.include_router(integral_workflow_router)
 
     return app
 
