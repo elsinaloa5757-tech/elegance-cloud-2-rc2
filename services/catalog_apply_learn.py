@@ -3,7 +3,7 @@ import inspect, json, re, sqlite3
 from datetime import datetime, timezone
 from difflib import SequenceMatcher
 from services import state_store
-from services.public_catalog import sync_products
+from services.public_catalog import sync_products, update_publication
 FIELDS=("title","brand","family","model","colorway","category","subcategory","color","sizes","description","keywords")
 def _now(): return datetime.now(timezone.utc).isoformat()
 def _norm(v): return re.sub(r"[^a-z0-9]+"," ",str(v or "").lower()).strip()
@@ -27,7 +27,7 @@ def _extract_payload(args,kwargs,result):
         if isinstance(obj,dict):
             for k in FIELDS:
                 if obj.get(k) not in (None,"",[],{}): merged[k]=obj.get(k)
-            for nested in ("proposal","data","product","fields","applied"):
+            for nested in ("proposal","data","product","fields","applied","after"):
                 sub=obj.get(nested)
                 if isinstance(sub,dict):
                     for k in FIELDS:
@@ -108,9 +108,21 @@ def sync_and_learn(product_id='',payload=None):
     propagated=0
     if p is not None and canonical:
         propagated=_propagate(state,canonical,product_id); _save_state(state)
-    try: sync_products(); synced=True
-    except Exception: synced=False
-    return {'status':'ok','productId':product_id,'synced':synced,'learningSaved':bool(canonical),'similarUpdated':propagated,'learners':_notify(product_id) if product_id else []}
+    public_updated=False
+    try:
+        sync_products()
+        public_payload={}
+        if canonical.get('title'):
+            public_payload['title']=str(canonical['title']).strip()
+        if canonical.get('description'):
+            public_payload['description']=str(canonical['description']).strip()
+        if product_id and public_payload:
+            update_publication(product_id,public_payload)
+            public_updated=True
+        synced=True
+    except Exception:
+        synced=False
+    return {'status':'ok','productId':product_id,'synced':synced,'publicUpdated':public_updated,'learningSaved':bool(canonical),'similarUpdated':propagated,'learners':_notify(product_id) if product_id else []}
 def wrap_apply_function(original):
     if getattr(original,'_elegance_apply_learn_wrapped',False): return original
     def wrapped(*args,**kwargs):
