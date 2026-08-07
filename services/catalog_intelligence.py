@@ -174,3 +174,8 @@ def bulk_apply_high_confidence(threshold=.92):
 def export_audit():
     d=list_audit(limit=10000)
     return {"status":"ok","generatedAt":_now(),"total":d["total"],"instructions":{"purpose":"Identificar y enriquecer catálogo real sin modificar originales hasta confirmar.","desiredFields":["title","brand","family","model","colorway","category","subcategory","color","sizes","keywords"],"confidenceRule":"Autoaplicar solo >=0.92; lo demás requiere revisión."},"items":d["items"]}
+
+
+# ELEGANCE_APPLY_AND_LEARN_V1
+from services.catalog_apply_learn import wrap_apply_function as _elegance_wrap_apply
+apply_proposal = _elegance_wrap_apply(apply_proposal)
