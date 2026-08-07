@@ -461,6 +461,11 @@ def regroup_job(job_id: str, similarity: float | None = None) -> dict[str, Any]:
 
     items = []
     fallback_ids = []
+    thumbs = STORE / job_id / "thumbnails"
+    webps = STORE / job_id / "webp"
+    thumbs.mkdir(parents=True, exist_ok=True)
+    webps.mkdir(parents=True, exist_ok=True)
+
     for row in rows:
         candidates = []
         stored = Path(row["original_path"])
@@ -478,12 +483,14 @@ def regroup_job(job_id: str, similarity: float | None = None) -> dict[str, Any]:
                 candidates.append(p if p.is_absolute() else ROOT / p)
 
         loaded = None
+        source_path = None
         for candidate in candidates:
             try:
                 if candidate.exists():
                     img = Image.open(candidate)
                     img.load()
-                    loaded = img
+                    loaded = ImageOps.exif_transpose(img).convert("RGB")
+                    source_path = candidate
                     break
             except Exception:
                 continue
@@ -492,10 +499,40 @@ def regroup_job(job_id: str, similarity: float | None = None) -> dict[str, Any]:
             fallback_ids.append(row["id"])
             continue
 
+        # Repair missing derivatives during regrouping.
+        thumb_path = thumbs / f"{row['id']}.webp"
+        webp_path = webps / f"{row['id']}.webp"
+        try:
+            if not thumb_path.exists():
+                thumb = loaded.copy()
+                thumb.thumbnail((420, 420), Image.Resampling.LANCZOS)
+                thumb.save(thumb_path, "WEBP", quality=82, method=6)
+            if not webp_path.exists():
+                full = loaded.copy()
+                full.thumbnail((1800, 1800), Image.Resampling.LANCZOS)
+                full.save(webp_path, "WEBP", quality=88, method=6)
+
+            outputs = {
+                **outputs,
+                "thumbnail": str(thumb_path),
+                "webp": str(webp_path),
+                "thumbnailUrl": f"/api/integral/media/{job_id}/thumbnails/{thumb_path.name}",
+                "webpUrl": f"/api/integral/media/{job_id}/webp/{webp_path.name}",
+            }
+            with _connect() as c:
+                c.execute(
+                    "UPDATE automation_files SET outputs_json=?,error='' WHERE id=?",
+                    (json.dumps(outputs), row["id"]),
+                )
+                c.commit()
+        except Exception:
+            pass
+
         items.append({
             "id": row["id"],
             "feat": _feature(loaded),
             "ph": row["perceptual_hash"] or _dhash(loaded),
+            "source": str(source_path or ""),
         })
 
     opts = _options(job_id)
@@ -503,34 +540,43 @@ def regroup_job(job_id: str, similarity: float | None = None) -> dict[str, Any]:
     feature_threshold = 0.982 if raw >= 0.975 else (0.974 if raw >= 0.965 else 0.965)
     hash_limit = 11 if raw >= 0.975 else (14 if raw >= 0.965 else 17)
 
-    groups: list[list[dict[str, Any]]] = []
-    for item in items:
-        best_group = None
+    # Stage 1: safe singleton baseline. Nothing can disappear or be mixed by chaining.
+    groups: list[list[dict[str, Any]]] = [[item] for item in items]
+
+    # Stage 2: hybrid pairwise merge. Only merge when BOTH descriptors strongly agree.
+    # This deliberately favors false negatives (separate groups) over false positives.
+    pair_feature = 0.986 if raw >= 0.975 else (0.981 if raw >= 0.965 else 0.976)
+    pair_hash = 9 if raw >= 0.975 else (11 if raw >= 0.965 else 13)
+
+    merged: list[list[dict[str, Any]]] = []
+    consumed: set[str] = set()
+    for i, item in enumerate(items):
+        if item["id"] in consumed:
+            continue
+        best_j = None
         best_score = -1.0
-        for group in groups:
-            comparisons = []
-            for other in group:
-                visual = _cos(item["feat"], other["feat"])
-                hdist = _ham(item["ph"], other["ph"])
-                comparisons.append((visual, hdist))
-            rep_visual, rep_hash = comparisons[0]
-            mean_visual = sum(v for v, _ in comparisons) / len(comparisons)
-            min_visual = min(v for v, _ in comparisons)
-            worst_hash = max(h for _, h in comparisons)
-            passes = (
-                rep_visual >= feature_threshold
-                and mean_visual >= feature_threshold - 0.004
-                and min_visual >= feature_threshold - 0.010
-                and rep_hash <= hash_limit
-                and worst_hash <= hash_limit + 4
-            )
-            score = mean_visual - (worst_hash / 64.0) * 0.12
-            if passes and score > best_score:
-                best_group, best_score = group, score
-        if best_group is not None:
-            best_group.append(item)
+        for j in range(i + 1, len(items)):
+            other = items[j]
+            if other["id"] in consumed:
+                continue
+            visual = _cos(item["feat"], other["feat"])
+            hdist = _ham(item["ph"], other["ph"])
+            # Require very strong agreement; common background alone is not enough.
+            if visual >= pair_feature and hdist <= pair_hash:
+                score = visual - (hdist / 64.0) * 0.18
+                if score > best_score:
+                    best_score = score
+                    best_j = j
+        if best_j is not None:
+            other = items[best_j]
+            merged.append([item, other])
+            consumed.add(item["id"])
+            consumed.add(other["id"])
         else:
-            groups.append([item])
+            merged.append([item])
+            consumed.add(item["id"])
+
+    groups = merged
 
     with _connect() as c:
         c.execute("DELETE FROM automation_groups WHERE job_id=?", (job_id,))
