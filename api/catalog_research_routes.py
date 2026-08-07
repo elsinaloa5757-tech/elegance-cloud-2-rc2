@@ -1,7 +1,7 @@
 from fastapi import APIRouter,HTTPException,Query
 from fastapi.responses import HTMLResponse
 from services.catalog_research_worker import (
-    migrate_research_worker,stats,build_jobs,run_batch,research_product,result,list_results
+    migrate_research_worker,stats,build_jobs,run_batch,research_product,result,list_results,requeue_unresolved
 )
 router=APIRouter()
 
@@ -14,6 +14,10 @@ def api_jobs():return build_jobs()
 @router.post("/api/catalog-research/run")
 def api_run(limit:int=Query(default=5,ge=1,le=50),web:bool=Query(default=True)):
     return run_batch(limit,web)
+
+@router.post("/api/catalog-research/requeue-unresolved")
+def api_requeue():
+    return requeue_unresolved()
 
 @router.post("/api/catalog-research/run/{product_id}")
 def api_one(product_id:str,web:bool=Query(default=True)):
@@ -37,11 +41,12 @@ def page():
 <h1>elegance</h1><h2>Catalog Research Worker</h2><p>Imagen primero → Vision Enterprise → Base Maestra → corroboración web → Auditoría Maestra.</p>
 <div class=row><a href=/catalog-brain>← Catalog Brain</a><a href=/catalog-intelligence>Auditoría Maestra</a><a href=/catalog-admin>Catálogo</a></div>
 <section class=p><div class=s><div class=c>En cola<div id=q class=n>—</div></div><div class=c>Procesando<div id=p class=n>—</div></div><div class=c>Terminados<div id=d class=n>—</div></div><div class=c>Revisión<div id=r class=n>—</div></div><div class=c>Listos<div id=ready class=n>—</div></div><div class=c>Fallidos<div id=f class=n>—</div></div></div>
-<p><button onclick=jobs()>1. Crear cola de 180</button> <button onclick=run(5)>2. Investigar 5</button> <button onclick=run(20)>Investigar 20</button> <span id=msg></span></p></section>
+<p><button onclick=jobs()>1. Crear cola de 180</button> <button onclick=run(5)>2. Investigar 5</button> <button onclick=run(20)>Investigar 20</button> <button onclick=requeue()>Reintentar no resueltos</button> <span id=msg></span></p></section>
 <section class=p><h2>Resultados</h2><div class=row><button onclick="loadResults('')">Todos</button><button onclick="loadResults('ready')">Listos</button><button onclick="loadResults('review')">Revisión</button></div><div id=list></div></section>
 <script>const pct=v=>Math.round((v||0)*100);async function api(u,o={}){let x=await fetch(u,o),t=await x.text(),j={};try{j=JSON.parse(t)}catch{}if(!x.ok)throw Error(j.detail||'Error '+x.status);return j}
 async function load(){let x=await api('/api/catalog-research/stats');q.textContent=x.queued;p.textContent=x.processing;d.textContent=x.done;r.textContent=x.review;ready.textContent=x.ready;f.textContent=x.failed}
 async function jobs(){msg.textContent='Creando cola…';let x=await api('/api/catalog-research/build-jobs',{method:'POST'});msg.textContent=`${x.created} trabajos nuevos`;load()}
-async function run(n){msg.textContent=`Investigando ${n}… puede tardar.`;try{let x=await api('/api/catalog-research/run?limit='+n+'&web=true',{method:'POST'});msg.textContent=`Procesados ${x.processed}; fallidos ${x.failed.length}`;load();loadResults('')}catch(e){msg.textContent=e.message}}
-async function loadResults(st){let x=await api('/api/catalog-research/results?limit=60&status='+encodeURIComponent(st));list.innerHTML=x.items.map(i=>`<div class=item><span class=score>${pct(i.confidence)}%</span><b>${i.productId}</b> · ${i.status}<div>${[i.proposal.brand,i.proposal.model,i.proposal.colorway].filter(Boolean).join(' ')||'Sin resolver'}</div><div class=small>Margen ${pct(i.margin)}%${i.sources.length?' · '+i.sources.map(s=>s.title).join(' | '):''}</div></div>`).join('')||'Sin resultados.'}
+async function requeue(){msg.textContent='Reencolando resultados débiles…';let x=await api('/api/catalog-research/requeue-unresolved',{method:'POST'});msg.textContent=`${x.requeued} resultados reencolados`;load();loadResults('')}
+async function run(n){msg.textContent=`Investigando ${n}… puede tardar.`;try{let x=await api('/api/catalog-research/run?limit='+n+'&web=true',{method:'POST'});msg.textContent=`Procesados ${x.processed}; fallidos ${(x.failed||[]).length}`;load();loadResults('')}catch(e){msg.textContent=e.message}}
+async function loadResults(st){let x=await api('/api/catalog-research/results?limit=60&status='+encodeURIComponent(st));list.innerHTML=x.items.map(i=>`<div class=item><span class=score>${pct(i.confidence)}%</span><b>${i.productId}</b> · ${i.status}<div>${[i.proposal?.brand,i.proposal?.model,i.proposal?.colorway].filter(Boolean).join(' ')||'Sin resolver'}</div><div class=small>Margen ${pct(i.margin)}%${i.sources.length?' · '+i.sources.map(s=>s.title).join(' | '):''}</div></div>`).join('')||'Sin resultados.'}
 load();loadResults('');</script></main></body></html>""")

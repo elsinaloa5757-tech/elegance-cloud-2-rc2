@@ -258,12 +258,20 @@ def research_product(product_id:str,allow_web=True):
     confidence=0.0
     decision="unresolved"
     if top:
-        proposed=dict(top["candidate"])
         confidence=float(top["confidence"])
-        if confidence>=.92 and margin>=.08 and top["vision"]>=.72:
+        visual_support=float(top.get("vision") or 0)
+
+        # RC2: never show a generic textual fallback as a real identification.
+        if confidence>=.92 and margin>=.08 and visual_support>=.72:
+            proposed=dict(top["candidate"])
             decision="ready"
-        elif confidence>=.72:
+        elif confidence>=.72 and margin>=.04 and visual_support>=.45:
+            proposed=dict(top["candidate"])
             decision="review"
+        elif margin<.04:
+            decision="ambiguous"
+        elif visual_support<.45:
+            decision="insufficient_visual_evidence"
         else:
             decision="low_confidence"
 
@@ -321,6 +329,24 @@ def run_batch(limit=10,allow_web=True):
                 c.commit()
             failed.append({"productId":pid,"error":str(e)})
     return {"status":"ok","processed":len(rows),"done":done,"failed":failed,**stats()}
+
+
+def requeue_unresolved():
+    migrate_research_worker()
+    weak=("low_confidence","ambiguous","insufficient_visual_evidence","unresolved")
+    with _db() as c:
+        rows=c.execute(
+            "SELECT product_id FROM catalog_research_results WHERE status IN (?,?,?,?)",
+            weak
+        ).fetchall()
+        ids=[str(r["product_id"]) for r in rows]
+        for pid in ids:
+            c.execute(
+                "UPDATE catalog_research_jobs SET status='queued',last_error='',updated_at=? WHERE product_id=?",
+                (_now(),pid)
+            )
+        c.commit()
+    return {"status":"ok","requeued":len(ids),**stats()}
 
 def result(product_id):
     with _db() as c:r=c.execute("SELECT * FROM catalog_research_results WHERE product_id=?",(product_id,)).fetchone()
